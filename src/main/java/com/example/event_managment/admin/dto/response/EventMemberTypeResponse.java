@@ -4,14 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Optional;
-
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserResponse {
+public class EventMemberTypeResponse {
     private Long id;
     private String name;
-    private String email;
-
 }

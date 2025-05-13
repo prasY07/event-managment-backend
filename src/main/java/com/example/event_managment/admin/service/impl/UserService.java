@@ -9,9 +9,10 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
+//import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -54,23 +55,23 @@ public class UserService {
         return createResponse(savedUser);       // Convert to UserResponse and return
     }
 
-//    public PaginationResponse<List<UserResponse>> getAllUsersWithPagination(int page, int size) {
-//        Pageable pageable = (Pageable) PageRequest.of(page, size);
-//        Page<User> userPage = iUserRepo.findAllUsers((org.springframework.data.domain.Pageable) pageable);
-//
-//        List<UserResponse> users = userPage.getContent()
-//                .stream()
-//                .map(this::createResponse)
-//                .toList();
-//
-//        return new PaginationResponse<>(
-//                users,
-//                page,
-//                size,
-//                userPage.getTotalElements(),
-//                userPage.getTotalPages()
-//        );
-//    }
+    public PaginationResponse<List<UserResponse>> getAllUsersWithPagination(int page, int size) {
+        Pageable pageable = (Pageable) PageRequest.of(page, size);
+        Page<User> userPage = iUserRepo.findAll(pageable);
+
+        List<UserResponse> users = userPage.getContent()
+                .stream()
+                .map(this::createResponse)
+                .toList();
+
+        return new PaginationResponse<>(
+                users,
+                page,
+                size,
+                userPage.getTotalElements(),
+                userPage.getTotalPages()
+        );
+    }
 
     private UserResponse createResponse(User user)
     {

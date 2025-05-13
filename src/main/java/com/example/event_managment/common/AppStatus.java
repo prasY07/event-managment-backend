@@ -8,6 +8,11 @@ public class AppStatus {
         SUSPENDED
     }
 
+    public enum EStatus {
+        ACTIVE,
+        INACTIVE,
+    }
+
     public enum EventStatus {
         UPCOMING,
         ONGOING,

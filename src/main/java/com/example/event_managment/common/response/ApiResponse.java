@@ -2,7 +2,10 @@ package com.example.event_managment.common.response;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,10 +24,9 @@ public class ApiResponse<T> {
         return ResponseEntity.ok(new ApiResponse<>(true, message, data));
     }
 
-    public static <T> ResponseEntity<ApiResponse<T>> error(String message, T data) {
-        return ResponseEntity.ok(new ApiResponse<>(false, message, data));
+    public static <T> ResponseEntity<ApiResponse<T>> error(String message, T data, HttpStatus status) {
+        return new ResponseEntity<>(new ApiResponse<>(false, message, data), status);
     }
-
     public static <T> ResponseEntity<ApiResponse<PaginationResponse<T>>> successWithPagination(
             String message,
             T items,

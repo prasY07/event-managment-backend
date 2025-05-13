@@ -16,24 +16,24 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
-//    @GetMapping("/user-list")
-//    public ResponseEntity<ApiResponse<PaginationResponse<List<UserResponse>>>> allUsersWithPagination(
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "10") int size
-//    )
-//    {
-//        PaginationResponse<List<UserResponse>> paginatedUsers = userService.getAllUsersWithPagination(page, size);
-//        return ApiResponse.successWithPagination(
-//                "User List",
-//                paginatedUsers.getItems(),
-//                paginatedUsers.getPage(),
-//                paginatedUsers.getSize(),
-//                paginatedUsers.getTotalElements(),
-//                paginatedUsers.getTotalPages()
-//        );
-//    }
+    @GetMapping("/user-list")
+    public ResponseEntity<ApiResponse<PaginationResponse<List<UserResponse>>>> allUsersWithPagination(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    )
+    {
+        PaginationResponse<List<UserResponse>> paginatedUsers = userService.getAllUsersWithPagination(page, size);
+        return ApiResponse.successWithPagination(
+                "User List",
+                paginatedUsers.getItems(),
+                paginatedUsers.getPage(),
+                paginatedUsers.getSize(),
+                paginatedUsers.getTotalElements(),
+                paginatedUsers.getTotalPages()
+        );
+    }
 
 
     @GetMapping("/list")

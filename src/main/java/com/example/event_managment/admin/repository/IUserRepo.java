@@ -15,7 +15,7 @@ public interface IUserRepo extends JpaRepository<User, Long> {
 
     List<User> findAll();
 
-//    Page<User> findAllUsers(Pageable pageable);
+    Page<User> findAll(Pageable pageable);
 
     @Query(value = "SELECT * FROM users WHERE id = :id", nativeQuery = true)
     User findUser(@Param("id") Long id);
