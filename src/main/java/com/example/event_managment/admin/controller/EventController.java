@@ -2,23 +2,17 @@ package com.example.event_managment.admin.controller;
 
 import com.example.event_managment.admin.dto.EventDto;
 import com.example.event_managment.admin.dto.EventUpdateStatusRequest;
-import com.example.event_managment.admin.dto.response.EventMemberTypeResponse;
 import com.example.event_managment.admin.dto.response.EventResponse;
-import com.example.event_managment.admin.dto.response.UserResponse;
 import com.example.event_managment.admin.service.impl.EventService;
-import com.example.event_managment.common.helpers.EventHelper;
-import com.example.event_managment.common.helpers.FileStorageHelper;
 import com.example.event_managment.common.response.ApiResponse;
 import com.example.event_managment.common.response.PaginationResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/admin/event")
@@ -30,7 +24,7 @@ public class EventController {
     @GetMapping("/list")
     public ResponseEntity<ApiResponse<PaginationResponse<List<EventResponse>>>> allUsersWithPagination(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "100") int size
+            @RequestParam(defaultValue = "1") int size
     )
     {
         PaginationResponse<List<EventResponse>> paginatedUsers = eventService.getAllEvents(page, size);
@@ -67,19 +61,31 @@ public class EventController {
         return  ApiResponse.success("event update successfully",newEvent);
     }
 
-    @PostMapping("{id}/upload-banner")
+    @PostMapping(
+            path = "{id}/upload-banner"
+    )
     public ResponseEntity<ApiResponse<EventResponse>> uploadBanner(
             @PathVariable Long id,
             @RequestPart(value = "file", required = false) MultipartFile file
-    ) throws JsonProcessingException {
+    ) {
+//        System.out.println("Received file: " + (file != null ? file.getOriginalFilename() : "null"));
+//        System.out.println("File size: " + (file != null ? file.getSize() : "null"));
+
         EventResponse newEvent = eventService.uploadBanner(id, file);
         return ApiResponse.success("Event banner uploaded successfully", newEvent);
     }
 
     @GetMapping("{id}/event-information")
-    public ResponseEntity<ApiResponse<EventResponse>> eventInfoInfo(@PathVariable Long id)
+    public ResponseEntity<ApiResponse<EventResponse>> eventInfo(@PathVariable Long id)
     {
         EventResponse eventInfo = eventService.eventInfo(id);
+        return ApiResponse.success("Event Information", eventInfo);
+    }
+
+    @GetMapping("{eventId}/event-info")
+    public ResponseEntity<ApiResponse<EventResponse>> eventInfoWithUniqueId(@PathVariable String eventId)
+    {
+        EventResponse eventInfo = eventService.eventInfoWithEventUniqueId(eventId);
         return ApiResponse.success("Event Information", eventInfo);
     }
 

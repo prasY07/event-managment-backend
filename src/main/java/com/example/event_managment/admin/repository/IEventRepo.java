@@ -9,12 +9,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Repository
 public interface IEventRepo extends JpaRepository<Event, Long> {
 
     Page<Event> findAll(Pageable pageable);
 
-    @Query(value = "SELECT * FROM users WHERE id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM events WHERE id = :id", nativeQuery = true)
     Event findEvent(@Param("id") Long id);
+
+    @Query(value = "SELECT * FROM events WHERE event_id = :eventUUID", nativeQuery = true)
+    Optional<Event> findByEventUUID(String eventUUID);
+
 
 }

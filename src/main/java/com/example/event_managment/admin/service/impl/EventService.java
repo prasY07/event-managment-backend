@@ -71,6 +71,11 @@ public class EventService {
         return createResponse(event);
     }
 
+    public  EventResponse eventInfoWithEventUniqueId(String eventId){
+        Event event = iEventRepo.findByEventUUID(eventId).orElseThrow(() -> new EntityNotFoundException("Event not found"));
+        return createResponse(event);
+    }
+
 
     public EventResponse createNewEvent (EventDto eventDto)
     {
@@ -190,19 +195,20 @@ public class EventService {
             throw new IllegalArgumentException("File must not be empty");
         }
 
+
         Event event = iEventRepo.findById(eventId)
                 .orElseThrow(() -> new EntityNotFoundException("Event not found"));
 
         String oldPath = event.getImage(); // Assuming 'image' stores relative path like "uploads/event_8/banner/xyz.png"
         if (oldPath != null) {
             Path oldFilePath = Paths.get(oldPath);
-//            if (Files.exists(oldFilePath)) {
+            if (Files.exists(oldFilePath)) {
                 try {
                     Files.delete(oldFilePath);
                 } catch (IOException e) {
                     throw new RuntimeException("Failed to delete old banner image", e);
                 }
-//            }
+            }
         }
 
         // Save image and get relative path

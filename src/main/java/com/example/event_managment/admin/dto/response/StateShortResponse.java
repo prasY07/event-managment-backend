@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class StateResponse {
+public class StateShortResponse {
     private Long id;
     private String name;
 }

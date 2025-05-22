@@ -1,5 +1,6 @@
 package com.example.event_managment.admin.service.impl;
 
+import com.example.event_managment.admin.dto.EventFeesDto;
 import com.example.event_managment.admin.dto.response.EventMemberTypeResponse;
 import com.example.event_managment.admin.entity.Event;
 import com.example.event_managment.admin.entity.EventMemberType;
@@ -45,11 +46,27 @@ public class EventMemberService {
         return "Member Deleted Successfully";
     }
 
+    public String updateEventFees(Long eventId, EventFeesDto eventFeesDto){
+
+        Event event = iEventRepo.findById(eventId)
+                .orElseThrow(() -> new EntityNotFoundException("Event not found"));
+
+        System.out.println("id->>>>>>>>>>>>>>>>>>>>>>>>" + eventFeesDto.getId());
+        EventMemberType eventMemberType = iEventMemberType.findById(eventFeesDto.getId()).orElseThrow(
+                () -> new EntityNotFoundException("Member Type Not Found")
+        );
+        System.out.println("hello"+eventFeesDto.getEntryFees());
+        eventMemberType.setEntryFees(eventFeesDto.getEntryFees());
+        iEventMemberType.save(eventMemberType);
+            return "Fees update successfully";
+    }
+
     private EventMemberTypeResponse createResponse(EventMemberType eventMemberType)
     {
         return new EventMemberTypeResponse(
                 eventMemberType.getId(),
-                eventMemberType.getMemberTypeName()
+                eventMemberType.getMemberTypeName(),
+                eventMemberType.getEntryFees()
         );
     }
 }

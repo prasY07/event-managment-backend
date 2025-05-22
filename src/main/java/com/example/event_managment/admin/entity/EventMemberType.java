@@ -1,18 +1,14 @@
 package com.example.event_managment.admin.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Entity
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@NoArgsConstructor
 @Table(name = "event_member_types")
 
 public class EventMemberType {
@@ -26,6 +22,9 @@ public class EventMemberType {
 
     @Column(name = "member_type_name",nullable = false)
     private String memberTypeName;
+
+    @Column(name = "entry_fees", nullable = false)
+    private BigDecimal entryFees = BigDecimal.valueOf(0.00);
 
 
 }
