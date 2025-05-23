@@ -1,6 +1,6 @@
 package com.example.event_managment.admin.repository;
 
-import com.example.event_managment.admin.entity.User;
+import com.example.event_managment.common.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

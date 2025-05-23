@@ -2,13 +2,12 @@ package com.example.event_managment.admin.service.impl;
 
 import com.example.event_managment.admin.dto.EventDto;
 import com.example.event_managment.admin.dto.EventUpdateStatusRequest;
-import com.example.event_managment.admin.dto.response.EventMemberTypeResponse;
 import com.example.event_managment.admin.dto.response.EventResponse;
 import com.example.event_managment.admin.dto.response.UserShortResponse;
-import com.example.event_managment.admin.entity.Event;
-import com.example.event_managment.admin.entity.EventAccessType;
-import com.example.event_managment.admin.entity.EventMemberType;
-import com.example.event_managment.admin.entity.User;
+import com.example.event_managment.common.entity.Event;
+import com.example.event_managment.common.entity.EventAccessType;
+import com.example.event_managment.common.entity.EventMemberType;
+import com.example.event_managment.common.entity.User;
 import com.example.event_managment.admin.repository.IEventAccessType;
 import com.example.event_managment.admin.repository.IEventMemberType;
 import com.example.event_managment.admin.repository.IEventRepo;

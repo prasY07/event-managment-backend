@@ -2,22 +2,22 @@ package com.example.event_managment.admin.service.impl;
 
 import com.example.event_managment.admin.dto.EventMemberAccessDto;
 import com.example.event_managment.admin.dto.response.EventMemberAccessResponse;
-import com.example.event_managment.admin.dto.response.UserResponse;
-import com.example.event_managment.admin.entity.*;
 import com.example.event_managment.admin.repository.IEventAccessType;
 import com.example.event_managment.admin.repository.IEventMemberAccess;
 import com.example.event_managment.admin.repository.IEventMemberType;
 import com.example.event_managment.admin.repository.IEventRepo;
+import com.example.event_managment.common.entity.Event;
+import com.example.event_managment.common.entity.EventAccessType;
+import com.example.event_managment.common.entity.EventMemberAccess;
+import com.example.event_managment.common.entity.EventMemberType;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service

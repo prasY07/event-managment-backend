@@ -1,13 +1,10 @@
 package com.example.event_managment.admin.service.impl;
 
 import com.example.event_managment.admin.dto.response.EventAccessTypeResponse;
-import com.example.event_managment.admin.dto.response.EventMemberTypeResponse;
-import com.example.event_managment.admin.entity.Event;
-import com.example.event_managment.admin.entity.EventAccessType;
-import com.example.event_managment.admin.entity.EventMemberType;
+import com.example.event_managment.common.entity.Event;
+import com.example.event_managment.common.entity.EventAccessType;
 import com.example.event_managment.admin.repository.IEventAccessType;
 import com.example.event_managment.admin.repository.IEventMemberAccess;
-import com.example.event_managment.admin.repository.IEventMemberType;
 import com.example.event_managment.admin.repository.IEventRepo;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

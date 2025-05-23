@@ -1,4 +1,29 @@
 package com.example.event_managment.admin.dto.response;
 
+import com.example.event_managment.common.AppStatus;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+
+@Getter
+@Setter
+@AllArgsConstructor
 public class EventRegistrationResponse {
+
+    private Long id;
+    private String title;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String venue;
+    private String address;
+    private String category;
+    private String description;
+    private String privacyPolicy;
+    private String eventId;
+    private String image;
+    private AppStatus.EventStatus eventStatus;
+    private AppStatus.EStatus status;
+    private UserShortResponse user;
 }

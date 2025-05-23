@@ -1,4 +1,4 @@
-package com.example.event_managment.admin.entity;
+package com.example.event_managment.common.entity;
 
 
 import jakarta.persistence.*;

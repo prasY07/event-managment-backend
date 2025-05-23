@@ -1,7 +1,7 @@
 package com.example.event_managment.admin.service.impl;
 
 import com.example.event_managment.admin.dto.response.StateShortResponse;
-import com.example.event_managment.admin.entity.State;
+import com.example.event_managment.common.entity.State;
 import com.example.event_managment.admin.repository.IStateRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.example.event_managment.admin.service.impl;
 
 import com.example.event_managment.admin.dto.response.SocialMediaSourceResponse;
-import com.example.event_managment.admin.entity.SocialMediaSource;
+import com.example.event_managment.common.entity.SocialMediaSource;
 import com.example.event_managment.admin.repository.ISocialMediaSourceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

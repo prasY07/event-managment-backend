@@ -1,10 +1,6 @@
 package com.example.event_managment.admin.repository;
 
-import com.example.event_managment.admin.dto.response.EventMemberAccessResponse;
-import com.example.event_managment.admin.entity.Event;
-import com.example.event_managment.admin.entity.EventMemberAccess;
-import com.example.event_managment.admin.entity.EventMemberType;
-import com.example.event_managment.admin.entity.User;
+import com.example.event_managment.common.entity.EventMemberAccess;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional; // <-- Required for transaction management
 
 import java.util.List;
-import java.util.Objects;
 
 public interface IEventMemberAccess extends JpaRepository<EventMemberAccess , Long>
 {

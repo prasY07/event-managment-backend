@@ -1,9 +1,7 @@
 package com.example.event_managment.admin.controller;
 
 import com.example.event_managment.admin.dto.EventFeesDto;
-import com.example.event_managment.admin.dto.EventMemberAccessDto;
 import com.example.event_managment.admin.dto.response.EventMemberTypeResponse;
-import com.example.event_managment.admin.entity.EventMemberType;
 import com.example.event_managment.admin.service.impl.EventMemberService;
 import com.example.event_managment.common.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;

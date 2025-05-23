@@ -26,4 +26,10 @@ public class AppStatus {
         REJECTED,
         CANCELLED
     }
+
+
+    public enum EventRegistrationAddedBy {
+        ADMIN,
+        SELF,
+    }
 }

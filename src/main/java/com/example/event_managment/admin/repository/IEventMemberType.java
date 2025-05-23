@@ -1,7 +1,7 @@
 package com.example.event_managment.admin.repository;
 
-import com.example.event_managment.admin.entity.Event;
-import com.example.event_managment.admin.entity.EventMemberType;
+import com.example.event_managment.common.entity.Event;
+import com.example.event_managment.common.entity.EventMemberType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

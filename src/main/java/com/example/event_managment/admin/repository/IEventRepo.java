@@ -1,7 +1,6 @@
 package com.example.event_managment.admin.repository;
 
-import com.example.event_managment.admin.entity.Event;
-import com.example.event_managment.admin.entity.User;
+import com.example.event_managment.common.entity.Event;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 public interface IEventRepo extends JpaRepository<Event, Long> {
