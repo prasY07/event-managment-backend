@@ -3,8 +3,8 @@ package com.example.event_managment.admin.service.impl;
 import com.example.event_managment.admin.dto.response.EventAccessTypeResponse;
 import com.example.event_managment.common.entity.Event;
 import com.example.event_managment.common.entity.EventAccessType;
-import com.example.event_managment.admin.repository.IEventAccessType;
-import com.example.event_managment.admin.repository.IEventMemberAccess;
+import com.example.event_managment.admin.repository.IEventAccessTypeRepo;
+import com.example.event_managment.admin.repository.IEventMemberAccessRepo;
 import com.example.event_managment.admin.repository.IEventRepo;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,11 @@ public class EventAccessService {
     IEventRepo iEventRepo;
 
     @Autowired
-    IEventAccessType iEventAccessType;
+    IEventAccessTypeRepo iEventAccessType;
 
 
     @Autowired
-    IEventMemberAccess iEventMemberAccess;
+    IEventMemberAccessRepo iEventMemberAccess;
 
     public List<EventAccessTypeResponse> eventAllAccess(Long eventId)
     {
@@ -37,7 +37,10 @@ public class EventAccessService {
 
     public String deleteAccessTypeData(Long accessTypeId)
     {
-        EventAccessType eventAccessType = iEventAccessType.findById(accessTypeId).orElseThrow(
+        // EventAccessType eventAccessType = iEventAccessType.findById(accessTypeId).orElseThrow(
+        //         () -> new EntityNotFoundException("Access Type Not Found")
+        // );
+        iEventAccessType.findById(accessTypeId).orElseThrow(
                 () -> new EntityNotFoundException("Access Type Not Found")
         );
         iEventMemberAccess.deleteByAccessTypeId(accessTypeId);

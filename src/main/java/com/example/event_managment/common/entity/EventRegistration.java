@@ -9,7 +9,8 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "event_registration")
+@Table(name = "event_registration",uniqueConstraints = {@UniqueConstraint(columnNames = "registration_id")})
+
 @Getter
 @Setter
 public class EventRegistration {
@@ -45,6 +46,9 @@ public class EventRegistration {
     @Column(name = "qr_code", length = 500)
     private String qrCode;
 
+    @Column(name = "registration_id", length = 50)
+    private String registrationId;
+    
     private String zipcode;
 
     private LocalDateTime createdAt;

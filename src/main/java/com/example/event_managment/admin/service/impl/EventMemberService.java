@@ -4,8 +4,8 @@ import com.example.event_managment.admin.dto.EventFeesDto;
 import com.example.event_managment.admin.dto.response.EventMemberTypeResponse;
 import com.example.event_managment.common.entity.Event;
 import com.example.event_managment.common.entity.EventMemberType;
-import com.example.event_managment.admin.repository.IEventMemberAccess;
-import com.example.event_managment.admin.repository.IEventMemberType;
+import com.example.event_managment.admin.repository.IEventMemberAccessRepo;
+import com.example.event_managment.admin.repository.IEventMemberTypeRepo;
 import com.example.event_managment.admin.repository.IEventRepo;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +20,10 @@ public class EventMemberService {
     IEventRepo iEventRepo;
 
     @Autowired
-    IEventMemberType iEventMemberType;
+    IEventMemberTypeRepo iEventMemberType;
 
     @Autowired
-    IEventMemberAccess iEventMemberAccess;
+    IEventMemberAccessRepo iEventMemberAccess;
 
     public List<EventMemberTypeResponse> eventAllMembers(Long eventId)
     {
@@ -37,7 +37,10 @@ public class EventMemberService {
 
     public String deleteMemberData(Long memberId)
     {
-        EventMemberType eventMemberType = iEventMemberType.findById(memberId).orElseThrow(
+        // EventMemberType eventMemberType = iEventMemberType.findById(memberId).orElseThrow(
+        //         () -> new EntityNotFoundException("Member Not Found")
+        // );
+        iEventMemberType.findById(memberId).orElseThrow(
                 () -> new EntityNotFoundException("Member Not Found")
         );
         iEventMemberAccess.deleteByMemberTypeId(memberId);
@@ -48,14 +51,15 @@ public class EventMemberService {
 
     public String updateEventFees(Long eventId, EventFeesDto eventFeesDto){
 
-        Event event = iEventRepo.findById(eventId)
-                .orElseThrow(() -> new EntityNotFoundException("Event not found"));
+        // Event event = iEventRepo.findById(eventId)
+        //         .orElseThrow(() -> new EntityNotFoundException("Event not found"));
 
-        System.out.println("id->>>>>>>>>>>>>>>>>>>>>>>>" + eventFeesDto.getId());
+         iEventRepo.findById(eventId)
+        .orElseThrow(() -> new EntityNotFoundException("Event not found"));
+
         EventMemberType eventMemberType = iEventMemberType.findById(eventFeesDto.getId()).orElseThrow(
                 () -> new EntityNotFoundException("Member Type Not Found")
         );
-        System.out.println("hello"+eventFeesDto.getEntryFees());
         eventMemberType.setEntryFees(eventFeesDto.getEntryFees());
         iEventMemberType.save(eventMemberType);
             return "Fees update successfully";

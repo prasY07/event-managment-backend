@@ -5,8 +5,6 @@ import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
-
 @Getter
 @Setter
 public class ApiResponse<T> {

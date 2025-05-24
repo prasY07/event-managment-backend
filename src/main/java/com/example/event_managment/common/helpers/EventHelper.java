@@ -1,10 +1,20 @@
 package com.example.event_managment.common.helpers;
 
+import com.example.event_managment.admin.repository.IEventRegistrationRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class EventHelper {
+
+    // private final IEventRegistrationRepo iEventRegistrationRepo;
+
+    // @Autowired
+    // public EventHelper(IEventRegistrationRepo iEventRegistrationRepo) {
+    //     this.iEventRegistrationRepo = iEventRegistrationRepo;
+    // }
 
     public static List<String> parseUniqueCommaSeparatedValues(String input) {
         if (input == null || input.trim().isEmpty()) {
@@ -16,6 +26,18 @@ public class EventHelper {
                 .filter(s -> !s.isEmpty())
                 .distinct()
                 .collect(Collectors.toList());
+    }
+
+    // public String createUserUniqueRegistrationID() {
+    //     String id;
+    //     do {
+    //         id = "REG-" + System.currentTimeMillis();
+    //     } while (iEventRegistrationRepo.existsByRegistrationId(id));
+    //     return id;
+    // }
+
+    public static String createUserUniqueRegistrationID() {
+        return   "REG-" + System.currentTimeMillis();
     }
 
 }

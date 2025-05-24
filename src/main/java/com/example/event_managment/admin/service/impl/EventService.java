@@ -8,8 +8,8 @@ import com.example.event_managment.common.entity.Event;
 import com.example.event_managment.common.entity.EventAccessType;
 import com.example.event_managment.common.entity.EventMemberType;
 import com.example.event_managment.common.entity.User;
-import com.example.event_managment.admin.repository.IEventAccessType;
-import com.example.event_managment.admin.repository.IEventMemberType;
+import com.example.event_managment.admin.repository.IEventAccessTypeRepo;
+import com.example.event_managment.admin.repository.IEventMemberTypeRepo;
 import com.example.event_managment.admin.repository.IEventRepo;
 import com.example.event_managment.admin.repository.IUserRepo;
 import com.example.event_managment.common.AppStatus;
@@ -42,10 +42,10 @@ public class EventService {
     IUserRepo iUserRepo;
 
     @Autowired
-    IEventMemberType iEventMemberType;
+    IEventMemberTypeRepo iEventMemberType;
 
     @Autowired
-    IEventAccessType iEventAccessType;
+    IEventAccessTypeRepo iEventAccessType;
 
     public PaginationResponse<List<EventResponse>> getAllEvents(int page, int size) {
         Pageable pageable = (Pageable) PageRequest.of(page, size);
@@ -98,7 +98,7 @@ public class EventService {
 
         // Save to DB
         Event savedEvent = iEventRepo.save(event);
-        Long eventId = savedEvent.getId();
+        // Long eventId = savedEvent.getId();
 
        List<String> memberTypes =  EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventMemberType());
         for (String memberTypeName : memberTypes) {

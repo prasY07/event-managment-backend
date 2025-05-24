@@ -1,21 +1,18 @@
-package com.example.event_managment.admin.dto;
+package com.example.event_managment.admin.dto.response;
 
+import com.example.event_managment.common.AppStatus;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-import com.example.event_managment.common.AppStatus;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class EventRegistrationDto {
-     private Long id;
+public class EventRegistrationWithoutQRResponse {
+
+   private Long id;
 
     private String name;
 
@@ -40,5 +37,4 @@ public class EventRegistrationDto {
     private LocalDateTime updatedAt;
 
     private AppStatus.EventRegistrationAddedBy addedBy = AppStatus.EventRegistrationAddedBy.SELF;
-
 }

@@ -2,9 +2,9 @@ package com.example.event_managment.admin.service.impl;
 
 import com.example.event_managment.admin.dto.EventMemberAccessDto;
 import com.example.event_managment.admin.dto.response.EventMemberAccessResponse;
-import com.example.event_managment.admin.repository.IEventAccessType;
-import com.example.event_managment.admin.repository.IEventMemberAccess;
-import com.example.event_managment.admin.repository.IEventMemberType;
+import com.example.event_managment.admin.repository.IEventAccessTypeRepo;
+import com.example.event_managment.admin.repository.IEventMemberAccessRepo;
+import com.example.event_managment.admin.repository.IEventMemberTypeRepo;
 import com.example.event_managment.admin.repository.IEventRepo;
 import com.example.event_managment.common.entity.Event;
 import com.example.event_managment.common.entity.EventAccessType;
@@ -27,13 +27,13 @@ public class EventMemberAccessService {
     IEventRepo iEventRepo;
 
     @Autowired
-    IEventMemberType iEventMemberType;
+    IEventMemberTypeRepo iEventMemberType;
 
     @Autowired
-    IEventMemberAccess iEventMemberAccess;
+    IEventMemberAccessRepo iEventMemberAccess;
 
     @Autowired
-    IEventAccessType iEventAccessType;
+    IEventAccessTypeRepo iEventAccessType;
     public String createEventMemberAccess(EventMemberAccessDto eventMemberAccessDto){
         Event event = iEventRepo.findById(eventMemberAccessDto.getEventId())
                 .orElseThrow(() -> new EntityNotFoundException("Event not found"));
@@ -68,8 +68,10 @@ public class EventMemberAccessService {
 
     public List<EventMemberAccessResponse> getAllMemberAccessList(Long eventId)
     {
-        Event event = iEventRepo.findById(eventId)
-                .orElseThrow(() -> new EntityNotFoundException("Event not found"));
+        // Event event = iEventRepo.findById(eventId)
+        //         .orElseThrow(() -> new EntityNotFoundException("Event not found"));
+       
+        iEventRepo.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Event not found"));
         List<Object[]> results = iEventMemberAccess.findAccessTypesByEventId(eventId);
 
         List<EventMemberAccessResponse> responseList = new ArrayList<>();

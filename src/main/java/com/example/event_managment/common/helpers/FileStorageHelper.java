@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.Instant;
-import java.util.UUID;
 
 public class FileStorageHelper {
     public static String saveImageForEvent(MultipartFile file, Long eventId, String type) {
@@ -20,7 +18,6 @@ public class FileStorageHelper {
             }
 
             long unixTimestamp = System.currentTimeMillis() / 1000 + eventId;
-            System.out.println("Unix Timestamp: " + unixTimestamp);
 
             String fileName = unixTimestamp + "_" + file.getOriginalFilename();
             Path filePath = dirPath.resolve(fileName);

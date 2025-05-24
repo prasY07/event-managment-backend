@@ -5,5 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IEventRegistration extends JpaRepository<EventRegistration , Long> {
+public interface IEventRegistrationRepo extends JpaRepository<EventRegistration , Long> {
+   
+    boolean existsByRegistrationId(String registrationId);
+
 }

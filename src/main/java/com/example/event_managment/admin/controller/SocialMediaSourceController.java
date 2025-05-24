@@ -1,7 +1,6 @@
 package com.example.event_managment.admin.controller;
 
 import com.example.event_managment.admin.dto.response.SocialMediaSourceResponse;
-import com.example.event_managment.admin.dto.response.UserResponse;
 import com.example.event_managment.admin.service.impl.SocialMediaSourcesService;
 import com.example.event_managment.common.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;

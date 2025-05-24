@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventRegistrationDto {
+public class EventRegistrationWithoutQRDto {
      private Long id;
 
     private String name;
@@ -33,6 +33,8 @@ public class EventRegistrationDto {
 
     private String address;
 
+    private String qrCode;
+
     private String zipcode;
 
     private LocalDateTime createdAt;
@@ -40,5 +42,6 @@ public class EventRegistrationDto {
     private LocalDateTime updatedAt;
 
     private AppStatus.EventRegistrationAddedBy addedBy = AppStatus.EventRegistrationAddedBy.SELF;
+
 
 }

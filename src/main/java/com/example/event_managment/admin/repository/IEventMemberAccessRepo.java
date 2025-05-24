@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional; // <-- Required
 
 import java.util.List;
 
-public interface IEventMemberAccess extends JpaRepository<EventMemberAccess , Long>
+public interface IEventMemberAccessRepo extends JpaRepository<EventMemberAccess , Long>
 {
     @Modifying
     @Transactional
