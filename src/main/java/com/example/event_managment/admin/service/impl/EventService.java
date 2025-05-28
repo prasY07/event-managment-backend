@@ -93,6 +93,7 @@ public class EventService {
         event.setCategory(eventDto.getCategory());
         event.setDescription(eventDto.getDescription());
         event.setPrivacyPolicy(eventDto.getPrivacyPolicy());
+        event.setEventStatus(AppStatus.EventStatus.UPCOMING);
         event.setUser(user);
         event.setEventId(uniqueEventId);
 
@@ -119,7 +120,7 @@ public class EventService {
     }
 
 
-    public EventResponse updateEventStatus(Long id, EventUpdateStatusRequest newStatus) {
+    public EventResponse updateEventEStatus(Long id, EventUpdateStatusRequest newStatus) {
         Event event = iEventRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Event not found"));
 
@@ -128,6 +129,28 @@ public class EventService {
         }
 
         event.setEventStatus(newStatus.getEventStatus());
+        iEventRepo.save(event);
+
+        return  createResponse(event);
+
+    }
+
+    public EventResponse updateEventStatus(Long id) {
+        Event event = iEventRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Event not found"));
+
+                System.out.println(event.getEventStatus());
+                System.out.println(AppStatus.EventStatus.UPCOMING);
+        if (event.getEventStatus() != AppStatus.EventStatus.UPCOMING) {
+            throw new IllegalStateException("You cannot update the status as the event is not upcoming");
+        }
+
+        AppStatus.EStatus status = AppStatus.EStatus.INACTIVE;
+        if (event.getStatus() == AppStatus.EStatus.INACTIVE) {
+             status = AppStatus.EStatus.ACTIVE;
+        }
+
+        event.setStatus(status);
         iEventRepo.save(event);
 
         return  createResponse(event);

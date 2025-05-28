@@ -1,8 +1,4 @@
 package com.example.event_managment.common.helpers;
-
-import com.example.event_managment.admin.repository.IEventRegistrationRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

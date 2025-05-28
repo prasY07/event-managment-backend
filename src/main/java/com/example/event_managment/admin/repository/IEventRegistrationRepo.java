@@ -9,4 +9,6 @@ public interface IEventRegistrationRepo extends JpaRepository<EventRegistration 
    
     boolean existsByRegistrationId(String registrationId);
 
+    EventRegistration findByRegistrationId(String registrationId);
+
 }

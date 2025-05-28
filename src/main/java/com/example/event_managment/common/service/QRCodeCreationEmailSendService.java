@@ -1,10 +1,11 @@
 package com.example.event_managment.common.service;
 
+import com.example.event_managment.admin.repository.IEventRegistrationRepo;
+import com.example.event_managment.common.entity.EventRegistration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,26 +19,37 @@ public class QRCodeCreationEmailSendService {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private IEventRegistrationRepo iEventRegistrationRepo;
+
     @Async
     public void processRegistration(Long eventId , String registrationId, String email) {
         try {
 
-            String folderPath = "uploads/qr_codes" + eventId ;
+            String folderPath = "uploads/event_" + eventId + "/qr_codes/" ;
             Path dirPath = Paths.get(folderPath);
 
             if (!Files.exists(dirPath)) {
                 Files.createDirectories(dirPath);
             }
             String path = folderPath + registrationId + ".png";
-
-
+            String fullPath = folderPath + path;
+            Path filePath = Paths.get(fullPath);
+            if (Files.exists(filePath)) {
+                Files.delete(filePath);
+            } 
             qrCodeService.generateQRCodeImage(registrationId, path);
-            emailService.sendEmailWithAttachment(
-                    email,
-                    "Your QR Code",
-                    "Here is your QR Code containing your registration ID: " + registrationId,
-                    path
-            );
+//            emailService.sendEmailWithAttachment(
+//                    email,
+//                    "Your QR Code",
+//                    "Here is your QR Code containing your registration ID: " + registrationId,
+//                    path
+//            );
+            EventRegistration registration = iEventRegistrationRepo.findByRegistrationId(registrationId);
+            if (registration != null) {
+                registration.setQrCode(fullPath);
+                iEventRegistrationRepo.save(registration);
+            }
         } catch (Exception ex) {
             // Just log the error if you don't want to store or retry
             ex.printStackTrace();

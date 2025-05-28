@@ -46,10 +46,10 @@ public class EventController {
     }
 
 
-    @PutMapping("{id}/update-status")
-    public ResponseEntity<ApiResponse<EventResponse>> updateStatusEvent(@PathVariable Long id, @RequestBody EventUpdateStatusRequest request)
+    @PutMapping("{id}/update-event-status")
+    public ResponseEntity<ApiResponse<EventResponse>> updateEStatusEvent(@PathVariable Long id, @RequestBody EventUpdateStatusRequest request)
     {
-        EventResponse newEvent = eventService.updateEventStatus(id, request);
+        EventResponse newEvent = eventService.updateEventEStatus(id, request);
         return  ApiResponse.success("event status update successfully",newEvent);
     }
 
@@ -67,9 +67,6 @@ public class EventController {
             @PathVariable Long id,
             @RequestPart(value = "file", required = false) MultipartFile file
     ) {
-//        System.out.println("Received file: " + (file != null ? file.getOriginalFilename() : "null"));
-//        System.out.println("File size: " + (file != null ? file.getSize() : "null"));
-
         EventResponse newEvent = eventService.uploadBanner(id, file);
         return ApiResponse.success("Event banner uploaded successfully", newEvent);
     }
@@ -88,7 +85,14 @@ public class EventController {
         return ApiResponse.success("Event Information", eventInfo);
     }
 
+    
 
+    @PutMapping("{eventId}/update-status")
+    public ResponseEntity<ApiResponse<EventResponse>> updateStatus(@PathVariable Long eventId) {
+        System.out.println("hi---"+eventId);
+        EventResponse newEvent = eventService.updateEventStatus(eventId);
+        return ApiResponse.success("Status Updated successfully", newEvent);
+    }
 
 
 }

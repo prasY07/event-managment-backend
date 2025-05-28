@@ -14,6 +14,7 @@ import com.example.event_managment.common.entity.SocialMediaSource;
 import com.example.event_managment.common.entity.State;
 import com.example.event_managment.common.helpers.EventHelper;
 
+import com.example.event_managment.common.service.QRCodeCreationEmailSendService;
 import jakarta.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class EventRegistrationService {
 
         // @Autowired
         // private EventHelper eventHelper;
+
+        @Autowired
+        private QRCodeCreationEmailSendService qrCodeCreationEmailSendService;
 
         public EventRegistrationWithoutQRResponse newRegistration(EventRegistrationWithoutQRDto dto) {
 
@@ -80,6 +84,11 @@ public class EventRegistrationService {
                 // Save the entity
                 EventRegistration saved = iEventRegistrationRepo.save(registration);
 
+                qrCodeCreationEmailSendService.processRegistration(
+                        dto.getEventId(),
+                        registrationId,
+                        dto.getEmail()
+                );
                 // Convert to response
                 return createResponse(saved);
         }
