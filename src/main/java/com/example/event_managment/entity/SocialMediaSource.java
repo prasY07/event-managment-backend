@@ -1,4 +1,4 @@
-package com.example.event_managment.common.entity;
+package com.example.event_managment.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "countries" , uniqueConstraints = {@UniqueConstraint(columnNames = "name")})
+@Table(name = "social_media_sources" , uniqueConstraints = {@UniqueConstraint(columnNames = "name")})
 
-public class Country {
+public class SocialMediaSource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

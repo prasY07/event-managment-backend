@@ -1,8 +1,8 @@
 package com.example.event_managment.admin.service.impl;
 
 import com.example.event_managment.admin.dto.response.EventAccessTypeResponse;
-import com.example.event_managment.common.entity.Event;
-import com.example.event_managment.common.entity.EventAccessType;
+import com.example.event_managment.entity.Event;
+import com.example.event_managment.entity.EventAccessType;
 import com.example.event_managment.admin.repository.IEventAccessTypeRepo;
 import com.example.event_managment.admin.repository.IEventMemberAccessRepo;
 import com.example.event_managment.admin.repository.IEventRepo;

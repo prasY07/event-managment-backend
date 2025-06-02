@@ -1,7 +1,7 @@
 package com.example.event_managment.common.service;
 
 import com.example.event_managment.admin.repository.IEventRegistrationRepo;
-import com.example.event_managment.common.entity.EventRegistration;
+import com.example.event_managment.entity.EventRegistration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;

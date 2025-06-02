@@ -7,11 +7,11 @@ import com.example.event_managment.admin.repository.IEventRegistrationRepo;
 import com.example.event_managment.admin.repository.IEventRepo;
 import com.example.event_managment.admin.repository.ISocialMediaSourceRepo;
 import com.example.event_managment.admin.repository.IStateRepo;
-import com.example.event_managment.common.entity.Event;
-import com.example.event_managment.common.entity.EventMemberType;
-import com.example.event_managment.common.entity.EventRegistration;
-import com.example.event_managment.common.entity.SocialMediaSource;
-import com.example.event_managment.common.entity.State;
+import com.example.event_managment.entity.Event;
+import com.example.event_managment.entity.EventMemberType;
+import com.example.event_managment.entity.EventRegistration;
+import com.example.event_managment.entity.SocialMediaSource;
+import com.example.event_managment.entity.State;
 import com.example.event_managment.common.helpers.EventHelper;
 
 import com.example.event_managment.common.service.QRCodeCreationEmailSendService;

@@ -1,6 +1,6 @@
 package com.example.event_managment.admin.repository;
 
-import com.example.event_managment.common.entity.EventMemberAccess;
+import com.example.event_managment.entity.EventMemberAccess;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

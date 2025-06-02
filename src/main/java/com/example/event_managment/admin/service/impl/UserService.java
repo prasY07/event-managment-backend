@@ -2,7 +2,7 @@ package com.example.event_managment.admin.service.impl;
 
 import com.example.event_managment.admin.dto.UserDto;
 import com.example.event_managment.admin.dto.response.UserResponse;
-import com.example.event_managment.common.entity.User;
+import com.example.event_managment.entity.User;
 import com.example.event_managment.admin.repository.IUserRepo;
 import com.example.event_managment.common.response.PaginationResponse;
 import jakarta.persistence.EntityNotFoundException;
