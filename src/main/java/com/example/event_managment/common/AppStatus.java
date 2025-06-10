@@ -9,9 +9,9 @@ public class AppStatus {
     }
 
     public enum UserRole {
-        ACTIVE,
-        INACTIVE,
-        SUSPENDED
+        MASTER_ADMIN,
+        EVENT_MANAGER,
+        INDIVISUAL
     }
 
     public enum EStatus {

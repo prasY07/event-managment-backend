@@ -1,11 +1,14 @@
 package com.example.event_managment.admin.service.impl;
 
+import com.example.event_managment.admin.dto.AddUpdateUserDto;
 import com.example.event_managment.admin.dto.UserDto;
 import com.example.event_managment.admin.dto.response.UserResponse;
 import com.example.event_managment.entity.User;
 import com.example.event_managment.admin.repository.IUserRepo;
 import com.example.event_managment.common.response.PaginationResponse;
+
 import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,35 +16,47 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 //import java.awt.print.Pageable;
+
 import java.util.List;
+
+import com.example.event_managment.common.helpers.UserHelper;
 
 @Service
 public class UserService {
     @Autowired
     IUserRepo iUserRepo;
 
-    public List<UserResponse> getAllUsers()
-    {
+    public List<UserResponse> getAllUsers() {
         List<User> userResponse = iUserRepo.findAll();
         return userResponse.stream().map(this::createResponse).toList();
     }
 
-    public UserResponse userInfo(Long id)
-    {
+    public UserResponse userInfo(Long id) {
         User user = iUserRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
         return createResponse(user);
 
     }
 
-    public UserResponse createUser(UserDto userDto){
+    public UserResponse createUser(AddUpdateUserDto addUpdateUserDto) {
+        if (iUserRepo.findByEmailId(addUpdateUserDto.getEmail())) {
+            throw new IllegalArgumentException("Email is already taken by another user");
+        }
+
+        if (iUserRepo.findByPhoneNumber(addUpdateUserDto.getPhoneNumber())) {
+            throw new IllegalArgumentException("Email is already taken by another user");
+        }
+
         User user = new User();
-        user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
-        User savedUser = iUserRepo.save(user);  // Save and get the saved entity with ID
-        return createResponse(savedUser);       // Convert to UserResponse and return
+        user.setName(addUpdateUserDto.getName());
+        user.setEmail(addUpdateUserDto.getEmail());
+        user.setPhoneNumber(addUpdateUserDto.getPhoneNumber());
+        user.setUserRegId(UserHelper.generateUserRegId());
+        user.setPassword(UserHelper.createAndHashPassword());
+        User savedUser = iUserRepo.save(user); // Save and get the saved entity with ID
+        return createResponse(savedUser); // Convert to UserResponse and return
     }
 
-    public UserResponse updateUser(Long id, UserDto userDto){
+    public UserResponse updateUser(Long id, UserDto userDto) {
 
         User user = iUserRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
 
@@ -52,7 +67,7 @@ public class UserService {
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
         User savedUser = iUserRepo.save(user);
-        return createResponse(savedUser);       // Convert to UserResponse and return
+        return createResponse(savedUser); // Convert to UserResponse and return
     }
 
     public PaginationResponse<List<UserResponse>> getAllUsersWithPagination(int page, int size) {
@@ -69,16 +84,13 @@ public class UserService {
                 page,
                 size,
                 userPage.getTotalElements(),
-                userPage.getTotalPages()
-        );
+                userPage.getTotalPages());
     }
 
-    private UserResponse createResponse(User user)
-    {
+    private UserResponse createResponse(User user) {
         return new UserResponse(
                 user.getId(),
                 user.getName(),
-                user.getEmail()
-        );
+                user.getEmail());
     }
 }
