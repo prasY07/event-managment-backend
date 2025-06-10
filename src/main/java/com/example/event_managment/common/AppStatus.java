@@ -8,6 +8,12 @@ public class AppStatus {
         SUSPENDED
     }
 
+    public enum UserRole {
+        ACTIVE,
+        INACTIVE,
+        SUSPENDED
+    }
+
     public enum EStatus {
         ACTIVE,
         INACTIVE,
@@ -26,7 +32,6 @@ public class AppStatus {
         REJECTED,
         CANCELLED
     }
-
 
     public enum EventRegistrationAddedBy {
         ADMIN,
