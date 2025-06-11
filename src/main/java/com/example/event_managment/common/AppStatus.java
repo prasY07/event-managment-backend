@@ -11,7 +11,7 @@ public class AppStatus {
     public enum UserRole {
         MASTER_ADMIN,
         EVENT_MANAGER,
-        INDIVISUAL
+        INDIVIDUAL
     }
 
     public enum EStatus {

@@ -33,18 +33,18 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String password;
 
-    @Column(name = "phone_number", nullable = true, unique = true)
+    @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
-    @Column(name = "user_reg_id", nullable = true, unique = true)
+    @Column(name = "user_reg_id", nullable = false, unique = true)
     private String userRegId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private AppStatus.UserStatus status = AppStatus.UserStatus.ACTIVE;
+    private AppStatus.UserStatus status = AppStatus.UserStatus.INACTIVE;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
