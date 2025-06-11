@@ -1,23 +1,12 @@
 package com.example.event_managment.admin.service.impl;
 
-import com.example.event_managment.admin.dto.EventDto;
-import com.example.event_managment.admin.dto.EventUpdateStatusRequest;
-import com.example.event_managment.admin.dto.response.EventResponse;
-import com.example.event_managment.admin.dto.response.UserShortResponse;
-import com.example.event_managment.entity.Event;
-import com.example.event_managment.entity.EventAccessType;
-import com.example.event_managment.entity.EventMemberType;
-import com.example.event_managment.entity.User;
-import com.example.event_managment.admin.repository.IEventAccessTypeRepo;
-import com.example.event_managment.admin.repository.IEventMemberTypeRepo;
-import com.example.event_managment.admin.repository.IEventRepo;
-import com.example.event_managment.admin.repository.IUserRepo;
-import com.example.event_managment.common.AppStatus;
-import com.example.event_managment.common.helpers.EventHelper;
-import com.example.event_managment.common.helpers.FileStorageHelper;
-import com.example.event_managment.common.helpers.UrlHelper;
-import com.example.event_managment.common.response.PaginationResponse;
-import jakarta.persistence.EntityNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,12 +14,25 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.UUID;
+import com.example.event_managment.admin.dto.EventDto;
+import com.example.event_managment.admin.dto.EventUpdateStatusRequest;
+import com.example.event_managment.admin.dto.response.EventResponse;
+import com.example.event_managment.admin.dto.response.UserShortResponse;
+import com.example.event_managment.admin.repository.IEventAccessTypeRepo;
+import com.example.event_managment.admin.repository.IEventMemberTypeRepo;
+import com.example.event_managment.admin.repository.IEventRepo;
+import com.example.event_managment.admin.repository.IUserRepo;
+import com.example.event_managment.common.AppStatus;
+import com.example.event_managment.common.helpers.FileStorageHelper;
+import com.example.event_managment.common.helpers.UrlHelper;
+import com.example.event_managment.common.helpers.admin.EventHelper;
+import com.example.event_managment.common.response.PaginationResponse;
+import com.example.event_managment.entity.Event;
+import com.example.event_managment.entity.EventAccessType;
+import com.example.event_managment.entity.EventMemberType;
+import com.example.event_managment.entity.User;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class EventService {
@@ -61,23 +63,21 @@ public class EventService {
                 page,
                 size,
                 eventPage.getTotalElements(),
-                eventPage.getTotalPages()
-        );
+                eventPage.getTotalPages());
     }
 
-    public  EventResponse eventInfo(Long id){
+    public EventResponse eventInfo(Long id) {
         Event event = iEventRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Event not found"));
         return createResponse(event);
     }
 
-    public  EventResponse eventInfoWithEventUniqueId(String eventId){
-        Event event = iEventRepo.findByEventUUID(eventId).orElseThrow(() -> new EntityNotFoundException("Event not found"));
+    public EventResponse eventInfoWithEventUniqueId(String eventId) {
+        Event event = iEventRepo.findByEventUUID(eventId)
+                .orElseThrow(() -> new EntityNotFoundException("Event not found"));
         return createResponse(event);
     }
 
-
-    public EventResponse createNewEvent (EventDto eventDto)
-    {
+    public EventResponse createNewEvent(EventDto eventDto) {
         User user = iUserRepo.findById(eventDto.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
@@ -101,7 +101,7 @@ public class EventService {
         Event savedEvent = iEventRepo.save(event);
         // Long eventId = savedEvent.getId();
 
-       List<String> memberTypes =  EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventMemberType());
+        List<String> memberTypes = EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventMemberType());
         for (String memberTypeName : memberTypes) {
             EventMemberType eventMemberType = new EventMemberType();
             eventMemberType.setEventId(savedEvent); // Set full Event object
@@ -109,7 +109,7 @@ public class EventService {
             iEventMemberType.save(eventMemberType);
         }
 
-        List<String> accessTypes =  EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventAccessType());
+        List<String> accessTypes = EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventAccessType());
         for (String accessType : accessTypes) {
             EventAccessType eventAccessType = new EventAccessType();
             eventAccessType.setEventId(savedEvent); // Set full Event object
@@ -118,7 +118,6 @@ public class EventService {
         }
         return createResponse(savedEvent);
     }
-
 
     public EventResponse updateEventEStatus(Long id, EventUpdateStatusRequest newStatus) {
         Event event = iEventRepo.findById(id)
@@ -131,7 +130,7 @@ public class EventService {
         event.setEventStatus(newStatus.getEventStatus());
         iEventRepo.save(event);
 
-        return  createResponse(event);
+        return createResponse(event);
 
     }
 
@@ -139,26 +138,25 @@ public class EventService {
         Event event = iEventRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Event not found"));
 
-                System.out.println(event.getEventStatus());
-                System.out.println(AppStatus.EventStatus.UPCOMING);
+        System.out.println(event.getEventStatus());
+        System.out.println(AppStatus.EventStatus.UPCOMING);
         if (event.getEventStatus() != AppStatus.EventStatus.UPCOMING) {
             throw new IllegalStateException("You cannot update the status as the event is not upcoming");
         }
 
         AppStatus.EStatus status = AppStatus.EStatus.INACTIVE;
         if (event.getStatus() == AppStatus.EStatus.INACTIVE) {
-             status = AppStatus.EStatus.ACTIVE;
+            status = AppStatus.EStatus.ACTIVE;
         }
 
         event.setStatus(status);
         iEventRepo.save(event);
 
-        return  createResponse(event);
+        return createResponse(event);
 
     }
 
-    public EventResponse updateEvent (Long id, EventDto eventDto)
-    {
+    public EventResponse updateEvent(Long id, EventDto eventDto) {
         User user = iUserRepo.findById(eventDto.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
@@ -169,7 +167,8 @@ public class EventService {
                 event.getEventStatus() == AppStatus.EventStatus.COMPLETED ||
                 event.getEventStatus() == AppStatus.EventStatus.CANCELLED) {
 
-            throw new IllegalStateException("You cannot update the event as it is already " + event.getEventStatus() + " .!");
+            throw new IllegalStateException(
+                    "You cannot update the event as it is already " + event.getEventStatus() + " .!");
         }
 
         // Create and populate Event entity
@@ -188,7 +187,7 @@ public class EventService {
         Event savedEvent = iEventRepo.save(event);
 
         if (eventDto.getEventMemberType() != null) {
-            List<String> memberTypes =  EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventMemberType());
+            List<String> memberTypes = EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventMemberType());
             for (String memberTypeName : memberTypes) {
                 EventMemberType eventMemberType = new EventMemberType();
                 eventMemberType.setEventId(savedEvent); // Set full Event object
@@ -211,17 +210,16 @@ public class EventService {
         return createResponse(savedEvent);
     }
 
-
     public EventResponse uploadBanner(Long eventId, MultipartFile file) {
         if (file == null || file.isEmpty()) {
             throw new IllegalArgumentException("File must not be empty");
         }
 
-
         Event event = iEventRepo.findById(eventId)
                 .orElseThrow(() -> new EntityNotFoundException("Event not found"));
 
-        String oldPath = event.getImage(); // Assuming 'image' stores relative path like "uploads/event_8/banner/xyz.png"
+        String oldPath = event.getImage(); // Assuming 'image' stores relative path like
+                                           // "uploads/event_8/banner/xyz.png"
         if (oldPath != null) {
             Path oldFilePath = Paths.get(oldPath);
             if (Files.exists(oldFilePath)) {
@@ -239,7 +237,7 @@ public class EventService {
         event.setImage(bannerPath); // Make sure 'image' field exists in Event entity
         Event updatedEvent = iEventRepo.save(event);
 
-        return  createResponse(updatedEvent);
+        return createResponse(updatedEvent);
     }
 
     private EventResponse createResponse(Event event) {
@@ -247,9 +245,7 @@ public class EventService {
 
         UserShortResponse userResponse = new UserShortResponse(
                 user.getId(),
-                user.getName()
-        );
-
+                user.getName());
 
         String imageUrl = (event.getImage() != null && !event.getImage().isEmpty())
                 ? UrlHelper.imageUrl(event.getImage())
@@ -268,8 +264,7 @@ public class EventService {
                 imageUrl,
                 event.getEventStatus(),
                 event.getStatus(),
-                userResponse
-        );
+                userResponse);
     }
 
 }

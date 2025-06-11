@@ -23,10 +23,12 @@ public interface IUserRepo extends JpaRepository<User, Long> {
 
     boolean existsByEmailAndIdNot(String email, Long id);
 
-    boolean findByEmailId(String email);
+    boolean findByEmail(String email);
 
     boolean findByPhoneNumber(String phoneNumber);
 
     boolean existsByPhoneNumberAndIdNot(String phoneNumber, Long id);
+
+    boolean existsByUserRegId(String registrationId);
 
 }

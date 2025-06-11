@@ -1,4 +1,4 @@
-package com.example.event_managment.common.helpers;
+package com.example.event_managment.common.helpers.admin;
 
 import java.util.Arrays;
 import java.util.List;

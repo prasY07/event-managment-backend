@@ -1,13 +1,6 @@
 package com.example.event_managment.admin.service.impl;
 
-import com.example.event_managment.admin.dto.AddUpdateUserDto;
-import com.example.event_managment.admin.dto.UserDto;
-import com.example.event_managment.admin.dto.response.UserResponse;
-import com.example.event_managment.entity.User;
-import com.example.event_managment.admin.repository.IUserRepo;
-import com.example.event_managment.common.response.PaginationResponse;
-
-import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,11 +8,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-//import java.awt.print.Pageable;
+import com.example.event_managment.admin.dto.AddUpdateUserDto;
+import com.example.event_managment.admin.dto.UserDto;
+import com.example.event_managment.admin.dto.response.UserResponse;
+import com.example.event_managment.admin.repository.IUserRepo;
+import com.example.event_managment.common.helpers.admin.EventHelper;
+import com.example.event_managment.common.helpers.admin.UserHelper;
+import com.example.event_managment.common.helpers.admin.UserPassword;
+import com.example.event_managment.common.response.PaginationResponse;
+import com.example.event_managment.entity.User;
 
-import java.util.List;
-
-import com.example.event_managment.common.helpers.UserHelper;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UserService {
@@ -38,7 +37,7 @@ public class UserService {
     }
 
     public UserResponse createUser(AddUpdateUserDto addUpdateUserDto) {
-        if (iUserRepo.findByEmailId(addUpdateUserDto.getEmail())) {
+        if (iUserRepo.findByEmail(addUpdateUserDto.getEmail())) {
             throw new IllegalArgumentException("Email is already taken by another user");
         }
 
@@ -46,12 +45,18 @@ public class UserService {
             throw new IllegalArgumentException("Email is already taken by another user");
         }
 
+        String registrationId;
+
+        do {
+            registrationId = EventHelper.createUserUniqueRegistrationID();
+        } while (iUserRepo.existsByUserRegId(registrationId));
+
         User user = new User();
         user.setName(addUpdateUserDto.getName());
         user.setEmail(addUpdateUserDto.getEmail());
         user.setPhoneNumber(addUpdateUserDto.getPhoneNumber());
-        user.setUserRegId(UserHelper.generateUserRegId());
-        user.setPassword(UserHelper.createAndHashPassword());
+        user.setUserRegId(registrationId);
+        user.setPassword(UserPassword.createAndHashPassword());
         User savedUser = iUserRepo.save(user); // Save and get the saved entity with ID
         return createResponse(savedUser); // Convert to UserResponse and return
     }

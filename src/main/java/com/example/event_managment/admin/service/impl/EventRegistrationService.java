@@ -1,5 +1,8 @@
 package com.example.event_managment.admin.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.event_managment.admin.dto.EventRegistrationWithoutQRDto;
 import com.example.event_managment.admin.dto.response.EventRegistrationWithoutQRResponse;
 import com.example.event_managment.admin.repository.IEventMemberTypeRepo;
@@ -7,18 +10,15 @@ import com.example.event_managment.admin.repository.IEventRegistrationRepo;
 import com.example.event_managment.admin.repository.IEventRepo;
 import com.example.event_managment.admin.repository.ISocialMediaSourceRepo;
 import com.example.event_managment.admin.repository.IStateRepo;
+import com.example.event_managment.common.helpers.admin.EventHelper;
+import com.example.event_managment.common.service.QRCodeCreationEmailSendService;
 import com.example.event_managment.entity.Event;
 import com.example.event_managment.entity.EventMemberType;
 import com.example.event_managment.entity.EventRegistration;
 import com.example.event_managment.entity.SocialMediaSource;
 import com.example.event_managment.entity.State;
-import com.example.event_managment.common.helpers.EventHelper;
 
-import com.example.event_managment.common.service.QRCodeCreationEmailSendService;
 import jakarta.persistence.EntityNotFoundException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class EventRegistrationService {
@@ -55,18 +55,20 @@ public class EventRegistrationService {
                 State state = iStateRepo.findById(dto.getStateId())
                                 .orElseThrow(() -> new EntityNotFoundException("State not found"));
 
-                // EventMemberType memberType = iEventMemberTypeRepo.findById(dto.getMemberTypeId())
-                //                 .orElseThrow(() -> new EntityNotFoundException("Member Type not found"));
+                // EventMemberType memberType =
+                // iEventMemberTypeRepo.findById(dto.getMemberTypeId())
+                // .orElseThrow(() -> new EntityNotFoundException("Member Type not found"));
 
-                EventMemberType memberType = iEventMemberTypeRepo.findByIdAndEventId(dto.getMemberTypeId(), dto.getEventId())
-        .orElseThrow(() -> new EntityNotFoundException("Member Type not found for this event"));
+                EventMemberType memberType = iEventMemberTypeRepo
+                                .findByIdAndEventId(dto.getMemberTypeId(), dto.getEventId())
+                                .orElseThrow(() -> new EntityNotFoundException("Member Type not found for this event"));
 
                 EventRegistration registration = new EventRegistration();
 
                 String registrationId;
 
                 do {
-                    registrationId = EventHelper.createUserUniqueRegistrationID();
+                        registrationId = EventHelper.createUserUniqueRegistrationID();
                 } while (iEventRegistrationRepo.existsByRegistrationId(registrationId));
 
                 registration.setName(dto.getName());
@@ -85,10 +87,9 @@ public class EventRegistrationService {
                 EventRegistration saved = iEventRegistrationRepo.save(registration);
 
                 qrCodeCreationEmailSendService.processRegistration(
-                        dto.getEventId(),
-                        registrationId,
-                        dto.getEmail()
-                );
+                                dto.getEventId(),
+                                registrationId,
+                                dto.getEmail());
                 // Convert to response
                 return createResponse(saved);
         }
