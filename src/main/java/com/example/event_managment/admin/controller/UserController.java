@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.event_managment.admin.dto.AddUpdateUserDto;
-import com.example.event_managment.admin.dto.UserDto;
 import com.example.event_managment.admin.dto.UserStatusDto;
 import com.example.event_managment.admin.dto.response.UserListResponse;
 import com.example.event_managment.admin.dto.response.UserResponse;
@@ -69,7 +69,7 @@ public class UserController {
         return ApiResponse.success("User updated successfully", updatedUser);
     }
 
-    @PutMapping("{id}/update-status")
+    @PatchMapping("{id}/update-status")
     public ResponseEntity<ApiResponse<UserShortResponse>> updateUserStatus(@PathVariable Long id,
             @RequestBody UserStatusDto userStatusDto) {
         UserShortResponse updatedUser = userService.updateStatus(id, userStatusDto);
