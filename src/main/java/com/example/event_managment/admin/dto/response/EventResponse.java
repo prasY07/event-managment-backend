@@ -15,6 +15,7 @@ public class EventResponse {
     private String title;
     private LocalDate startDate;
     private LocalDate endDate;
+    private LocalDate registrationEndDate;
     private String venue;
     private String address;
     private String category;

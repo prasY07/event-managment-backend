@@ -1,13 +1,14 @@
 package com.example.event_managment.admin.dto;
 
+import java.time.LocalDate;
+
 import com.example.event_managment.common.AppStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -25,9 +26,11 @@ public class EventDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate registrationEndDate;
+
     private String venue;
     private String address;
-
 
     private String category;
     private String description;
@@ -35,7 +38,6 @@ public class EventDto {
     private String privacyPolicy;
 
     private String eventId;
-
 
     private AppStatus.EStatus status;
     private AppStatus.EventStatus eventStatus;
@@ -45,7 +47,6 @@ public class EventDto {
     private String eventMemberType;
 
     private String eventAccessType;
-
 
     // Custom toString method to print the content of EventDto in a readable format
     @Override

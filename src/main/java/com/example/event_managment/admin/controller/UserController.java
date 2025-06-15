@@ -48,6 +48,7 @@ public class UserController {
     public ResponseEntity<ApiResponse<List<UserResponse>>> allUsers() {
         List<UserResponse> allUsers = userService.getAllUsers();
         return ApiResponse.success("User List", allUsers);
+        
     }
 
     @GetMapping("{id}/user-information")

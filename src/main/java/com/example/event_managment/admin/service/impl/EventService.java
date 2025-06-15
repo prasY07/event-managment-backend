@@ -88,6 +88,7 @@ public class EventService {
         event.setTitle(eventDto.getTitle());
         event.setStartDate(eventDto.getStartDate());
         event.setEndDate(eventDto.getEndDate());
+        event.setRegistrationEndDate(eventDto.getRegistrationEndDate());
         event.setVenue(eventDto.getVenue());
         event.setAddress(eventDto.getAddress());
         event.setCategory(eventDto.getCategory());
@@ -176,6 +177,7 @@ public class EventService {
         event.setTitle(eventDto.getTitle());
         event.setStartDate(eventDto.getStartDate());
         event.setEndDate(eventDto.getEndDate());
+        event.setEndDate(eventDto.getRegistrationEndDate());
         event.setVenue(eventDto.getVenue());
         event.setAddress(eventDto.getAddress());
         event.setPrivacyPolicy(eventDto.getPrivacyPolicy());
@@ -255,6 +257,7 @@ public class EventService {
                 event.getTitle(),
                 event.getStartDate(),
                 event.getEndDate(),
+                event.getRegistrationEndDate(),
                 event.getVenue(),
                 event.getAddress(),
                 event.getCategory(),
