@@ -29,6 +29,9 @@ public class EventDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate registrationEndDate;
 
+    private String eventStartTime;
+    private String eventEndTime;
+
     private String venue;
     private String address;
 

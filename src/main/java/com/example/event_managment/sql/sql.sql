@@ -48,8 +48,17 @@ CREATE TABLE countries (
     name VARCHAR(100) NOT NULL
 );
 
-INSERT INTO countries (name) VALUES
-('India');
+INSERT INTO countries (name, country_code) VALUES
+('India', '+91'),
+('United States', '+1'),
+('United Kingdom', '+44'),
+('Canada', '+1'),
+('Australia', '+61'),
+('Germany', '+49'),
+('France', '+33'),
+('Japan', '+81'),
+('China', '+86'),
+('Brazil', '+55')
 -----------------------------------------------------------------------------------
 CREATE TABLE states (
      id INT AUTO_INCREMENT PRIMARY KEY,

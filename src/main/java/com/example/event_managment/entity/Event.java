@@ -1,6 +1,7 @@
 package com.example.event_managment.entity;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import com.example.event_managment.common.AppStatus;
 
@@ -34,6 +35,12 @@ public class Event {
 
     @Column(name = "registration_end_date")
     private LocalDate registrationEndDate;
+
+    @Column(name = "event_start_time")
+    private LocalTime eventStartTime;
+
+    @Column(name = "event_end_time")
+    private LocalTime eventEndTime;
 
     private String venue;
     private String address;

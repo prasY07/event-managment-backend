@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -94,6 +95,8 @@ public class EventService {
         event.setCategory(eventDto.getCategory());
         event.setDescription(eventDto.getDescription());
         event.setPrivacyPolicy(eventDto.getPrivacyPolicy());
+        event.setEventStartTime(LocalTime.parse(eventDto.getEventStartTime()));
+        event.setEventEndTime(LocalTime.parse(eventDto.getEventEndTime()));
         event.setEventStatus(AppStatus.EventStatus.UPCOMING);
         event.setUser(user);
         event.setEventId(uniqueEventId);
@@ -183,6 +186,9 @@ public class EventService {
         event.setPrivacyPolicy(eventDto.getPrivacyPolicy());
         event.setCategory(eventDto.getCategory());
         event.setDescription(eventDto.getDescription());
+        event.setPrivacyPolicy(eventDto.getPrivacyPolicy());
+        event.setEventStartTime(LocalTime.parse(eventDto.getEventStartTime()));
+        event.setEventEndTime(LocalTime.parse(eventDto.getEventEndTime()));
         event.setUser(user);
 
         // Save to DB

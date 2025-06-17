@@ -13,10 +13,12 @@ import com.example.event_managment.admin.dto.UserStatusDto;
 import com.example.event_managment.admin.dto.response.UserListResponse;
 import com.example.event_managment.admin.dto.response.UserResponse;
 import com.example.event_managment.admin.dto.response.UserShortResponse;
+import com.example.event_managment.admin.repository.ICountryRepository;
 import com.example.event_managment.admin.repository.IUserRepo;
 import com.example.event_managment.common.helpers.admin.EventHelper;
 import com.example.event_managment.common.helpers.admin.UserPassword;
 import com.example.event_managment.common.response.PaginationResponse;
+import com.example.event_managment.entity.Country;
 import com.example.event_managment.entity.User;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -25,6 +27,9 @@ import jakarta.persistence.EntityNotFoundException;
 public class UserService {
     @Autowired
     IUserRepo iUserRepo;
+
+    @Autowired
+    ICountryRepository icountryRepository;
 
     public List<UserResponse> getAllUsers() {
         List<User> userResponse = iUserRepo.findAll();
@@ -45,6 +50,8 @@ public class UserService {
         if (iUserRepo.existsByPhoneNumber(addUpdateUserDto.getPhoneNumber())) {
             throw new IllegalArgumentException("Email is already taken by another user");
         }
+        Country country = icountryRepository.findById(addUpdateUserDto.getCountryId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid country selected"));
 
         String registrationId;
 
@@ -59,6 +66,7 @@ public class UserService {
         user.setUserRegId(registrationId);
         user.setPassword(UserPassword.createAndHashPassword());
         user.setRole(addUpdateUserDto.getRole());
+        user.setCountry(country); // Correct way to set the entire country entity
         User savedUser = iUserRepo.save(user); // Save and get the saved entity with ID
         return createUserShortResponse(savedUser); // Convert to UserResponse and return
     }
