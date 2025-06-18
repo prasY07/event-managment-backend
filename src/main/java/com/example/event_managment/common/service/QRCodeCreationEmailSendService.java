@@ -1,14 +1,15 @@
 package com.example.event_managment.common.service;
 
-import com.example.event_managment.admin.repository.IEventRegistrationRepo;
-import com.example.event_managment.entity.EventRegistration;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import com.example.event_managment.entity.EventRegistration;
+import com.example.event_managment.repository.IEventRegistrationRepo;
 
 @Service
 public class QRCodeCreationEmailSendService {
@@ -23,10 +24,10 @@ public class QRCodeCreationEmailSendService {
     private IEventRegistrationRepo iEventRegistrationRepo;
 
     @Async
-    public void processRegistration(Long eventId , String registrationId, String email) {
+    public void processRegistration(Long eventId, String registrationId, String email) {
         try {
 
-            String folderPath = "uploads/event_" + eventId + "/qr_codes/" ;
+            String folderPath = "uploads/event_" + eventId + "/qr_codes/";
             Path dirPath = Paths.get(folderPath);
 
             if (!Files.exists(dirPath)) {
@@ -37,14 +38,14 @@ public class QRCodeCreationEmailSendService {
             Path filePath = Paths.get(fullPath);
             if (Files.exists(filePath)) {
                 Files.delete(filePath);
-            } 
+            }
             qrCodeService.generateQRCodeImage(registrationId, path);
-//            emailService.sendEmailWithAttachment(
-//                    email,
-//                    "Your QR Code",
-//                    "Here is your QR Code containing your registration ID: " + registrationId,
-//                    path
-//            );
+            // emailService.sendEmailWithAttachment(
+            // email,
+            // "Your QR Code",
+            // "Here is your QR Code containing your registration ID: " + registrationId,
+            // path
+            // );
             EventRegistration registration = iEventRegistrationRepo.findByRegistrationId(registrationId);
             if (registration != null) {
                 registration.setQrCode(fullPath);

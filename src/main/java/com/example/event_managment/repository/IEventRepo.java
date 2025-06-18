@@ -1,6 +1,7 @@
-package com.example.event_managment.admin.repository;
+package com.example.event_managment.repository;
 
-import com.example.event_managment.entity.Event;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import com.example.event_managment.entity.Event;
 
 @Repository
 public interface IEventRepo extends JpaRepository<Event, Long> {
@@ -20,6 +21,5 @@ public interface IEventRepo extends JpaRepository<Event, Long> {
 
     @Query(value = "SELECT * FROM events WHERE event_id = :eventUUID", nativeQuery = true)
     Optional<Event> findByEventUUID(String eventUUID);
-
 
 }

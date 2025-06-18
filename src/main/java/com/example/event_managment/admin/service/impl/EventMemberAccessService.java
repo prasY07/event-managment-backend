@@ -1,24 +1,26 @@
 package com.example.event_managment.admin.service.impl;
 
-import com.example.event_managment.admin.dto.EventMemberAccessDto;
-import com.example.event_managment.admin.dto.response.EventMemberAccessResponse;
-import com.example.event_managment.admin.repository.IEventAccessTypeRepo;
-import com.example.event_managment.admin.repository.IEventMemberAccessRepo;
-import com.example.event_managment.admin.repository.IEventMemberTypeRepo;
-import com.example.event_managment.admin.repository.IEventRepo;
-import com.example.event_managment.entity.Event;
-import com.example.event_managment.entity.EventAccessType;
-import com.example.event_managment.entity.EventMemberAccess;
-import com.example.event_managment.entity.EventMemberType;
-import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
+
+import com.example.event_managment.admin.dto.EventMemberAccessDto;
+import com.example.event_managment.admin.dto.response.EventMemberAccessResponse;
+import com.example.event_managment.entity.Event;
+import com.example.event_managment.entity.EventAccessType;
+import com.example.event_managment.entity.EventMemberAccess;
+import com.example.event_managment.entity.EventMemberType;
+import com.example.event_managment.repository.IEventAccessTypeRepo;
+import com.example.event_managment.repository.IEventMemberAccessRepo;
+import com.example.event_managment.repository.IEventMemberTypeRepo;
+import com.example.event_managment.repository.IEventRepo;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class EventMemberAccessService {
@@ -34,10 +36,10 @@ public class EventMemberAccessService {
 
     @Autowired
     IEventAccessTypeRepo iEventAccessType;
-    public String createEventMemberAccess(EventMemberAccessDto eventMemberAccessDto){
+
+    public String createEventMemberAccess(EventMemberAccessDto eventMemberAccessDto) {
         Event event = iEventRepo.findById(eventMemberAccessDto.getEventId())
                 .orElseThrow(() -> new EntityNotFoundException("Event not found"));
-
 
         EventMemberType eventMemberType = iEventMemberType.findById(eventMemberAccessDto.getMemberId())
                 .orElseThrow(() -> new EntityNotFoundException("Member Type not found"));
@@ -50,9 +52,7 @@ public class EventMemberAccessService {
             throw new RuntimeException("An unexpected error occurred while deleting event member access.", ex);
         }
 
-
-        for(Long accessTypeId: eventMemberAccessDto.getAccessId())
-        {
+        for (Long accessTypeId : eventMemberAccessDto.getAccessId()) {
             EventAccessType accessType = iEventAccessType.findById(accessTypeId)
                     .orElseThrow(() -> new EntityNotFoundException("Access Type not found"));
             EventMemberAccess eventMemberAccess = new EventMemberAccess();
@@ -66,11 +66,10 @@ public class EventMemberAccessService {
 
     }
 
-    public List<EventMemberAccessResponse> getAllMemberAccessList(Long eventId)
-    {
+    public List<EventMemberAccessResponse> getAllMemberAccessList(Long eventId) {
         // Event event = iEventRepo.findById(eventId)
-        //         .orElseThrow(() -> new EntityNotFoundException("Event not found"));
-       
+        // .orElseThrow(() -> new EntityNotFoundException("Event not found"));
+
         iEventRepo.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Event not found"));
         List<Object[]> results = iEventMemberAccess.findAccessTypesByEventId(eventId);
 
@@ -88,19 +87,21 @@ public class EventMemberAccessService {
             responseList.add(new EventMemberAccessResponse(memberTypeId, eventIdFromRow, accessIds));
         }
 
-        return  responseList;
+        return responseList;
     }
 
-//    private EventMemberAccessResponse createResponse(EventMemberAccess eventMemberAccess)
-//    {
-//
-//        List<Long> accessIds = new ArrayList<>();
-//        accessIds.add(eventMemberAccess.getEventAccessType().getId()); // assuming ID is Integer
-//
-//        return new EventMemberAccessResponse(
-//                eventMemberAccess.getMemberTypeId().getId(), // unwrap entity to ID
-//                eventMemberAccess.getEventId().getId(),      // unwrap entity to ID
-//                accessIds
-//        );
-//    }
+    // private EventMemberAccessResponse createResponse(EventMemberAccess
+    // eventMemberAccess)
+    // {
+    //
+    // List<Long> accessIds = new ArrayList<>();
+    // accessIds.add(eventMemberAccess.getEventAccessType().getId()); // assuming ID
+    // is Integer
+    //
+    // return new EventMemberAccessResponse(
+    // eventMemberAccess.getMemberTypeId().getId(), // unwrap entity to ID
+    // eventMemberAccess.getEventId().getId(), // unwrap entity to ID
+    // accessIds
+    // );
+    // }
 }

@@ -5,11 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.event_managment.admin.dto.EventRegistrationWithoutQRDto;
 import com.example.event_managment.admin.dto.response.EventRegistrationWithoutQRResponse;
-import com.example.event_managment.admin.repository.IEventMemberTypeRepo;
-import com.example.event_managment.admin.repository.IEventRegistrationRepo;
-import com.example.event_managment.admin.repository.IEventRepo;
-import com.example.event_managment.admin.repository.ISocialMediaSourceRepo;
-import com.example.event_managment.admin.repository.IStateRepo;
 import com.example.event_managment.common.helpers.admin.EventHelper;
 import com.example.event_managment.common.service.QRCodeCreationEmailSendService;
 import com.example.event_managment.entity.Event;
@@ -17,6 +12,11 @@ import com.example.event_managment.entity.EventMemberType;
 import com.example.event_managment.entity.EventRegistration;
 import com.example.event_managment.entity.SocialMediaSource;
 import com.example.event_managment.entity.State;
+import com.example.event_managment.repository.IEventMemberTypeRepo;
+import com.example.event_managment.repository.IEventRegistrationRepo;
+import com.example.event_managment.repository.IEventRepo;
+import com.example.event_managment.repository.ISocialMediaSourceRepo;
+import com.example.event_managment.repository.IStateRepo;
 
 import jakarta.persistence.EntityNotFoundException;
 

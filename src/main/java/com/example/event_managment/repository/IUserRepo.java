@@ -1,4 +1,4 @@
-package com.example.event_managment.admin.repository;
+package com.example.event_managment.repository;
 
 import java.util.List;
 

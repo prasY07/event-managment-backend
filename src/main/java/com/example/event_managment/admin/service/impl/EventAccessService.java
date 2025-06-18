@@ -1,16 +1,18 @@
 package com.example.event_managment.admin.service.impl;
 
-import com.example.event_managment.admin.dto.response.EventAccessTypeResponse;
-import com.example.event_managment.entity.Event;
-import com.example.event_managment.entity.EventAccessType;
-import com.example.event_managment.admin.repository.IEventAccessTypeRepo;
-import com.example.event_managment.admin.repository.IEventMemberAccessRepo;
-import com.example.event_managment.admin.repository.IEventRepo;
-import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.event_managment.admin.dto.response.EventAccessTypeResponse;
+import com.example.event_managment.entity.Event;
+import com.example.event_managment.entity.EventAccessType;
+import com.example.event_managment.repository.IEventAccessTypeRepo;
+import com.example.event_managment.repository.IEventMemberAccessRepo;
+import com.example.event_managment.repository.IEventRepo;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class EventAccessService {
@@ -21,39 +23,34 @@ public class EventAccessService {
     @Autowired
     IEventAccessTypeRepo iEventAccessType;
 
-
     @Autowired
     IEventMemberAccessRepo iEventMemberAccess;
 
-    public List<EventAccessTypeResponse> eventAllAccess(Long eventId)
-    {
+    public List<EventAccessTypeResponse> eventAllAccess(Long eventId) {
         Event event = iEventRepo.findById(eventId)
                 .orElseThrow(() -> new EntityNotFoundException("Event not found"));
-         List<EventAccessType> allAccess =  iEventAccessType.findByEventId(event);
+        List<EventAccessType> allAccess = iEventAccessType.findByEventId(event);
 
-         return allAccess.stream().map(this::createResponse).toList();
+        return allAccess.stream().map(this::createResponse).toList();
 
     }
 
-    public String deleteAccessTypeData(Long accessTypeId)
-    {
-        // EventAccessType eventAccessType = iEventAccessType.findById(accessTypeId).orElseThrow(
-        //         () -> new EntityNotFoundException("Access Type Not Found")
+    public String deleteAccessTypeData(Long accessTypeId) {
+        // EventAccessType eventAccessType =
+        // iEventAccessType.findById(accessTypeId).orElseThrow(
+        // () -> new EntityNotFoundException("Access Type Not Found")
         // );
         iEventAccessType.findById(accessTypeId).orElseThrow(
-                () -> new EntityNotFoundException("Access Type Not Found")
-        );
+                () -> new EntityNotFoundException("Access Type Not Found"));
         iEventMemberAccess.deleteByAccessTypeId(accessTypeId);
         iEventAccessType.deleteById(accessTypeId);
 
         return "Event Access type Deleted Successfully";
     }
 
-    private EventAccessTypeResponse createResponse(EventAccessType eventAccessType)
-    {
+    private EventAccessTypeResponse createResponse(EventAccessType eventAccessType) {
         return new EventAccessTypeResponse(
                 eventAccessType.getId(),
-                eventAccessType.getEventAccessTypeName()
-        );
+                eventAccessType.getEventAccessTypeName());
     }
 }

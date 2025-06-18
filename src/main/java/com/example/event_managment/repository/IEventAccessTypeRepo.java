@@ -1,11 +1,12 @@
-package com.example.event_managment.admin.repository;
+package com.example.event_managment.repository;
 
-import com.example.event_managment.entity.Event;
-import com.example.event_managment.entity.EventAccessType;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.example.event_managment.entity.Event;
+import com.example.event_managment.entity.EventAccessType;
 
 @Repository
 public interface IEventAccessTypeRepo extends JpaRepository<EventAccessType, Long> {

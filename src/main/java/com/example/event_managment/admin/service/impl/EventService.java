@@ -19,10 +19,6 @@ import com.example.event_managment.admin.dto.EventDto;
 import com.example.event_managment.admin.dto.EventUpdateStatusRequest;
 import com.example.event_managment.admin.dto.response.EventResponse;
 import com.example.event_managment.admin.dto.response.UserShortResponse;
-import com.example.event_managment.admin.repository.IEventAccessTypeRepo;
-import com.example.event_managment.admin.repository.IEventMemberTypeRepo;
-import com.example.event_managment.admin.repository.IEventRepo;
-import com.example.event_managment.admin.repository.IUserRepo;
 import com.example.event_managment.common.AppStatus;
 import com.example.event_managment.common.helpers.FileStorageHelper;
 import com.example.event_managment.common.helpers.UrlHelper;
@@ -32,6 +28,10 @@ import com.example.event_managment.entity.Event;
 import com.example.event_managment.entity.EventAccessType;
 import com.example.event_managment.entity.EventMemberType;
 import com.example.event_managment.entity.User;
+import com.example.event_managment.repository.IEventAccessTypeRepo;
+import com.example.event_managment.repository.IEventMemberTypeRepo;
+import com.example.event_managment.repository.IEventRepo;
+import com.example.event_managment.repository.IUserRepo;
 
 import jakarta.persistence.EntityNotFoundException;
 

@@ -13,13 +13,13 @@ import com.example.event_managment.admin.dto.UserStatusDto;
 import com.example.event_managment.admin.dto.response.UserListResponse;
 import com.example.event_managment.admin.dto.response.UserResponse;
 import com.example.event_managment.admin.dto.response.UserShortResponse;
-import com.example.event_managment.admin.repository.ICountryRepository;
-import com.example.event_managment.admin.repository.IUserRepo;
 import com.example.event_managment.common.helpers.admin.EventHelper;
 import com.example.event_managment.common.helpers.admin.UserPassword;
 import com.example.event_managment.common.response.PaginationResponse;
 import com.example.event_managment.entity.Country;
 import com.example.event_managment.entity.User;
+import com.example.event_managment.repository.ICountryRepository;
+import com.example.event_managment.repository.IUserRepo;
 
 import jakarta.persistence.EntityNotFoundException;
 
