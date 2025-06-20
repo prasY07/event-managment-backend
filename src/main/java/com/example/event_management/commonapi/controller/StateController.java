@@ -18,8 +18,7 @@ public class StateController {
     StateService stateService;
 
     @GetMapping("/list")
-    public ResponseEntity<ApiResponse<List<StateShortResponse>>> allStates()
-    {
+    public ResponseEntity<ApiResponse<List<StateShortResponse>>> allStates() {
         List<StateShortResponse> allStates = stateService.getAllStates();
         return ApiResponse.success("States list", allStates);
     }

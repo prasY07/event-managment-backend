@@ -1,6 +1,5 @@
 package com.example.event_management.commonapi.dto.response;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
