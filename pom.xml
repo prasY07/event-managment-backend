@@ -11,7 +11,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>event-managment</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>event-managment</name>
+	<name>event-management</name>
 	<description>Manage for events </description>
 	<url/>
 	<licenses>

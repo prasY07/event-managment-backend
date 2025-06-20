@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.example.event-managment' is invalid and this project uses 'com.example.event_managment' instead.
+* The original package name 'com.example.event-managment' is invalid and this project uses 'com.example.event_management' instead.
 
 # Getting Started
 
