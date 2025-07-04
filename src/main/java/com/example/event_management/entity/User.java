@@ -55,6 +55,6 @@ public class User {
 
     // New country relation
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "country_code", referencedColumnName = "country_code", nullable = false)
+    @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false)
     private Country country;
 }

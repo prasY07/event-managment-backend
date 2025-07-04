@@ -66,6 +66,7 @@ CREATE TABLE states (
      country_id INT NOT NULL,
      FOREIGN KEY (country_id) REFERENCES countries(id)
  );
+ 
 INSERT INTO states (name, country_id) VALUES
 ('Andhra Pradesh', 1),
 ('Arunachal Pradesh', 1),
