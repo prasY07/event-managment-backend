@@ -9,12 +9,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.example.event_management.common.AppStatus;
 import com.example.event_management.entity.User;
 
 @Repository
 public interface IUserRepo extends JpaRepository<User, Long> {
 
     List<User> findAll();
+
+    List<User> findByStatus(AppStatus.UserStatus status);
 
     Page<User> findAll(Pageable pageable);
 

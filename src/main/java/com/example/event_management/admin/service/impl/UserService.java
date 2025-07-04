@@ -13,6 +13,7 @@ import com.example.event_management.admin.dto.UserStatusDto;
 import com.example.event_management.admin.dto.response.UserListResponse;
 import com.example.event_management.admin.dto.response.UserResponse;
 import com.example.event_management.admin.dto.response.UserShortResponse;
+import com.example.event_management.common.AppStatus;
 import com.example.event_management.common.helpers.admin.EventHelper;
 import com.example.event_management.common.helpers.admin.UserPassword;
 import com.example.event_management.common.response.PaginationResponse;
@@ -32,7 +33,7 @@ public class UserService {
     ICountryRepo icountryRepo;
 
     public List<UserResponse> getAllUsers() {
-        List<User> userResponse = iUserRepo.findAll();
+        List<User> userResponse = iUserRepo.findByStatus(AppStatus.UserStatus.ACTIVE);
         return userResponse.stream().map(this::createResponse).toList();
     }
 
