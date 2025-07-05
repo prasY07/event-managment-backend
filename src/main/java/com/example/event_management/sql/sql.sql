@@ -37,8 +37,7 @@ INSERT INTO social_media_sources (name) VALUES
 ('Twitter'),
 ('WhatsApp'),
 ('Email'),
-('Company Website'),
-('Other');
+('Company Website');
 
 ---------------------------------------------------------------------------
 
