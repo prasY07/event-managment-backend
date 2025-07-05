@@ -1,5 +1,7 @@
 package com.example.event_management.admin.service.impl;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,6 @@ import com.example.event_management.entity.Event;
 import com.example.event_management.entity.EventMemberType;
 import com.example.event_management.entity.EventRegistration;
 import com.example.event_management.entity.SocialMediaSource;
-import com.example.event_management.entity.State;
 import com.example.event_management.repository.ICountryRepo;
 import com.example.event_management.repository.IEventMemberTypeRepo;
 import com.example.event_management.repository.IEventRegistrationRepo;
@@ -61,6 +62,18 @@ public class EventRegistrationService {
                 Country country = iCountryRepo.findById(dto.getCountryId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid country selected"));
 
+                    Map<String, Object> response = EventHelper.eventRegistrationCases(event);
+
+                if (!(Boolean) response.get("status")) {
+                    throw new IllegalArgumentException(response.get("msg").toString());
+                }
+
+                // if(event.getStatus() != AppStatus.EStatus.ACTIVE) {
+                //         throw new IllegalArgumentException("Event is not active. you can not register for this event");
+                // }
+                // if (LocalDate.now().isAfter(event.getRegistrationEndDate())) {
+                //          throw new IllegalArgumentException("Registration has been closed for this event");
+                // }
                 // State state = iStateRepo.findById(dto.getStateId())
                 //                 .orElseThrow(() -> new EntityNotFoundException("State not found"));
 
@@ -90,7 +103,7 @@ public class EventRegistrationService {
                 registration.setZipcode(dto.getZipcode());
                 registration.setPhoneNumber(dto.getPhoneNumber());
                 registration.setCountry(country);
-                registration.setRegistrationId(EventHelper.createUserUniqueRegistrationID());
+                registration.setRegistrationId(registrationId);
                 registration.setAddedBy(AppStatus.EventRegistrationAddedBy.ADMIN);
                 registration.setRegistrationId(registrationId);
 

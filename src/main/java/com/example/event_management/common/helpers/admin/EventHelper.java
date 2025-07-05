@@ -1,8 +1,14 @@
 package com.example.event_management.common.helpers.admin;
 
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import com.example.event_management.common.AppStatus;
+import com.example.event_management.entity.Event;
 
 public class EventHelper {
 
@@ -20,6 +26,24 @@ public class EventHelper {
 
     public static String createUserUniqueRegistrationID() {
         return "REG-" + System.currentTimeMillis();
+    }
+
+    public static Map<String, Object> eventRegistrationCases(Event event) {
+        Map<String, Object> result = new HashMap<>();
+
+        if (event.getStatus() != AppStatus.EStatus.ACTIVE) {
+            result.put("status", false);
+            result.put("msg", "Event is not active. You cannot register for this event");
+            return result;
+        }
+        if (LocalDate.now().isAfter(event.getRegistrationEndDate())) {
+            result.put("status", false);
+            result.put("msg", "Registration has been closed for this event");
+            return result;
+        }
+        result.put("status", true);
+        return result;
+
     }
 
 }
