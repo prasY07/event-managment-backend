@@ -27,7 +27,10 @@ public class EventRegistrationWithoutQRDto {
 
     private Long heardSourceId;
 
-    private Long stateId;
+        private String phoneNumber;
+    private Long countryId;
+    
+    // private Long stateId;
 
     private Long eventId;
 
@@ -37,11 +40,11 @@ public class EventRegistrationWithoutQRDto {
 
     private String zipcode;
 
-    private LocalDateTime createdAt;
+    // private LocalDateTime createdAt;
 
-    private LocalDateTime updatedAt;
+    // private LocalDateTime updatedAt;
 
-    private AppStatus.EventRegistrationAddedBy addedBy = AppStatus.EventRegistrationAddedBy.SELF;
+    // private AppStatus.EventRegistrationAddedBy addedBy = AppStatus.EventRegistrationAddedBy.SELF;
 
 
 }

@@ -23,6 +23,15 @@ public class EventRegistration {
 
     private String email;
 
+    
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
+
+    // New country relation
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false)
+    private Country country;
+
     @ManyToOne
     @JoinColumn(name = "member_type_id")
     private EventMemberType memberTypeId;

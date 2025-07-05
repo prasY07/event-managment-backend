@@ -5,13 +5,16 @@ import org.springframework.stereotype.Service;
 
 import com.example.event_management.admin.dto.EventRegistrationWithoutQRDto;
 import com.example.event_management.admin.dto.response.EventRegistrationWithoutQRResponse;
+import com.example.event_management.common.AppStatus;
 import com.example.event_management.common.helpers.admin.EventHelper;
 import com.example.event_management.common.service.QRCodeCreationEmailSendService;
+import com.example.event_management.entity.Country;
 import com.example.event_management.entity.Event;
 import com.example.event_management.entity.EventMemberType;
 import com.example.event_management.entity.EventRegistration;
 import com.example.event_management.entity.SocialMediaSource;
 import com.example.event_management.entity.State;
+import com.example.event_management.repository.ICountryRepo;
 import com.example.event_management.repository.IEventMemberTypeRepo;
 import com.example.event_management.repository.IEventRegistrationRepo;
 import com.example.event_management.repository.IEventRepo;
@@ -38,6 +41,9 @@ public class EventRegistrationService {
         @Autowired
         IEventMemberTypeRepo iEventMemberTypeRepo;
 
+        @Autowired
+        ICountryRepo iCountryRepo;
+
         // @Autowired
         // private EventHelper eventHelper;
 
@@ -52,8 +58,11 @@ public class EventRegistrationService {
                 SocialMediaSource heardSource = iSocialMediaSourceRepo.findById(dto.getHeardSourceId())
                                 .orElseThrow(() -> new EntityNotFoundException("Heard Source not found"));
 
-                State state = iStateRepo.findById(dto.getStateId())
-                                .orElseThrow(() -> new EntityNotFoundException("State not found"));
+                Country country = iCountryRepo.findById(dto.getCountryId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid country selected"));
+
+                // State state = iStateRepo.findById(dto.getStateId())
+                //                 .orElseThrow(() -> new EntityNotFoundException("State not found"));
 
                 // EventMemberType memberType =
                 // iEventMemberTypeRepo.findById(dto.getMemberTypeId())
@@ -76,11 +85,13 @@ public class EventRegistrationService {
                 registration.setMemberTypeId(memberType);
                 registration.setGender(dto.getGender());
                 registration.setHeardSourceId(heardSource);
-                registration.setState(state);
                 registration.setEvent(event);
                 registration.setAddress(dto.getAddress());
                 registration.setZipcode(dto.getZipcode());
-                registration.setAddedBy(dto.getAddedBy());
+                registration.setPhoneNumber(dto.getPhoneNumber());
+                registration.setCountry(country);
+                registration.setRegistrationId(EventHelper.createUserUniqueRegistrationID());
+                registration.setAddedBy(AppStatus.EventRegistrationAddedBy.ADMIN);
                 registration.setRegistrationId(registrationId);
 
                 // Save the entity
