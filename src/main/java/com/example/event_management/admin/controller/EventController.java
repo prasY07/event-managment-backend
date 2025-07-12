@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.event_management.admin.dto.EventDto;
-import com.example.event_management.admin.dto.EventUpdateStatusRequest;
 import com.example.event_management.admin.dto.response.EventResponse;
 import com.example.event_management.admin.service.impl.EventService;
 import com.example.event_management.common.response.ApiResponse;
@@ -50,13 +49,6 @@ public class EventController {
         return ApiResponse.success("Event added successfully", newEvent);
     }
 
-    @PutMapping("{id}/update-event-status")
-    public ResponseEntity<ApiResponse<EventResponse>> updateEStatusEvent(@PathVariable Long id,
-            @RequestBody EventUpdateStatusRequest request) {
-        EventResponse newEvent = eventService.updateEventEStatus(id, request);
-        return ApiResponse.success("event status update successfully", newEvent);
-    }
-
     @PutMapping("{id}/update-event")
     public ResponseEntity<ApiResponse<EventResponse>> updateEvent(@PathVariable Long id,
             @RequestBody EventDto eventDto) {
@@ -86,8 +78,7 @@ public class EventController {
 
     @PutMapping("{eventId}/update-status")
     public ResponseEntity<ApiResponse<EventResponse>> updateStatus(@PathVariable Long eventId) {
-        System.out.println("hi---" + eventId);
-        EventResponse newEvent = eventService.updateEventStatus(eventId);
+        EventResponse newEvent = eventService.updateStatus(eventId);
         return ApiResponse.success("Status Updated successfully", newEvent);
     }
 

@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.event_management.admin.dto.EventDto;
-import com.example.event_management.admin.dto.EventUpdateStatusRequest;
 import com.example.event_management.admin.dto.response.EventResponse;
 import com.example.event_management.admin.dto.response.UserShortResponse;
 import com.example.event_management.common.AppStatus;
@@ -123,27 +122,11 @@ public class EventService {
         return createResponse(savedEvent);
     }
 
-    public EventResponse updateEventEStatus(Long id, EventUpdateStatusRequest newStatus) {
+
+    public EventResponse updateStatus(Long id) {
         Event event = iEventRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Event not found"));
 
-        if (event.getEventStatus() == AppStatus.EventStatus.COMPLETED) {
-            throw new IllegalStateException("You cannot update the status as the event is already completed");
-        }
-
-        event.setEventStatus(newStatus.getEventStatus());
-        iEventRepo.save(event);
-
-        return createResponse(event);
-
-    }
-
-    public EventResponse updateEventStatus(Long id) {
-        Event event = iEventRepo.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Event not found"));
-
-        System.out.println(event.getEventStatus());
-        System.out.println(AppStatus.EventStatus.UPCOMING);
         if (event.getEventStatus() != AppStatus.EventStatus.UPCOMING) {
             throw new IllegalStateException("You cannot update the status as the event is not upcoming");
         }
