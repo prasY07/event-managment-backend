@@ -1,14 +1,20 @@
 package com.example.event_management.admin.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.event_management.admin.dto.EventRegistrationWithoutQRDto;
+import com.example.event_management.admin.dto.response.EventRegisterUserShortResponse;
 import com.example.event_management.admin.dto.response.EventRegistrationWithoutQRResponse;
 import com.example.event_management.common.AppStatus;
 import com.example.event_management.common.helpers.admin.EventHelper;
+import com.example.event_management.common.response.PaginationResponse;
 import com.example.event_management.common.service.QRCodeCreationEmailSendService;
 import com.example.event_management.entity.Country;
 import com.example.event_management.entity.Event;
@@ -45,11 +51,29 @@ public class EventRegistrationService {
         @Autowired
         ICountryRepo iCountryRepo;
 
-        // @Autowired
-        // private EventHelper eventHelper;
-
         @Autowired
         private QRCodeCreationEmailSendService qrCodeCreationEmailSendService;
+
+
+
+        
+    public PaginationResponse<List<EventRegisterUserShortResponse>> getAllEventUser( Long eventId,int page, int size) {
+        Pageable pageable = (Pageable) PageRequest.of(page, size);
+        Page<EventRegistration> eventRegisterPage = iEventRegistrationRepo.findByEventId(eventId,pageable);
+
+        List<EventRegisterUserShortResponse> registerUser = eventRegisterPage.getContent()
+                .stream()
+                .map(this::createShortResponse)
+                .toList();
+
+        return new PaginationResponse<>(
+                registerUser,
+                page,
+                size,
+                eventRegisterPage.getTotalElements(),
+                eventRegisterPage.getTotalPages());
+    }
+
 
         public EventRegistrationWithoutQRResponse newRegistration(EventRegistrationWithoutQRDto dto) {
 
@@ -114,6 +138,7 @@ public class EventRegistrationService {
                                 dto.getEventId(),
                                 registrationId,
                                 dto.getEmail());
+
                 // Convert to response
                 return createResponse(saved);
         }
@@ -137,6 +162,14 @@ public class EventRegistrationService {
                                 eventRegistration.getCreatedAt(),
                                 eventRegistration.getUpdatedAt(),
                                 eventRegistration.getAddedBy());
+        }
+
+         private EventRegisterUserShortResponse createShortResponse(EventRegistration eventRegistration) {
+                return new EventRegisterUserShortResponse(
+                                eventRegistration.getId(),
+                                eventRegistration.getName(),
+                                eventRegistration.getEmail(),
+                                eventRegistration.getCreatedAt().toLocalDate());
         }
 
 }

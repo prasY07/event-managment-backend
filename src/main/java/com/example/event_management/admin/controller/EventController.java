@@ -30,7 +30,7 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping("/list")
-    public ResponseEntity<ApiResponse<PaginationResponse<List<EventResponse>>>> allUsersWithPagination(
+    public ResponseEntity<ApiResponse<PaginationResponse<List<EventResponse>>>> allEventsWithPagination(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "1") int size) {
         PaginationResponse<List<EventResponse>> paginatedUsers = eventService.getAllEvents(page, size);
