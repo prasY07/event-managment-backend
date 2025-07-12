@@ -1,0 +1,632 @@
+{
+	"info": {
+		"_postman_id": "ce1ced71-5bd3-447a-b7a7-90c2aa1d9db9",
+		"name": "event managment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40706533"
+	},
+	"item": [
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "secret123",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n       \"name\" : \"prashant 2\",\n    \"email\" : \"prashant2@gmail.com\",\n    \"phoneNumber\" : \"7863213222\",\n    \"role\" : \"EVENT_MANAGER\",\n    \"countryId\" : 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}admin/user/create",
+									"host": [
+										"{{base_url}}admin"
+									],
+									"path": [
+										"user",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}user/list",
+									"host": [
+										"{{base_url}}user"
+									],
+									"path": [
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List with pagination",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}user/user-list",
+									"host": [
+										"{{base_url}}user"
+									],
+									"path": [
+										"user-list"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "single user",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}user/2/user-information",
+									"host": [
+										"{{base_url}}user"
+									],
+									"path": [
+										"2",
+										"user-information"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"prashant11\",\n    \"email\" : \"prashant1@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}user/1/update",
+									"host": [
+										"{{base_url}}user"
+									],
+									"path": [
+										"1",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "event",
+					"item": [
+						{
+							"name": "event member access",
+							"item": [
+								{
+									"name": "provided access",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"eventId\": \"10\",\n    \"memberId\": 5,\n    \"accessId\": [\n        1,\n        2\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}event-access/create-access",
+											"host": [
+												"{{base_url}}event-access"
+											],
+											"path": [
+												"create-access"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "New Request",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}event-access/10/access-list",
+											"host": [
+												"{{base_url}}event-access"
+											],
+											"path": [
+												"10",
+												"access-list"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "event member",
+							"item": [
+								{
+									"name": "event-member-list",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}event-member/1/list",
+											"host": [
+												"{{base_url}}event-member"
+											],
+											"path": [
+												"1",
+												"list"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}event-member/12/delete-member",
+											"host": [
+												"{{base_url}}event-member"
+											],
+											"path": [
+												"12",
+												"delete-member"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "update entry fees",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\" : 2,\n    \"entryFees\" :1000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}event-member/1/update-fees",
+											"host": [
+												"{{base_url}}event-member"
+											],
+											"path": [
+												"1",
+												"update-fees"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "event access",
+							"item": [
+								{
+									"name": "event-access-type-list",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}event-access/12/list",
+											"host": [
+												"{{base_url}}event-access"
+											],
+											"path": [
+												"12",
+												"list"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}event-access/16/delete-access-type",
+											"host": [
+												"{{base_url}}event-access"
+											],
+											"path": [
+												"16",
+												"delete-access-type"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "query member",
+							"item": []
+						},
+						{
+							"name": "Event Registration",
+							"item": [
+								{
+									"name": "Registration",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Prashant Yadav\",\n  \"email\": \"prashant@example.com\",\n  \"memberTypeId\": 1,\n  \"gender\": \"Male\",\n  \"heardSourceId\": 2,\n  \"phoneNumber\" : \"7863213222\",\n  \"countryId\" : 1,\n  \"eventId\": 1,\n  \"address\": \"123 Main Street, Jaipur\",\n  \"zipcode\": \"302001\"\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}event-register/create",
+											"host": [
+												"{{base_url}}event-register"
+											],
+											"path": [
+												"create"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "update status",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}admin/event/1/update-status",
+									"host": [
+										"{{base_url}}admin"
+									],
+									"path": [
+										"event",
+										"1",
+										"update-status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "// {\n//   \"title\": \"Tech Conference 2025\",\n//   \"startDate\": \"2025-06-15\",\n//   \"endDate\": \"2025-06-17\",\n//   \"venue\": \"Jaipur Convention Center\",\n//   \"address\": \"Tonk Road, Jaipur\",\n//   \"category\": \"Technology not\",\n//   \"description\": \"An annual tech event bringing developers together.\",\n//   \"privacyPolicy\": \" this is privacy policy\",\n//   \"userId\": 1\n// }\n{\n    \"title\": \"test\",\n    \"address\": \"sdada\",\n    \"venue\": \"test\",\n    \"category\": \"asdsadsa\",\n    \"description\": \"asdasdsaasdsad sdsadsadsa\",\n    \"privacyPolicy\": \"<p>&nbsp;asdsad<br>sdaajksbd sad<br>SADS<br>AD</p><p>saD</p><p>sa</p><p>das</p>\",\n    \"startDate\": \"2025-05-22\",\n    \"endDate\": \"2025-05-24\",\n    \"userId\": \"1\",\n    \"eventMemberType\" : \"student,creator\",\n    \"eventAccessType\"  : \"zone1 , zone 2\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}event/create",
+									"host": [
+										"{{base_url}}event"
+									],
+									"path": [
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "multipart/form-data",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Tech Conference 2025\",\n  \"startDate\": \"2025-06-15\",\n  \"endDate\": \"2025-06-17\",\n  \"venue\": \"Jaipur Convention Center\",\n  \"address\": \"Tonk Road, Jaipur up\",\n  \"category\": \"Technology not\",\n  \"description\": \"An annual tech event bringing developers together.\",\n  \"privacyPolicy\": \" this is privacy policy\",\n  \"userId\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}event/1/update-event",
+									"host": [
+										"{{base_url}}event"
+									],
+									"path": [
+										"1",
+										"update-event"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}event/list",
+									"host": [
+										"{{base_url}}event"
+									],
+									"path": [
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "upload banner",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/home/prashant/Pictures/Screenshots/Screenshot from 2025-05-13 18-18-32.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}event/1/upload-banner",
+									"host": [
+										"{{base_url}}event"
+									],
+									"path": [
+										"1",
+										"upload-banner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "single event information",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}event/1/event-information",
+									"host": [
+										"{{base_url}}event"
+									],
+									"path": [
+										"1",
+										"event-information"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "info with uuid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}event/a2267178-0eda-46d5-904c-067a84f8b28f/event-info",
+									"host": [
+										"{{base_url}}event"
+									],
+									"path": [
+										"a2267178-0eda-46d5-904c-067a84f8b28f",
+										"event-info"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "common",
+			"item": [
+				{
+					"name": "social media sources",
+					"item": [
+						{
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}common/social-media/list",
+									"host": [
+										"{{base_url}}common"
+									],
+									"path": [
+										"social-media",
+										"list"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "state",
+					"item": [
+						{
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}state/list",
+									"host": [
+										"{{base_url}}state"
+									],
+									"path": [
+										"list"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "country",
+					"item": [
+						{
+							"name": "list",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"prashant 2\",\n    \"email\" : \"prashant2@gmail.com\",\n    \"phoneNumber\" : \"7863213222\",\n    \"role\" : \"EVENT_MANAGER\",\n    \"countryId\" : 1\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}common/country/list",
+									"host": [
+										"{{base_url}}common"
+									],
+									"path": [
+										"country",
+										"list"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
