@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
+import com.example.event_management.common.helpers.admin.EventCreationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -49,6 +50,9 @@ public class EventService {
     @Autowired
     IEventAccessTypeRepo iEventAccessType;
 
+    @Autowired
+    EventCreationHelper eventCreationHelper;
+
     public PaginationResponse<List<EventResponse>> getAllEvents(int page, int size) {
         Pageable pageable = (Pageable) PageRequest.of(page, size);
         Page<Event> eventPage = iEventRepo.findAll(pageable);
@@ -81,45 +85,50 @@ public class EventService {
         User user = iUserRepo.findById(eventDto.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
-        String uniqueEventId = UUID.randomUUID().toString(); // or your custom logic
+        Event savedEvent = eventCreationHelper.addEvent(eventDto, user);
 
-        // Create and populate Event entity
-        Event event = new Event();
-        event.setTitle(eventDto.getTitle());
-        event.setStartDate(eventDto.getStartDate());
-        event.setEndDate(eventDto.getEndDate());
-        event.setRegistrationEndDate(eventDto.getRegistrationEndDate());
-        event.setVenue(eventDto.getVenue());
-        event.setAddress(eventDto.getAddress());
-        event.setCategory(eventDto.getCategory());
-        event.setDescription(eventDto.getDescription());
-        event.setPrivacyPolicy(eventDto.getPrivacyPolicy());
-        event.setEventStartTime(LocalTime.parse(eventDto.getEventStartTime()));
-        event.setEventEndTime(LocalTime.parse(eventDto.getEventEndTime()));
-        event.setEventStatus(AppStatus.EventStatus.UPCOMING);
-        event.setUser(user);
-        event.setEventId(uniqueEventId);
-
-        // Save to DB
-        Event savedEvent = iEventRepo.save(event);
-        // Long eventId = savedEvent.getId();
-
-        List<String> memberTypes = EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventMemberType());
-        for (String memberTypeName : memberTypes) {
-            EventMemberType eventMemberType = new EventMemberType();
-            eventMemberType.setEventId(savedEvent); // Set full Event object
-            eventMemberType.setMemberTypeName(memberTypeName);
-            iEventMemberType.save(eventMemberType);
-        }
-
-        List<String> accessTypes = EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventAccessType());
-        for (String accessType : accessTypes) {
-            EventAccessType eventAccessType = new EventAccessType();
-            eventAccessType.setEventId(savedEvent); // Set full Event object
-            eventAccessType.setEventAccessTypeName(accessType);
-            iEventAccessType.save(eventAccessType);
-        }
         return createResponse(savedEvent);
+//        String uniqueEventId = UUID.randomUUID().toString(); // or your custom logic
+
+//        // Create and populate Event entity
+//        Event event = new Event();
+//        event.setTitle(eventDto.getTitle());
+//        event.setStartDate(eventDto.getStartDate());
+//        event.setEndDate(eventDto.getEndDate());
+//        event.setRegistrationEndDate(eventDto.getRegistrationEndDate());
+//        event.setVenue(eventDto.getVenue());
+//        event.setAddress(eventDto.getAddress());
+//        event.setCategory(eventDto.getCategory());
+//        event.setDescription(eventDto.getDescription());
+//        event.setPrivacyPolicy(eventDto.getPrivacyPolicy());
+//        event.setEventStartTime(LocalTime.parse(eventDto.getEventStartTime()));
+//        event.setEventEndTime(LocalTime.parse(eventDto.getEventEndTime()));
+//        event.setEventStatus(AppStatus.EventStatus.UPCOMING);
+//        event.setUser(user);
+//        event.setEventId(uniqueEventId);
+//
+//        // Save to DB
+//        Event savedEvent = iEventRepo.save(event);
+//        // Long eventId = savedEvent.getId();
+//
+//        List<String> memberTypes = EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventMemberType());
+//        for (String memberTypeName : memberTypes) {
+//            EventMemberType eventMemberType = new EventMemberType();
+//            eventMemberType.setEventId(savedEvent); // Set full Event object
+//            eventMemberType.setMemberTypeName(memberTypeName);
+//            iEventMemberType.save(eventMemberType);
+//        }
+//
+//        List<String> accessTypes = EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventAccessType());
+//        for (String accessType : accessTypes) {
+//            EventAccessType eventAccessType = new EventAccessType();
+//            eventAccessType.setEventId(savedEvent); // Set full Event object
+//            eventAccessType.setEventAccessTypeName(accessType);
+//            iEventAccessType.save(eventAccessType);
+//        }
+
+        // create Date event event_days
+//        return createResponse(savedEvent);
     }
 
 

@@ -1,10 +1,5 @@
 package com.example.event_management.admin.dto;
 
-
-import java.time.LocalDateTime;
-
-import com.example.event_management.common.AppStatus;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +22,7 @@ public class EventRegistrationWithoutQRDto {
 
     private Long heardSourceId;
 
-        private String phoneNumber;
+    private String phoneNumber;
     private Long countryId;
     
     // private Long stateId;

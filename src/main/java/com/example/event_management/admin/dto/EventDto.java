@@ -51,6 +51,9 @@ public class EventDto {
 
     private String eventAccessType;
 
+    private String eventServices;
+
+
     // Custom toString method to print the content of EventDto in a readable format
     @Override
     public String toString() {
