@@ -54,17 +54,17 @@ public class UserService {
         Country country = icountryRepo.findById(addUpdateUserDto.getCountryId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid country selected"));
 
-        String registrationId;
-
-        do {
-            registrationId = EventHelper.createUserUniqueRegistrationID();
-        } while (iUserRepo.existsByUserRegId(registrationId));
+//        String registrationId;
+//
+//        do {
+//            registrationId = EventHelper.createUserUniqueRegistrationID();
+//        } while (iUserRepo.existsByUserRegId(registrationId));
 
         User user = new User();
         user.setName(addUpdateUserDto.getName());
         user.setEmail(addUpdateUserDto.getEmail());
         user.setPhoneNumber(addUpdateUserDto.getPhoneNumber());
-        user.setUserRegId(registrationId);
+//        user.setUserRegId(registrationId);
         user.setPassword(UserPassword.createAndHashPassword());
         user.setRole(addUpdateUserDto.getRole());
         user.setCountry(country); // Correct way to set the entire country entity

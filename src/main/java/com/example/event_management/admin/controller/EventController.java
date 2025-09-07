@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.event_management.admin.dto.CreateEventDto;
 import com.example.event_management.admin.dto.EventDto;
 import com.example.event_management.admin.dto.response.EventResponse;
 import com.example.event_management.admin.service.impl.EventService;
@@ -45,7 +46,7 @@ public class EventController {
 
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<EventResponse>> createEvent(
-            @RequestBody EventDto eventDto) {
+            @RequestBody CreateEventDto eventDto) {
         EventResponse newEvent = eventService.createNewEvent(eventDto);
         return ApiResponse.success("Event added successfully", newEvent);
     }

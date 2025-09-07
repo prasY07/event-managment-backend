@@ -1,9 +1,12 @@
 package com.example.event_management.common.helpers.admin;
 
-import com.example.event_management.admin.dto.EventDto;
+import com.example.event_management.admin.dto.CreateEventDto;
 import com.example.event_management.common.AppStatus;
 import com.example.event_management.entity.*;
 import com.example.event_management.repository.*;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +14,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class EventCreationHelper {
@@ -27,35 +29,55 @@ public class EventCreationHelper {
 
     @Autowired
     IEventDayRepository iEventDayRepository;
-
-    @Autowired
-    EventHelper eventHelper;
+//
+//    @Autowired
+//    EventHelper eventHelper;
 
     @Autowired
     IEventServiceRepo iEventServiceRepo;
 
-    public Event addEvent(EventDto eventDto, User user)
+    @Transactional
+    public Event addEvent(CreateEventDto eventDto, User user)
     {
+
+        System.out.println("hhere");
         Event saveEvent = createEvent(eventDto,user);
         // Add Event Member Type
+        System.out.println("hhere1");
+
         Boolean eventMemberType = addEventMemberType(eventDto,saveEvent);
 
         // Add Event Access Type
+        System.out.println("hhere2");
+
         Boolean eventAccessType = addAccessType(eventDto,saveEvent);
 
         // Add Event Days
+        System.out.println("hher3");
+
         Boolean addEventDays = createEventDay(eventDto,saveEvent);
 
         // Add Event Service
+        System.out.println("hhere4");
+
         Boolean addService = createEventService(eventDto,saveEvent);
 
+        System.out.println("hher5");
         return  saveEvent;
+
 
     }
 
-    private Event createEvent(EventDto eventDto, User user)
+
+    private Event createEvent(CreateEventDto eventDto, User user)
     {
-        String uniqueEventId = UUID.randomUUID().toString(); // or your custom logic
+
+        String eventId;
+        do {
+            eventId = EventHelper.createUniqueEventID();
+        } while (iEventRepo.existsByEventId(eventId));
+
+                System.out.println("eventId--"+eventId);
 
         // Create and populate Event entity
         Event event = new Event();
@@ -72,14 +94,18 @@ public class EventCreationHelper {
         event.setEventEndTime(LocalTime.parse(eventDto.getEventEndTime()));
         event.setEventStatus(AppStatus.EventStatus.UPCOMING);
         event.setUser(user);
-        event.setEventId(uniqueEventId);
+        event.setEventId(eventId);
+
+        System.out.println("hhere66");
 
         // Save to DB
         return iEventRepo.save(event);
     }
 
-    private Boolean addEventMemberType(EventDto eventDto,Event savedEvent)
+    private Boolean addEventMemberType(CreateEventDto eventDto,Event savedEvent)
     {
+        System.out.println("hhere661");
+
         List<String> memberTypes = com.example.event_management.common.helpers.admin.EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventMemberType());
         for (String memberTypeName : memberTypes) {
             EventMemberType eventMemberType = new EventMemberType();
@@ -87,11 +113,15 @@ public class EventCreationHelper {
             eventMemberType.setMemberTypeName(memberTypeName);
             iEventMemberType.save(eventMemberType);
         }
+        System.out.println("hhere662");
+
         return Boolean.TRUE;
     }
 
-    private Boolean addAccessType(EventDto eventDto,Event savedEvent)
+    private Boolean addAccessType(CreateEventDto eventDto,Event savedEvent)
     {
+        System.out.println("hhere6613");
+
         List<String> accessTypes = EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventAccessType());
         for (String accessType : accessTypes) {
             EventAccessType eventAccessType = new EventAccessType();
@@ -99,31 +129,39 @@ public class EventCreationHelper {
             eventAccessType.setEventAccessTypeName(accessType);
             iEventAccessType.save(eventAccessType);
         }
+        System.out.println("hhere66123");
+
         return Boolean.TRUE;
     }
 
-    private Boolean createEventDay(EventDto eventDto, Event savedEvent)
+    private Boolean createEventDay(CreateEventDto eventDto, Event savedEvent)
     {
+                System.out.println("hhere66132");
+                System.out.println("savedEvent"+savedEvent);
+
         // generate days between start and end
         LocalDate currentDate = eventDto.getStartDate();
-        List<EventDay> eventDays = new ArrayList<>();
+        // List<EventDay> eventDays = new ArrayList<>();
 
         while (!currentDate.isAfter(eventDto.getEndDate())) {
             EventDay eventDay = new EventDay();
             eventDay.setEvent(savedEvent);
             eventDay.setEventDate(currentDate);
-            eventDays.add(eventDay);
+            // eventDays.add(eventDay);
+             iEventDayRepository.save(eventDay);
 
             currentDate = currentDate.plusDays(1);
         }
 
+                        System.out.println("hhere661322");
+
         // save all event days
-        iEventDayRepository.saveAll(eventDays);
+                        System.out.println("hhere6612322");
 
         return Boolean.TRUE;
     }
 
-    private Boolean createEventService(EventDto eventDto, Event savedEvent)
+    private Boolean createEventService(CreateEventDto eventDto, Event savedEvent)
     {
         List<String> accessTypes = EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventServices());
         for (String accessType : accessTypes) {
@@ -133,6 +171,5 @@ public class EventCreationHelper {
             iEventServiceRepo.save(eventService);
         }
         return Boolean.TRUE;
-
     }
 }

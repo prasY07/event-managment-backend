@@ -22,4 +22,8 @@ public interface IEventRepo extends JpaRepository<Event, Long> {
     @Query(value = "SELECT * FROM events WHERE event_id = :eventUUID", nativeQuery = true)
     Optional<Event> findByEventUUID(String eventUUID);
 
+    boolean existsByEventId(String eventId);
+
+
+
 }

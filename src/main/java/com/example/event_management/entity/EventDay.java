@@ -11,12 +11,13 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "event_days")
 public class EventDay {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long dayId;
 
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 
     private LocalDate eventDate;

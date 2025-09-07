@@ -21,7 +21,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "email", "phone_number", "user_reg_id" })
+        @UniqueConstraint(columnNames = { "email", "phone_number" })
 })
 
 public class User {
@@ -42,8 +42,8 @@ public class User {
     @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
-    @Column(name = "user_reg_id", nullable = false, unique = true)
-    private String userRegId;
+//    @Column(name = "user_reg_id", nullable = false, unique = true)
+//    private String userRegId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

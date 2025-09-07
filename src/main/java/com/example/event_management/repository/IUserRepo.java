@@ -32,6 +32,6 @@ public interface IUserRepo extends JpaRepository<User, Long> {
 
     boolean existsByPhoneNumberAndIdNot(String phoneNumber, Long id);
 
-    boolean existsByUserRegId(String registrationId);
+    // boolean existsByUserRegId(String registrationId);
 
 }

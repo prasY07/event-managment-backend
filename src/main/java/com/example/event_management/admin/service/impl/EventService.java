@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.event_management.admin.dto.CreateEventDto;
 import com.example.event_management.admin.dto.EventDto;
 import com.example.event_management.admin.dto.response.EventResponse;
 import com.example.event_management.admin.dto.response.UserShortResponse;
@@ -81,10 +82,11 @@ public class EventService {
         return createResponse(event);
     }
 
-    public EventResponse createNewEvent(EventDto eventDto) {
+    public EventResponse createNewEvent(CreateEventDto eventDto) {
         User user = iUserRepo.findById(eventDto.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
+        System.out.println("Hi----");
         Event savedEvent = eventCreationHelper.addEvent(eventDto, user);
 
         return createResponse(savedEvent);

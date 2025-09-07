@@ -57,7 +57,7 @@ INSERT INTO countries (name, country_code) VALUES
 ('France', '+33'),
 ('Japan', '+81'),
 ('China', '+86'),
-('Brazil', '+55')
+('Brazil', '+55');
 -----------------------------------------------------------------------------------
 CREATE TABLE states (
      id INT AUTO_INCREMENT PRIMARY KEY,
