@@ -1,18 +1,26 @@
 package com.example.event_management.admin.service.impl;
 
-import com.example.event_management.admin.dto.response.EventServiceResponse;
-import com.example.event_management.entity.*;
-import com.example.event_management.entity.EventService;
-import com.example.event_management.repository.*;
-import jakarta.transaction.Transactional;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.event_management.admin.dto.AssignEventServiceDayDto;
+import com.example.event_management.admin.dto.response.EventDayResponse;
+import com.example.event_management.admin.dto.response.EventServiceResponse;
+import com.example.event_management.entity.Event;
+import com.example.event_management.entity.EventDay;
+import com.example.event_management.entity.EventMemberType;
+import com.example.event_management.entity.EventService;
+import com.example.event_management.entity.MemberTypeServiceAccess;
+import com.example.event_management.repository.IEventDayRepo;
+import com.example.event_management.repository.IEventMemberTypeRepo;
+import com.example.event_management.repository.IEventRepo;
+import com.example.event_management.repository.IEventServiceRepo;
+import com.example.event_management.repository.IMemberTypeServiceAccessRepo;
 
 import jakarta.persistence.EntityNotFoundException;
-
-import java.util.List;
+import jakarta.transaction.Transactional;
 
 
 @Service
@@ -25,20 +33,29 @@ public class EventDayService {
     IMemberTypeServiceAccessRepo iMemberTypeServiceAccessRepo;
 
     @Autowired
-    IEventDayRepository iEventDayRepository;
-
-    @Autowired
     IEventServiceRepo iEventServiceRepo;
 
     @Autowired
     IEventMemberTypeRepo iEventMemberTypeRepo;
 
+    @Autowired
+    IEventDayRepo iEventDayRepo;
 
 
 
-    public List<EventServiceResponse> getAllEventService() {
-        List<EventService> eventService = iEventServiceRepo.findAll();
+
+    public List<EventServiceResponse> getAllEventService(Long EventId) {
+        Event event = iEventRepo.findById(EventId).
+                orElseThrow(() -> new EntityNotFoundException("Event not found"));
+        List<EventService> eventService = iEventServiceRepo.findByEventId(event);
         return eventService.stream().map(this::createServiceResponse).toList();
+    }
+
+    public List<EventDayResponse> getAllEventDay(Long EventId) {
+        Event event = iEventRepo.findById(EventId).
+                orElseThrow(() -> new EntityNotFoundException("Event not found"));
+        List<EventDay> eventDay = iEventDayRepo.findByEvent(event);
+        return eventDay.stream().map(this::createEventDayResponse).toList();
     }
 
 
@@ -48,7 +65,7 @@ public class EventDayService {
         Event event = iEventRepo.findById(assignEventServiceDayDto.getEventId()).
                 orElseThrow(() -> new EntityNotFoundException("Event not found"));
 
-        EventDay eventDay = iEventDayRepository.findById(assignEventServiceDayDto.getDayId()).
+        EventDay eventDay = iEventDayRepo.findById(assignEventServiceDayDto.getDayId()).
             orElseThrow(() -> new EntityNotFoundException("Event not found"));
 
         if(iMemberTypeServiceAccessRepo.findByEventIdAndDayId(event.getId(),eventDay.getDayId()) > 0)
@@ -85,8 +102,16 @@ public class EventDayService {
         );
     }
 
+        private EventDayResponse createEventDayResponse(EventDay eventDay) {
+        return new EventDayResponse(
+                eventDay.getDayId(),
+                eventDay.getEventDate()
+        );
+    }
+
 
        
    
+    
 
 }

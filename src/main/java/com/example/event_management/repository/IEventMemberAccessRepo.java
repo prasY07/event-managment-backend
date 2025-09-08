@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional; // <-- Required for transaction management
 
 import com.example.event_management.entity.EventMemberAccess;
+import com.example.event_management.entity.EventMemberType;
 
 public interface IEventMemberAccessRepo extends JpaRepository<EventMemberAccess, Long> {
     @Modifying
@@ -28,5 +29,7 @@ public interface IEventMemberAccessRepo extends JpaRepository<EventMemberAccess,
     @Transactional
     @Query(value = "DELETE FROM event_member_access  WHERE event_access_type_id = :eventAccessType", nativeQuery = true)
     void deleteByAccessTypeId(@Param("eventAccessType") Long eventAccessType);
+
+    List<EventMemberAccess> findByMemberTypeId(EventMemberType eventMemberType);
 
 }
