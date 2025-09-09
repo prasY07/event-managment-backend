@@ -16,6 +16,6 @@ public interface IEventDayRepo extends JpaRepository<EventDay , Long> {
 
     List<EventDay> findByEvent(Event event);
 
-    @Query(value="Select * from event_days where event_date : date AND event_id : eventId ", nativeQuery=true)
+    @Query(value="Select * from event_days where event_date = :date AND event_id = :eventId ", nativeQuery=true)
     EventDay checkDayExists(@Param("date") LocalDate date , @Param("eventId") Long eventId );
 }

@@ -42,8 +42,6 @@ public class EventDayService {
     IEventDayRepo iEventDayRepo;
 
 
-
-
     public List<EventServiceResponse> getAllEventService(Long EventId) {
         Event event = iEventRepo.findById(EventId).
                 orElseThrow(() -> new EntityNotFoundException("Event not found"));

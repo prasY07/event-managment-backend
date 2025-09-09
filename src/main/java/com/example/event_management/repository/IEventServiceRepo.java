@@ -15,6 +15,6 @@ public interface IEventServiceRepo extends JpaRepository<EventService, Long> {
 
     List<EventService> findByEventId(Event event);
 
-    @Query(value="Select * from event_services where service_id in :id")
+    @Query(value="Select * from event_services where service_id in :id",nativeQuery=true)
     List<EventService> getAllEventServices (@Param("id") List<Long> id);
 }

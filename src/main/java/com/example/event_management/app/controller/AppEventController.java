@@ -7,29 +7,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.event_management.app.dto.ServiceUsagesDto;
 import com.example.event_management.app.dto.response.EventDayServiceListResponse;
 import com.example.event_management.app.dto.response.UserResponse;
-import com.example.event_management.app.service.impl.EventService;
+import com.example.event_management.app.service.impl.AppEventService;
 import com.example.event_management.common.response.ApiResponse;
 
 @RestController("appEventController")
 @RequestMapping("api/app/event")
-public class EventController {
+public class AppEventController {
 
      @Autowired
-     EventService eventService; 
+     AppEventService appEventService;
 
      @GetMapping("/{redId}/user-information")
      public ResponseEntity<ApiResponse<UserResponse>> getUserInformation(@PathVariable String redId) {
 
-       UserResponse res =    eventService.getUserInformation(redId);
+       UserResponse res =    appEventService.getUserInformation(redId);
        return ApiResponse.success("Information", res);
 
      }
@@ -41,13 +38,16 @@ public class EventController {
             @RequestParam Long memberTypeId
      )
      {
-          List<EventDayServiceListResponse> res =   eventService.getEventDayService(date,eventid,memberTypeId);   
+          System.out.println("date"+date);
+          System.out.println("eventid"+eventid);
+          System.out.println("memberTypeId"+memberTypeId);
+          List<EventDayServiceListResponse> res =   appEventService.getEventDayService(date,memberTypeId,eventid);
           return ApiResponse.success("All List",res);
      }
 
-     @PostMapping ResponseEntity<ApiResponse<String>> markServiceUsages(@RequestBody ServiceUsagesDto serviceUsagesDto)
-     {
-              Boolean  res =    eventService.checkAndMarkServiceUsages();
-          return ApiResponse.success("All List",null);
-     }
+//      @PostMapping ResponseEntity<ApiResponse<String>> markServiceUsages(@RequestBody ServiceUsagesDto serviceUsagesDto)
+//      {
+//               Boolean  res =    appEventService.checkAndMarkServiceUsages();
+//           return ApiResponse.success("All List",null);
+//      }
 }

@@ -1,18 +1,27 @@
 package com.example.event_management.common.helpers.admin;
 
-import com.example.event_management.admin.dto.CreateEventDto;
-import com.example.event_management.common.AppStatus;
-import com.example.event_management.entity.*;
-import com.example.event_management.repository.*;
-
-import jakarta.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
+import com.example.event_management.admin.dto.CreateEventDto;
+import com.example.event_management.common.AppStatus;
+import com.example.event_management.entity.Event;
+import com.example.event_management.entity.EventAccessType;
+import com.example.event_management.entity.EventDay;
+import com.example.event_management.entity.EventMemberType;
+import com.example.event_management.entity.EventService;
+import com.example.event_management.entity.User;
+import com.example.event_management.repository.IEventAccessTypeRepo;
+import com.example.event_management.repository.IEventDayRepo;
+import com.example.event_management.repository.IEventMemberTypeRepo;
+import com.example.event_management.repository.IEventRepo;
+import com.example.event_management.repository.IEventServiceRepo;
+
+import jakarta.transaction.Transactional;
 
 @Component
 public class EventCreationHelper {
@@ -28,9 +37,6 @@ public class EventCreationHelper {
 
     @Autowired
     IEventDayRepo iEventDayRepo;
-//
-//    @Autowired
-//    EventHelper eventHelper;
 
     @Autowired
     IEventServiceRepo iEventServiceRepo;
@@ -135,8 +141,6 @@ public class EventCreationHelper {
 
     private Boolean createEventDay(CreateEventDto eventDto, Event savedEvent)
     {
-                System.out.println("hhere66132");
-                System.out.println("savedEvent"+savedEvent);
 
         // generate days between start and end
         LocalDate currentDate = eventDto.getStartDate();

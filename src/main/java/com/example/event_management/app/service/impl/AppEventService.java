@@ -18,6 +18,7 @@ import com.example.event_management.entity.EventAccessType;
 import com.example.event_management.entity.EventDay;
 import com.example.event_management.entity.EventMemberType;
 import com.example.event_management.entity.EventRegistration;
+import com.example.event_management.entity.EventService;
 import com.example.event_management.repository.IEventAccessTypeRepo;
 import com.example.event_management.repository.IEventDayRepo;
 import com.example.event_management.repository.IEventMemberAccessRepo;
@@ -30,7 +31,7 @@ import com.example.event_management.repository.IMemberTypeServiceAccessRepo;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service("appEventService")
-public class EventService {
+public class AppEventService {
 
     @Autowired
     IEventRegistrationRepo iEventRegistrationRepo;
@@ -69,29 +70,29 @@ public class EventService {
 
     }
 
-    public List<EventDayServiceListResponse> getEventDayService(LocalDate date, Long MemberTypeId, Long eventId) {
-        Event event = iEventRepo.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Event not found"));
-        EventDay eventDay = iEventDayRepo.checkDayExists(date, eventId);
-        if (eventDay == null) {
-            throw new DataNotFoundException("Day Not Found");
-        }
-
-        EventMemberType member = iEventMemberTypeRepo.findById(MemberTypeId).orElseThrow(() -> new EntityNotFoundException("member not found"));
-
-        List<Long> allServiceList = iMemberTypeServiceAccessRepo.getAllServiceId(event.getId(), eventDay.getDayId(), member.getId());
-        if (allServiceList == null || allServiceList.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        List<com.example.event_management.entity.EventService> getAllServices = IEventServiceRepo.getAllEventServices(allServiceList);
-
-        List<EventDayServiceListResponse> serviceList = getAllServices
-                .stream()
-                .map(this::getEventServiceList) // convert entity -> response
-                .toList();
-
-                return serviceList;
+public List<EventDayServiceListResponse> getEventDayService(LocalDate date, Long MemberTypeId, Long eventId) {
+    Event event = iEventRepo.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Event not found=="));
+    EventDay eventDay = iEventDayRepo.checkDayExists(date, eventId);
+    if (eventDay == null) {
+        throw new DataNotFoundException("Day Not Found");
     }
+
+    EventMemberType member = iEventMemberTypeRepo.findById(MemberTypeId).orElseThrow(() -> new EntityNotFoundException("member not found"));
+
+    List<Long> allServiceList = iMemberTypeServiceAccessRepo.getAllServiceId(event.getId(), eventDay.getDayId(), member.getId());
+    if (allServiceList == null || allServiceList.isEmpty()) {
+        return Collections.emptyList();
+    }
+
+    List<EventService> getAllServices = IEventServiceRepo.getAllEventServices(allServiceList);
+
+    List<EventDayServiceListResponse> serviceList = getAllServices
+            .stream()
+            .map(this::getEventServiceList) // convert entity -> response
+            .toList();
+
+            return serviceList;
+}
 
     private UserResponse createResponse(EventRegistration userInfo) {
 
