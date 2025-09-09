@@ -47,6 +47,7 @@ public class EventController {
 
      @PostMapping ResponseEntity<ApiResponse<String>> markServiceUsages(@RequestBody ServiceUsagesDto serviceUsagesDto)
      {
+              Boolean  res =    eventService.checkAndMarkServiceUsages();
           return ApiResponse.success("All List",null);
      }
 }
