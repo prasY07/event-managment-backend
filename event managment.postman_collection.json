@@ -334,7 +334,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": \"Prashant Yadav\",\n  \"email\": \"prashant@example.com\",\n  \"memberTypeId\": 1,\n  \"gender\": \"Male\",\n  \"heardSourceId\": 1,\n  \"phoneNumber\" : \"7863213222\",\n  \"countryId\" : 1,\n  \"eventId\": 1,\n  \"address\": \"123 Main Street, Jaipur\",\n  \"zipcode\": \"302001\"\n}\n",
+											"raw": "{\n  \"name\": \"Prashant Yadav\",\n  \"email\": \"prashant@example.com\",\n  \"memberTypeId\": 5,\n  \"gender\": \"Male\",\n  \"heardSourceId\": 1,\n  \"phoneNumber\" : \"7863213222\",\n  \"countryId\" : 1,\n  \"eventId\": 3,\n  \"address\": \"123 Main Street, Jaipur\",\n  \"zipcode\": \"302001\"\n}\n",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -384,7 +384,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"eventId\": \"8\",\r\n    \"dayId\": 5,\r\n    \"serviceId\": [\r\n        5,\r\n        6\r\n    ],\r\n    \"memberTypeId\":[\r\n        11\r\n    ]\r\n}",
+											"raw": "{\r\n    \"eventId\": \"3\",\r\n    \"dayId\": 8,\r\n    \"serviceId\": [\r\n        5,\r\n        6,\r\n        7\r\n    ],\r\n    \"memberTypeId\":[\r\n       5\r\n    ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -732,12 +732,51 @@
 									"raw": "{\n  \"name\": \"Prashant Yadav\",\n  \"email\": \"prashant@example.com\",\n  \"memberTypeId\": 11,\n  \"gender\": \"Male\",\n  \"heardSourceId\": 2,\n  \"phoneNumber\" : \"7863213222\",\n  \"countryId\" : 1,\n  \"eventId\": 8,\n  \"address\": \"123 Main Street, Jaipur\",\n  \"zipcode\": \"302001\"\n}\n"
 								},
 								"url": {
-									"raw": "{{base_url}}event-register/create",
+									"raw": "{{base_url_app}}event/REG-1757427536923/user-information",
 									"host": [
-										"{{base_url}}event-register"
+										"{{base_url_app}}event"
 									],
 									"path": [
-										"create"
+										"REG-1757427536923",
+										"user-information"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-day-service",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Prashant Yadav\",\n  \"email\": \"prashant@example.com\",\n  \"memberTypeId\": 11,\n  \"gender\": \"Male\",\n  \"heardSourceId\": 2,\n  \"phoneNumber\" : \"7863213222\",\n  \"countryId\" : 1,\n  \"eventId\": 8,\n  \"address\": \"123 Main Street, Jaipur\",\n  \"zipcode\": \"302001\"\n}\n"
+								},
+								"url": {
+									"raw": "{{base_url_app}}event/get-day-service?date=2025-10-22&memberTypeId=5&eventid=3",
+									"host": [
+										"{{base_url_app}}event"
+									],
+									"path": [
+										"get-day-service"
+									],
+									"query": [
+										{
+											"key": "date",
+											"value": "2025-10-22"
+										},
+										{
+											"key": "memberTypeId",
+											"value": "5"
+										},
+										{
+											"key": "eventid",
+											"value": "3"
+										}
 									]
 								}
 							},
