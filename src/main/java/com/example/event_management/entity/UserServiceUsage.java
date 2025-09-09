@@ -37,7 +37,7 @@ public class UserServiceUsage {
     private Event eventId;
 
     @ManyToOne
-    @JoinColumn(name = "service_acess_id", nullable = false)
+    @JoinColumn(name = "service_access_id", nullable = false)
     private MemberTypeServiceAccess serviceAccessId;
     
     private java.time.LocalDateTime usedAt = java.time.LocalDateTime.now();

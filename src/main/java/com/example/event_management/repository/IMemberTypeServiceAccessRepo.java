@@ -26,7 +26,7 @@ public interface IMemberTypeServiceAccessRepo extends JpaRepository<MemberTypeSe
     void deleteByEventIdAndDayId(@Param("eventId") Long eventId, @Param("dayId") Long dayId);
 
 
-    @Query(value="Select * from member_type_service_access where evenr_id:eventId AND  day_id = :dayId  AND member_type_id  : member_type_id ", nativeQuery=true)
+    @Query(value="Select * from member_type_service_access where event_id= :eventId AND  day_id = :dayId  AND member_type_id = :member_type_id ", nativeQuery=true)
     List<Long> getAllServiceId(@Param("eventId") Long eventId, @Param("dayId") Long dayId , @Param("member_type_id") Long member_type_id);
 
 }

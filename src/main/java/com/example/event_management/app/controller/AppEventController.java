@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.event_management.app.dto.response.EventDayServiceListResponse;
+import com.example.event_management.app.dto.response.EventShortResponse;
 import com.example.event_management.app.dto.response.UserResponse;
 import com.example.event_management.app.service.impl.AppEventService;
 import com.example.event_management.common.response.ApiResponse;
@@ -22,6 +23,15 @@ public class AppEventController {
 
      @Autowired
      AppEventService appEventService;
+
+
+       @GetMapping("/get-today-event")
+     public ResponseEntity<ApiResponse<List<EventShortResponse>>> getTodayEvent() {
+
+       List<EventShortResponse> res =    appEventService.getCurrentActiveEvent();
+       return ApiResponse.success("Information", res);
+
+     }
 
      @GetMapping("/{redId}/user-information")
      public ResponseEntity<ApiResponse<UserResponse>> getUserInformation(@PathVariable String redId) {
