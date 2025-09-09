@@ -32,4 +32,7 @@ public interface IEventMemberAccessRepo extends JpaRepository<EventMemberAccess,
 
     List<EventMemberAccess> findByMemberTypeId(EventMemberType eventMemberType);
 
+    @Query(value = "SELECT event_access_type_id FROM event_member_access WHERE event_id = :eventId AND member_type_id = :memberTypeId", nativeQuery = true)
+    List<Long> getAllAccessId(@Param("eventId") Long eventId, @Param("memberTypeId") Long memberTypeId);
+
 }

@@ -7,8 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class EventResponse {
+public class UserPersonalInfoResponse {
     
-    private String title;
-    private String MemberType;
+    private String name;
+    private String email;
+    private String mobileNumber;
+
 }

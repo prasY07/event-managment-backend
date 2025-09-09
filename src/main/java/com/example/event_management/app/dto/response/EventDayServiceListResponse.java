@@ -7,8 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class EventResponse {
-    
-    private String title;
-    private String MemberType;
+public class EventDayServiceListResponse {
+    private Long id;
+    private String name;
 }

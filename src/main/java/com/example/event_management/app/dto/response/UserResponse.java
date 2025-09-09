@@ -11,11 +11,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserResponse {
     
-    private String name;
-    private String email;
-    private String mobileNumber;
-    private String memberTypeName;
+    
+    // private String memberTypeName;
+    private UserPersonalInfoResponse userPersonalInfoResponse; 
     private EventResponse event;
-    // private List<EventAccessResponse> accessList;
+    private List<EventAccessResponse> accessList;
 
 }

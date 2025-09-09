@@ -33,7 +33,7 @@ public class EventController {
     @GetMapping("/list")
     public ResponseEntity<ApiResponse<PaginationResponse<List<EventResponse>>>> allEventsWithPagination(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "1") int size) {
+            @RequestParam(defaultValue = "10") int size) {
         PaginationResponse<List<EventResponse>> paginatedUsers = eventService.getAllEvents(page, size);
         return ApiResponse.successWithPagination(
                 "Events List",

@@ -47,7 +47,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n       \"name\" : \"prashant 2\",\n    \"email\" : \"prashant2@gmail.com\",\n    \"phoneNumber\" : \"7863213222\",\n    \"role\" : \"EVENT_MANAGER\",\n    \"countryId\" : 1\n}",
+									"raw": "{\n    \"name\" : \"prashant 2\",\n    \"email\" : \"prashant1@gmail.com\",\n    \"phoneNumber\" : \"78632132122\",\n    \"role\" : \"EVENT_MANAGER\",\n    \"countryId\" : 1\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -55,12 +55,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}admin/user/create",
+									"raw": "{{base_url}}user/create",
 									"host": [
-										"{{base_url}}admin"
+										"{{base_url}}user"
 									],
 									"path": [
-										"user",
 										"create"
 									]
 								}
@@ -335,7 +334,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"name\": \"Prashant Yadav\",\n  \"email\": \"prashant@example.com\",\n  \"memberTypeId\": 1,\n  \"gender\": \"Male\",\n  \"heardSourceId\": 2,\n  \"phoneNumber\" : \"7863213222\",\n  \"countryId\" : 1,\n  \"eventId\": 1,\n  \"address\": \"123 Main Street, Jaipur\",\n  \"zipcode\": \"302001\"\n}\n",
+											"raw": "{\n  \"name\": \"Prashant Yadav\",\n  \"email\": \"prashant@example.com\",\n  \"memberTypeId\": 1,\n  \"gender\": \"Male\",\n  \"heardSourceId\": 1,\n  \"phoneNumber\" : \"7863213222\",\n  \"countryId\" : 1,\n  \"eventId\": 1,\n  \"address\": \"123 Main Street, Jaipur\",\n  \"zipcode\": \"302001\"\n}\n",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -349,6 +348,92 @@
 											],
 											"path": [
 												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "list",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}admin/event-register/1/list",
+											"host": [
+												"{{base_url}}admin"
+											],
+											"path": [
+												"event-register",
+												"1",
+												"list"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "event service",
+							"item": [
+								{
+									"name": "assign service to days",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"eventId\": \"8\",\r\n    \"dayId\": 5,\r\n    \"serviceId\": [\r\n        5,\r\n        6\r\n    ],\r\n    \"memberTypeId\":[\r\n        11\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}event-service/assign-day-service-to-member",
+											"host": [
+												"{{base_url}}event-service"
+											],
+											"path": [
+												"assign-day-service-to-member"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get all service list",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}event-service/1/service-list",
+											"host": [
+												"{{base_url}}event-service"
+											],
+											"path": [
+												"1",
+												"service-list"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get all days list",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}event-service/1/day-list",
+											"host": [
+												"{{base_url}}event-service"
+											],
+											"path": [
+												"1",
+												"day-list"
 											]
 										}
 									},
@@ -415,7 +500,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "// {\n//   \"title\": \"Tech Conference 2025\",\n//   \"startDate\": \"2025-06-15\",\n//   \"endDate\": \"2025-06-17\",\n//   \"venue\": \"Jaipur Convention Center\",\n//   \"address\": \"Tonk Road, Jaipur\",\n//   \"category\": \"Technology not\",\n//   \"description\": \"An annual tech event bringing developers together.\",\n//   \"privacyPolicy\": \" this is privacy policy\",\n//   \"userId\": 1\n// }\n{\n    \"title\": \"test\",\n    \"address\": \"sdada\",\n    \"venue\": \"test\",\n    \"category\": \"asdsadsa\",\n    \"description\": \"asdasdsaasdsad sdsadsadsa\",\n    \"privacyPolicy\": \"<p>&nbsp;asdsad<br>sdaajksbd sad<br>SADS<br>AD</p><p>saD</p><p>sa</p><p>das</p>\",\n    \"startDate\": \"2025-05-22\",\n    \"endDate\": \"2025-05-24\",\n    \"userId\": \"1\",\n    \"eventMemberType\" : \"student,creator\",\n    \"eventAccessType\"  : \"zone1 , zone 2\"\n}"
+									"raw": "// {\n//   \"title\": \"Tech Conference 2025\",\n//   \"startDate\": \"2025-06-15\",\n//   \"endDate\": \"2025-06-17\",\n//   \"venue\": \"Jaipur Convention Center\",\n//   \"address\": \"Tonk Road, Jaipur\",\n//   \"category\": \"Technology not\",\n//   \"description\": \"An annual tech event bringing developers together.\",\n//   \"privacyPolicy\": \" this is privacy policy\",\n//   \"userId\": 1\n// }\n{\n    \"title\": \"test 1\",\n    \"address\": \"sdada\",\n    \"venue\": \"test\",\n    \"category\": \"asdsadsa\",\n    \"description\": \"asdasdsaasdsad sdsadsadsa\",\n    \"privacyPolicy\": \"<p>&nbsp;asdsad<br>sdaajksbd sad<br>SADS<br>AD</p><p>saD</p><p>sa</p><p>das</p>\",\n    \"startDate\": \"2025-10-22\",\n    \"endDate\": \"2025-10-24\",\n    \"registrationEndDate\":\"2025-10-20\",\n    \"eventStartTime\":\"10:25\",\n    \"eventEndTime\":\"17:00\",\n    \"userId\": \"1\",\n    \"eventMemberType\" : \"student,creator\",\n    \"eventAccessType\"  : \"zone1 , zone 2\",\n    \"eventServices\" : \"lunch, dinner , breakfast, band\"\n}"
 								},
 								"url": {
 									"raw": "{{base_url}}event/create",
@@ -619,6 +704,40 @@
 									"path": [
 										"country",
 										"list"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "app",
+			"item": [
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "personal information",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Prashant Yadav\",\n  \"email\": \"prashant@example.com\",\n  \"memberTypeId\": 11,\n  \"gender\": \"Male\",\n  \"heardSourceId\": 2,\n  \"phoneNumber\" : \"7863213222\",\n  \"countryId\" : 1,\n  \"eventId\": 8,\n  \"address\": \"123 Main Street, Jaipur\",\n  \"zipcode\": \"302001\"\n}\n"
+								},
+								"url": {
+									"raw": "{{base_url}}event-register/create",
+									"host": [
+										"{{base_url}}event-register"
+									],
+									"path": [
+										"create"
 									]
 								}
 							},

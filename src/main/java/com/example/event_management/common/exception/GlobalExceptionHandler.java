@@ -1,12 +1,15 @@
 package com.example.event_management.common.exception;
 
-import com.example.event_management.common.response.ApiResponse;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.example.event_management.common.response.ApiResponse;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -39,5 +42,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleGeneric(Exception ex) {
         return ApiResponse.error(ex.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+     @ExceptionHandler(DataNotFoundException.class)
+    public ResponseEntity<ApiResponse<Void>> handleDataNotFound(DataNotFoundException ex) {
+        return ApiResponse.error(ex.getMessage(), null, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<ApiResponse<Void>> handleValidationError(ValidationException ex) {
+        return ApiResponse.error(ex.getMessage(), null, HttpStatus.BAD_REQUEST);
     }
 }
