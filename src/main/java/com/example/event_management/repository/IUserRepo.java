@@ -32,6 +32,9 @@ public interface IUserRepo extends JpaRepository<User, Long> {
 
     boolean existsByPhoneNumberAndIdNot(String phoneNumber, Long id);
 
+    @Query(value="Select * from users where email = :email and role = :role", nativeQuery=true)
+    User getUserByEmailAndRole(@Param("email") String email , @Param("role") String role);
+
     
 
     // boolean existsByUserRegId(String registrationId);

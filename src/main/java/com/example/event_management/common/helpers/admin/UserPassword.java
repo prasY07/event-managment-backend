@@ -23,7 +23,8 @@ public class UserPassword {
 
     // Generates a hashed password from a temporary one
     public static String createAndHashPassword() {
-        String rawPassword = createUserTempPassword();
+        // String rawPassword = createUserTempPassword();
+        String rawPassword = "password1@";
         return passwordEncoder.encode(rawPassword);
     }
 

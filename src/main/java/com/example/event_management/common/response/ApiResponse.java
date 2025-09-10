@@ -11,16 +11,30 @@ public class ApiResponse<T> {
     private boolean success;
     private String message;
     private T data;
+    // private String token;
 
+   // constructor without token
     public ApiResponse(boolean success, String message, T data) {
         this.success = success;
         this.message = message;
         this.data = data;
+        // this.token = null;
     }
 
+    // // constructor with token
+    // public ApiResponse(boolean success, String message, T data, String token) {
+    //     this.success = success;
+    //     this.message = message;
+    //     this.data = data;
+    //     this.token = token;
+    // }
     public static <T> ResponseEntity<ApiResponse<T>> success(String message, T data) {
         return ResponseEntity.ok(new ApiResponse<>(true, message, data));
     }
+
+    //    public static <T> ResponseEntity<ApiResponse<T>> successWithToken(String message, T data, String token ) {
+    //     return ResponseEntity.ok(new ApiResponse<>(true, message, data,token));
+    // }
 
     public static <T> ResponseEntity<ApiResponse<T>> error(String message, T data, HttpStatus status) {
         return new ResponseEntity<>(new ApiResponse<>(false, message, data), status);

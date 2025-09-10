@@ -81,12 +81,14 @@ public class AppEventService {
     public List<EventShortResponse> getCurrentActiveEvent()
     {
         LocalDate todayDate = LocalDate.now();
-        List<Event> res = iEventRepo.getTodayActiveEvent(todayDate, AppStatus.EStatus.ACTIVE);
-        if(res.isEmpty())
-        {
-            return Collections.emptyList(); 
-        }
-        List<EventShortResponse> response = res. .stream()
+        System.out.println("todayDate"+todayDate);
+        System.out.println("AppStatus"+AppStatus.EStatus.ACTIVE);
+        List<Event> res = iEventRepo.getTodayActiveEvent(todayDate, AppStatus.EStatus.ACTIVE.name());
+        // if(res.isEmpty())
+        // {
+        //     return Collections.emptyList(); 
+        // }
+        List<EventShortResponse> response = res.stream()
                 .map(this::createEventShortResponse) // convert entity -> response
                 .toList();
 
