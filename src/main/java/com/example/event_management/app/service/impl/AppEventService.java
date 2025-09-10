@@ -81,9 +81,20 @@ public class AppEventService {
     public List<EventShortResponse> getCurrentActiveEvent()
     {
         LocalDate todayDate = LocalDate.now();
-        List<EventShortResponse> res = iEventRepo.getTodayActiveEvent(todateDate, AppStatus.EStatus.ACTIVE);
+        List<Event> res = iEventRepo.getTodayActiveEvent(todayDate, AppStatus.EStatus.ACTIVE);
+        if(res.isEmpty())
+        {
+            return Collections.emptyList(); 
+        }
+        List<EventShortResponse> response = res. .stream()
+                .map(this::createEventShortResponse) // convert entity -> response
+                .toList();
+
+                return response;
         
     }
+
+
 
     public List<EventDayServiceListResponse> getEventDayService(LocalDate date, Long MemberTypeId, Long eventId) {
         Event event = iEventRepo.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Event not found=="));
@@ -155,10 +166,10 @@ public class AppEventService {
         );
     }
 
-//    private EventDayServiceListResponse getEventServiceList(com.example.event_management.entity.EventService eventService) {
-//        return new EventDayServiceListResponse(
-//                eventService.getServiceId(),
-//                eventService.getServiceName()
-//        );
-//    }
+   private EventShortResponse createEventShortResponse(Event event) {
+       return new EventShortResponse(
+               event.getId(),
+               event.getTitle()
+       );
+   }
 }

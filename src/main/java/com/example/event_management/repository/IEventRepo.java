@@ -1,5 +1,7 @@
 package com.example.event_management.repository;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -23,6 +25,9 @@ public interface IEventRepo extends JpaRepository<Event, Long> {
     Optional<Event> findByEventUUID(String eventUUID);
 
     boolean existsByEventId(String eventId);
+
+    @Query(value = "SELECT * FROM events WHERE start_date = :date AND  status = :status", nativeQuery = true)
+    List<Event> getTodayActiveEvent(@Param("date") LocalDate date ,@Param("status") String status);
 
 
 
