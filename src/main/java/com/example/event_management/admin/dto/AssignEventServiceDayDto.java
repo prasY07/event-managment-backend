@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AssignEventServiceDayDto {
     private Long eventId;
-    private List<Long> serviceId;
+    private Long serviceId;
     private List<Long> memberTypeId;
     private Long dayId;
 

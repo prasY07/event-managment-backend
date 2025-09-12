@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.event_management.admin.dto.CreateEventDto;
 import com.example.event_management.admin.dto.EventDto;
 import com.example.event_management.admin.dto.response.EventResponse;
+import com.example.event_management.admin.dto.response.EventShortResponse;
 import com.example.event_management.admin.service.impl.EventService;
 import com.example.event_management.common.response.ApiResponse;
 import com.example.event_management.common.response.PaginationResponse;
@@ -67,8 +68,8 @@ public class EventController {
     }
 
     @GetMapping("{id}/event-information")
-    public ResponseEntity<ApiResponse<EventResponse>> eventInfo(@PathVariable Long id) {
-        EventResponse eventInfo = eventService.eventInfo(id);
+    public ResponseEntity<ApiResponse<EventShortResponse>> eventInfo(@PathVariable Long id) {
+        EventShortResponse eventInfo = eventService.eventInfo(id);
         return ApiResponse.success("Event Information", eventInfo);
     }
 

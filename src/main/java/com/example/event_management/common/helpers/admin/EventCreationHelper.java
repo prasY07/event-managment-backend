@@ -45,29 +45,19 @@ public class EventCreationHelper {
     public Event addEvent(CreateEventDto eventDto, User user)
     {
 
-        System.out.println("hhere");
         Event saveEvent = createEvent(eventDto,user);
         // Add Event Member Type
-        System.out.println("hhere1");
-
         Boolean eventMemberType = addEventMemberType(eventDto,saveEvent);
 
         // Add Event Access Type
-        System.out.println("hhere2");
-
         Boolean eventAccessType = addAccessType(eventDto,saveEvent);
 
         // Add Event Days
-        System.out.println("hher3");
-
         Boolean addEventDays = createEventDay(eventDto,saveEvent);
 
         // Add Event Service
-        System.out.println("hhere4");
-
         Boolean addService = createEventService(eventDto,saveEvent);
 
-        System.out.println("hher5");
         return  saveEvent;
 
 
@@ -118,14 +108,12 @@ public class EventCreationHelper {
             eventMemberType.setMemberTypeName(memberTypeName);
             iEventMemberType.save(eventMemberType);
         }
-        System.out.println("hhere662");
 
         return Boolean.TRUE;
     }
 
     private Boolean addAccessType(CreateEventDto eventDto,Event savedEvent)
     {
-        System.out.println("hhere6613");
 
         List<String> accessTypes = EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventAccessType());
         for (String accessType : accessTypes) {
@@ -134,7 +122,6 @@ public class EventCreationHelper {
             eventAccessType.setEventAccessTypeName(accessType);
             iEventAccessType.save(eventAccessType);
         }
-        System.out.println("hhere66123");
 
         return Boolean.TRUE;
     }

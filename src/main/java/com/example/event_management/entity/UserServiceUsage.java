@@ -1,13 +1,6 @@
 package com.example.event_management.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,9 +29,8 @@ public class UserServiceUsage {
     @JoinColumn(name = "event_id", nullable = false)
     private Event eventId;
 
-    @ManyToOne
-    @JoinColumn(name = "service_access_id", nullable = false)
-    private MemberTypeServiceAccess serviceAccessId;
+    @Column(name = "service_access_id", nullable = false)
+    private Long serviceAccessId;
     
     private java.time.LocalDateTime usedAt = java.time.LocalDateTime.now();
 }

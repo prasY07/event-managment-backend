@@ -33,13 +33,13 @@ public class Event {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    @Column(name = "registration_end_date")
+    @Column(name = "registration_end_date",nullable=false)
     private LocalDate registrationEndDate;
 
-    @Column(name = "event_start_time")
+    @Column(name = "event_start_time",nullable=false)
     private LocalTime eventStartTime;
 
-    @Column(name = "event_end_time")
+    @Column(name = "event_end_time",nullable=false)
     private LocalTime eventEndTime;
 
     private String venue;
@@ -51,12 +51,12 @@ public class Event {
 
     private String category;
 
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Column(name = "description", columnDefinition = "TEXT",nullable=false)
     private String description;
 
     private String image;
 
-    @Column(name = "privacy_policy", columnDefinition = "TEXT")
+    @Column(name = "privacy_policy", columnDefinition = "TEXT",nullable=false)
     private String privacyPolicy;
 
     @ManyToOne(fetch = FetchType.LAZY)

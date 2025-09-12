@@ -17,13 +17,13 @@ import jakarta.transaction.Transactional;
 public interface IMemberTypeServiceAccessRepo extends JpaRepository<MemberTypeServiceAccess, Long> {
     
 
-    @Query(value="Select count(*) from member_type_service_access where event_id = :eventId AND day_id = :dayId ", nativeQuery = true)
-    int findByEventIdAndDayId(@Param("eventId") Long eventId, @Param("dayId") Long dayId);
+    @Query(value="Select count(*) from member_type_service_access where event_id = :eventId AND day_id = :dayId AND service_id = :serviceId ", nativeQuery = true)
+    int findByEventIdAndDayId(@Param("eventId") Long eventId, @Param("dayId") Long dayId, @Param("serviceId") Long serviceId);
 
     @Modifying
     @Transactional
-    @Query(value="DELETE FROM member_type_service_access where event_id = :eventId AND day_id = :dayId ", nativeQuery = true)
-    void deleteByEventIdAndDayId(@Param("eventId") Long eventId, @Param("dayId") Long dayId);
+    @Query(value="DELETE FROM member_type_service_access where event_id = :eventId AND day_id = :dayId  and service_id = :serviceId", nativeQuery = true)
+    void deleteByEventIdAndDayIdAndServiceId(@Param("eventId") Long eventId, @Param("dayId") Long dayId , @Param("serviceId") Long serviceId);
 
 
     @Query(value="Select * from member_type_service_access where event_id= :eventId AND  day_id = :dayId  AND member_type_id = :member_type_id ", nativeQuery=true)

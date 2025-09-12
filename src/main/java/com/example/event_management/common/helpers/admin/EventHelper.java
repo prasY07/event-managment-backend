@@ -29,7 +29,7 @@ public class EventHelper {
     }
 
     public static String createUniqueEventID() {
-        return "EVENT-" + System.currentTimeMillis();
+        return String.valueOf(System.currentTimeMillis());
     }
 
     public static Map<String, Object> eventRegistrationCases(Event event) {

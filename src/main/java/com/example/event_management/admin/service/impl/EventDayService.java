@@ -60,36 +60,39 @@ public class EventDayService {
     @Transactional
     public Boolean assignServiceDaysToMember(AssignEventServiceDayDto assignEventServiceDayDto)
     {
-        Event event = iEventRepo.findById(assignEventServiceDayDto.getEventId()).
+
+        Event event = iEventRepo.findById( assignEventServiceDayDto.getEventId()).
                 orElseThrow(() -> new EntityNotFoundException("Event not found"));
 
         EventDay eventDay = iEventDayRepo.findById(assignEventServiceDayDto.getDayId()).
             orElseThrow(() -> new EntityNotFoundException("Event not found"));
 
-        if(iMemberTypeServiceAccessRepo.findByEventIdAndDayId(event.getId(),eventDay.getDayId()) > 0)
+        EventService eventService = iEventServiceRepo.findById(assignEventServiceDayDto.getServiceId()).
+                orElseThrow(() -> new EntityNotFoundException("Service not found"));
+        if(iMemberTypeServiceAccessRepo.findByEventIdAndDayId(event.getId(),eventDay.getDayId(), eventService.getServiceId()) > 0)
         {
-            iMemberTypeServiceAccessRepo.deleteByEventIdAndDayId(event.getId(),eventDay.getDayId());
+            iMemberTypeServiceAccessRepo.deleteByEventIdAndDayIdAndServiceId(event.getId(),eventDay.getDayId(), eventService.getServiceId());
         }
 
-        for (Long serviceId : assignEventServiceDayDto.getServiceId())
-        {
-            EventService eventService = iEventServiceRepo.findById(serviceId).
-                orElseThrow(() -> new EntityNotFoundException("Service not found"));
+            System.out.println("dad"+assignEventServiceDayDto.getMemberTypeId());
 
-            MemberTypeServiceAccess memberTypeServiceAccess = new MemberTypeServiceAccess();
+
             for (Long memberTypeId : assignEventServiceDayDto.getMemberTypeId())
             {
                 EventMemberType eventMemberType = iEventMemberTypeRepo.findById(memberTypeId).
                         orElseThrow(() -> new EntityNotFoundException("Member not found"));
-
+                MemberTypeServiceAccess memberTypeServiceAccess = new MemberTypeServiceAccess();
                 memberTypeServiceAccess.setEventId(event);
                 memberTypeServiceAccess.setDayId(eventDay);
                 memberTypeServiceAccess.setServiceId(eventService);
                 memberTypeServiceAccess.setMemberType(eventMemberType);
-                iMemberTypeServiceAccessRepo.save(memberTypeServiceAccess);
+                memberTypeServiceAccess = iMemberTypeServiceAccessRepo.save(memberTypeServiceAccess);
+                System.out.println("Saved ID: " + memberTypeServiceAccess.getAccessId());
+
             }
 
-        }
+
+            System.out.println("HIIIIIIIIIIIi");
          return Boolean.TRUE;
     }
 

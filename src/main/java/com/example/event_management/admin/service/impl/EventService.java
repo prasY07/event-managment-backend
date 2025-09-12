@@ -6,9 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.UUID;
 
-import com.example.event_management.common.helpers.admin.EventCreationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,10 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.event_management.admin.dto.CreateEventDto;
 import com.example.event_management.admin.dto.EventDto;
 import com.example.event_management.admin.dto.response.EventResponse;
+import com.example.event_management.admin.dto.response.EventShortResponse;
 import com.example.event_management.admin.dto.response.UserShortResponse;
 import com.example.event_management.common.AppStatus;
 import com.example.event_management.common.helpers.FileStorageHelper;
 import com.example.event_management.common.helpers.UrlHelper;
+import com.example.event_management.common.helpers.admin.EventCreationHelper;
 import com.example.event_management.common.helpers.admin.EventHelper;
 import com.example.event_management.common.response.PaginationResponse;
 import com.example.event_management.entity.Event;
@@ -71,9 +71,9 @@ public class EventService {
                 eventPage.getTotalPages());
     }
 
-    public EventResponse eventInfo(Long id) {
+    public EventShortResponse eventInfo(Long id) {
         Event event = iEventRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Event not found"));
-        return createResponse(event);
+        return createEventShortResponse(event);
     }
 
     public EventResponse eventInfoWithEventUniqueId(String eventId) {
@@ -90,47 +90,6 @@ public class EventService {
         Event savedEvent = eventCreationHelper.addEvent(eventDto, user);
 
         return createResponse(savedEvent);
-//        String uniqueEventId = UUID.randomUUID().toString(); // or your custom logic
-
-//        // Create and populate Event entity
-//        Event event = new Event();
-//        event.setTitle(eventDto.getTitle());
-//        event.setStartDate(eventDto.getStartDate());
-//        event.setEndDate(eventDto.getEndDate());
-//        event.setRegistrationEndDate(eventDto.getRegistrationEndDate());
-//        event.setVenue(eventDto.getVenue());
-//        event.setAddress(eventDto.getAddress());
-//        event.setCategory(eventDto.getCategory());
-//        event.setDescription(eventDto.getDescription());
-//        event.setPrivacyPolicy(eventDto.getPrivacyPolicy());
-//        event.setEventStartTime(LocalTime.parse(eventDto.getEventStartTime()));
-//        event.setEventEndTime(LocalTime.parse(eventDto.getEventEndTime()));
-//        event.setEventStatus(AppStatus.EventStatus.UPCOMING);
-//        event.setUser(user);
-//        event.setEventId(uniqueEventId);
-//
-//        // Save to DB
-//        Event savedEvent = iEventRepo.save(event);
-//        // Long eventId = savedEvent.getId();
-//
-//        List<String> memberTypes = EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventMemberType());
-//        for (String memberTypeName : memberTypes) {
-//            EventMemberType eventMemberType = new EventMemberType();
-//            eventMemberType.setEventId(savedEvent); // Set full Event object
-//            eventMemberType.setMemberTypeName(memberTypeName);
-//            iEventMemberType.save(eventMemberType);
-//        }
-//
-//        List<String> accessTypes = EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventAccessType());
-//        for (String accessType : accessTypes) {
-//            EventAccessType eventAccessType = new EventAccessType();
-//            eventAccessType.setEventId(savedEvent); // Set full Event object
-//            eventAccessType.setEventAccessTypeName(accessType);
-//            iEventAccessType.save(eventAccessType);
-//        }
-
-        // create Date event event_days
-//        return createResponse(savedEvent);
     }
 
 
@@ -268,6 +227,30 @@ public class EventService {
                 event.getEventStatus(),
                 event.getStatus(),
                 userResponse);
+    }
+
+    private EventShortResponse createEventShortResponse(Event event) {
+        User user = event.getUser(); // assuming this is already fetched and not null
+
+        UserShortResponse userResponse = new UserShortResponse(
+                user.getId(),
+                user.getName());
+
+        return new EventShortResponse(
+                event.getId(),
+                event.getTitle(),
+                event.getStartDate(),
+                event.getEndDate(),
+                event.getRegistrationEndDate(),
+                event.getEventStartTime(),
+                event.getEventEndTime(),
+                event.getVenue(),
+                event.getAddress(),
+                event.getCategory(),
+                event.getDescription(),
+                event.getPrivacyPolicy(),
+                userResponse
+                );
     }
 
 }

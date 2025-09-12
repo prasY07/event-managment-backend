@@ -40,8 +40,9 @@ public class EventServiceController {
     }
 
     @PostMapping("/assign-day-service-to-member")
-    ResponseEntity<ApiResponse<String>> assignService(@RequestBody AssignEventServiceDayDto assignEventServiceDayDto)
+    public ResponseEntity<ApiResponse<String>> assignService(@RequestBody AssignEventServiceDayDto assignEventServiceDayDto)
     {
+
         boolean res = eventDayService.assignServiceDaysToMember(assignEventServiceDayDto);
 
         return ApiResponse.success("Data Saved Successfully",null);
