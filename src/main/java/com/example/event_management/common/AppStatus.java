@@ -8,11 +8,17 @@ public class AppStatus {
         SUSPENDED
     }
 
+    public enum AdminStatus {
+        ACTIVE,
+        INACTIVE,
+        SUSPENDED
+    }
+
     public enum UserRole {
-        MASTER_ADMIN,
         EVENT_MANAGER,
         INDIVIDUAL
     }
+
 
     public enum EStatus {
         ACTIVE,
@@ -36,5 +42,11 @@ public class AppStatus {
     public enum EventRegistrationAddedBy {
         ADMIN,
         SELF,
+    }
+
+    public enum EventFoc
+    {
+        YES,
+        NO
     }
 }

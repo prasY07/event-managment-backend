@@ -68,4 +68,7 @@ public class Event {
 
     @Enumerated(EnumType.STRING)
     private AppStatus.EStatus status = AppStatus.EStatus.INACTIVE;
+
+    @Enumerated(EnumType.STRING)
+    private AppStatus.EventFoc isFoc;
 }

@@ -1,4 +1,6 @@
 package com.example.event_management.admin.service.impl;
+import com.example.event_management.entity.Admin;
+import com.example.event_management.repository.IAdminRepo;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,32 +16,32 @@ import jakarta.persistence.EntityNotFoundException;
 @Service
 public class AuthService {
 
-    private final IUserRepo iUserRepo;
+    private final IAdminRepo iAdminRepo;
     private final JwtUtil jwtUtil;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public AuthService(IUserRepo iUserRepo, JwtUtil jwtUtil) {
-        this.iUserRepo = iUserRepo;
+    public AuthService(IAdminRepo iAdminRepo, JwtUtil jwtUtil) {
+        this.iAdminRepo = iAdminRepo;
         this.jwtUtil = jwtUtil;
     }
 
 
-     public AuthResponse userAuth(AdminAuthDto adminAuthDto)
+     public AuthResponse adminAuth(AdminAuthDto adminAuthDto)
       {
-        User user = iUserRepo.getUserByEmailAndRole(adminAuthDto.getEmail(),AppStatus.UserRole.MASTER_ADMIN.name());
+        Admin admin = iAdminRepo.findByEmail(adminAuthDto.getEmail());
 
-        if(user == null)
+        if(admin == null)
         {
              throw new EntityNotFoundException("User not found");
 
         }
 
-        if (!passwordEncoder.matches(adminAuthDto.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(adminAuthDto.getPassword(), admin.getPassword())) {
             throw new RuntimeException("Invalid password");
         }
 
         return new AuthResponse(
-            jwtUtil.generateToken(user.getId())
+            jwtUtil.generateToken(admin.getId())
         );
     }
 }

@@ -24,7 +24,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<AuthResponse>> login(@Valid @RequestBody AdminAuthDto adminAuthDto) {
-        AuthResponse user = authService.userAuth(adminAuthDto);
-       return ApiResponse.success("Login",user);
+        AuthResponse admin = authService.adminAuth(adminAuthDto);
+       return ApiResponse.success("Login",admin);
     }
 }
