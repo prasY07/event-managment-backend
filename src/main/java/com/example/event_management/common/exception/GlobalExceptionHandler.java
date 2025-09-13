@@ -53,4 +53,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Void>> handleValidationError(ValidationException ex) {
         return ApiResponse.error(ex.getMessage(), null, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ApiResponse<Void>> handleCustomError(CustomException ex) {
+         return ApiResponse.error(ex.getMessage(), null, ex.getStatus());
+    }
 }

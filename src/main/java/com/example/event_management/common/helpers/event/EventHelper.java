@@ -1,4 +1,4 @@
-package com.example.event_management.common.helpers.admin;
+package com.example.event_management.common.helpers.event;
 
 import java.time.LocalDate;
 import java.util.Arrays;

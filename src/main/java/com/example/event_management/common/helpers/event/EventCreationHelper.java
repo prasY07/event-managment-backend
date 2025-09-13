@@ -1,4 +1,4 @@
-package com.example.event_management.common.helpers.admin;
+package com.example.event_management.common.helpers.event;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -101,7 +101,7 @@ public class EventCreationHelper {
     {
         System.out.println("hhere661");
 
-        List<String> memberTypes = com.example.event_management.common.helpers.admin.EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventMemberType());
+        List<String> memberTypes = EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventMemberType());
         for (String memberTypeName : memberTypes) {
             EventMemberType eventMemberType = new EventMemberType();
             eventMemberType.setEventId(savedEvent); // Set full Event object

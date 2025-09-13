@@ -13,7 +13,7 @@ import com.example.event_management.admin.dto.EventRegistrationWithoutQRDto;
 import com.example.event_management.admin.dto.response.EventRegisterUserShortResponse;
 import com.example.event_management.admin.dto.response.EventRegistrationWithoutQRResponse;
 import com.example.event_management.common.AppStatus;
-import com.example.event_management.common.helpers.admin.EventHelper;
+import com.example.event_management.common.helpers.event.EventHelper;
 import com.example.event_management.common.response.PaginationResponse;
 import com.example.event_management.common.service.QRCodeCreationEmailSendService;
 import com.example.event_management.entity.Country;

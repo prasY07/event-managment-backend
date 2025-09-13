@@ -14,7 +14,6 @@ import com.example.event_management.admin.dto.response.UserListResponse;
 import com.example.event_management.admin.dto.response.UserResponse;
 import com.example.event_management.admin.dto.response.UserShortResponse;
 import com.example.event_management.common.AppStatus;
-import com.example.event_management.common.helpers.admin.EventHelper;
 import com.example.event_management.common.helpers.admin.UserPassword;
 import com.example.event_management.common.response.PaginationResponse;
 import com.example.event_management.entity.Country;
