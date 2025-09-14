@@ -103,3 +103,9 @@ INSERT INTO states (name, country_id) VALUES
 ('Ladakh', 1),
 ('Lakshadweep', 1),
 ('Puducherry', 1);
+
+
+-------------------------------------------------
+
+INSERT INTO `admins` (`id`, `email`, `name`, `password`, `status`) VALUES
+(1, 'admin@admin.com', 'Admin', '$2a$10$WX48QmkAsF/.LCbncsT8x.L3tcOCMALdztI4Ji6crsUeeM2.sGe0m', 'ACTIVE');

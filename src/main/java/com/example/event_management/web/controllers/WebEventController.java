@@ -20,7 +20,7 @@ public class WebEventController {
     WebEventService webEventService;
 
     @GetMapping("{eventId}/information")
-    public ResponseEntity<ApiResponse<WebEventShortResponse>> getEventInfo(@PathVariable Long eventId)
+    public ResponseEntity<ApiResponse<WebEventShortResponse>> getEventInfo(@PathVariable String eventId)
     {
         WebEventShortResponse res = webEventService.getInfo(eventId);
         return ApiResponse.success("Event Information",res);

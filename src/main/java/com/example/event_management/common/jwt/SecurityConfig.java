@@ -31,7 +31,8 @@ public class SecurityConfig {
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/admin/auth/login").permitAll()  // allow login
-                        .requestMatchers("/api/app/**").permitAll()             // allow app APIs
+                        .requestMatchers("/api/app/**").permitAll()
+                        .requestMatchers("/api/web/**").permitAll()  // allow app APIs
                         .anyRequest().authenticated()                            // protect everything else
                 )
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(customAuthEntryPoint))

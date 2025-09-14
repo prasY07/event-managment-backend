@@ -19,8 +19,8 @@ public interface IEventRepo extends JpaRepository<Event, Long> {
 
     Page<Event> findAll(Pageable pageable);
 
-    @Query(value = "SELECT * FROM events WHERE id = :id", nativeQuery = true)
-    Event findEvent(@Param("id") Long id);      
+    @Query(value = "SELECT * FROM events WHERE event_id = :eventId", nativeQuery = true)
+    Event findEventByUUID(@Param("eventId") String eventId);
 
     @Query(value = "SELECT * FROM events WHERE event_id = :eventUUID", nativeQuery = true)
     Optional<Event> findByEventUUID(String eventUUID);

@@ -88,10 +88,11 @@ public class EventCreationHelper {
         event.setEventStartTime(LocalTime.parse(eventDto.getEventStartTime()));
         event.setEventEndTime(LocalTime.parse(eventDto.getEventEndTime()));
         event.setEventStatus(AppStatus.EventStatus.UPCOMING);
+        event.setSponsoredBy(eventDto.getSponsoredBy()) ;
+        event.setIsFoc(eventDto.getIsFoc());
         event.setUser(user);
         event.setEventId(eventId);
 
-        System.out.println("hhere66");
 
         // Save to DB
         return iEventRepo.save(event);
@@ -99,7 +100,6 @@ public class EventCreationHelper {
 
     private Boolean addEventMemberType(CreateEventDto eventDto,Event savedEvent)
     {
-        System.out.println("hhere661");
 
         List<String> memberTypes = EventHelper.parseUniqueCommaSeparatedValues(eventDto.getEventMemberType());
         for (String memberTypeName : memberTypes) {

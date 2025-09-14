@@ -46,6 +46,9 @@ public class Event {
     private String address;
     private String title;
 
+    @Column(name = "sponsored_by")
+    private String sponsoredBy;
+
     @Column(name = "event_id", unique = true)
     private String eventId;
 

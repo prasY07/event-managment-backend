@@ -28,7 +28,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<AuthResponse>> login(@Valid @RequestBody AdminAuthDto adminAuthDto) {
-//        System.out.println(passwordEncoder.encode("Admin@!@#$"));
+        System.out.println(passwordEncoder.encode("Admin@!@#$"));
+//        $2a$10$WX48QmkAsF/.LCbncsT8x.L3tcOCMALdztI4Ji6crsUeeM2.sGe0m
         AuthResponse admin = authService.adminAuth(adminAuthDto);
        return ApiResponse.success("Login",admin);
     }
