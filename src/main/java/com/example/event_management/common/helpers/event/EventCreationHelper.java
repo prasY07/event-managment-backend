@@ -92,6 +92,7 @@ public class EventCreationHelper {
         event.setIsFoc(eventDto.getIsFoc());
         event.setUser(user);
         event.setEventId(eventId);
+        event.setRegistrationStartDate(eventDto.getRegistrationStartDate());
 
         // Save to DB
         return iEventRepo.save(event);

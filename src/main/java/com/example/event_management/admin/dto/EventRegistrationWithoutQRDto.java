@@ -11,13 +11,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventRegistrationWithoutQRDto {
-     private Long id;
+//     private Long id;
 
     private String name;
 
     private String email;
 
-    private Long memberTypeId; // Just ID for DTO to keep it simple
+    private Long memberTypeId;
 
     private String gender;
 
@@ -25,29 +25,14 @@ public class EventRegistrationWithoutQRDto {
 
     private String phoneNumber;
     private Long countryId;
-    
-    // private Long stateId;
-
     private Long eventId;
 
     private String address;
 
-    private String qrCode;
 
     private String zipcode;
 
     private AppStatus.EventRegistrationAddedBy eventRegistrationAddedBy;
-
-    private String otp;
-
-    private String userOtpId;
-
-
-    // private LocalDateTime createdAt;
-
-    // private LocalDateTime updatedAt;
-
-    // private AppStatus.EventRegistrationAddedBy addedBy = AppStatus.EventRegistrationAddedBy.SELF;
 
 
 }

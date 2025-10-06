@@ -34,6 +34,11 @@ public class CreateEventDto {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate registrationEndDate;
+
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate registrationStartDate;
+
     private Long userId;
 
     private String eventStartTime;

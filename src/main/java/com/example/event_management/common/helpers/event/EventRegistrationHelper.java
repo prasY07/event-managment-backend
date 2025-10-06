@@ -64,8 +64,8 @@ public class EventRegistrationHelper {
             registrationId = EventHelper.createUserUniqueRegistrationID();
         } while (iEventRegistrationRepo.existsByRegistrationId(registrationId));
 
-        ResponseEntity<ApiResponse<String>> verifyOtpResponse = eventOtpHelper.verifyOtp(dto.getUserOtpId(), dto.getOtp());
-        if (verifyOtpResponse.getBody() != null && verifyOtpResponse.getBody().isSuccess()) {
+//        ResponseEntity<ApiResponse<String>> verifyOtpResponse = eventOtpHelper.verifyOtp(dto.getUserOtpId(), dto.getOtp());
+//        if (verifyOtpResponse.getBody() != null && verifyOtpResponse.getBody().isSuccess()) {
 
             registration.setName(dto.getName());
             registration.setEmail(dto.getEmail());
@@ -91,10 +91,10 @@ public class EventRegistrationHelper {
 
             // Convert to response
             return createResponse(saved);
-        } else {
-            throw new RuntimeException(verifyOtpResponse.getBody().getMessage());
-
-        }
+//        } else {
+//            throw new RuntimeException(verifyOtpResponse.getBody().getMessage());
+//
+//        }
     }
 
     private EventRegistrationWithoutQRResponse createResponse(EventRegistration eventRegistration) {

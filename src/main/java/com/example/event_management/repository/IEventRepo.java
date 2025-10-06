@@ -30,6 +30,8 @@ public interface IEventRepo extends JpaRepository<Event, Long> {
     @Query(value = "SELECT * FROM events WHERE start_date = :date AND  status = :status", nativeQuery = true)
     List<Event> getTodayActiveEvent(@Param("date") LocalDate date ,@Param("status") String status);
 
+    @Query(value = "SELECT * FROM events WHERE id = :eventId", nativeQuery = true)
+    Event findEventByID(@Param("eventId") Long eventId);
 
 
 }
