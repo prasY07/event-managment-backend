@@ -49,4 +49,13 @@ public class AppStatus {
         YES,
         NO
     }
+
+    public enum OtpType {
+        PHONE, EMAIL
+    }
+
+    public enum OtpStatus {
+        PENDING, EXPIRED, USED
+    }
+
 }

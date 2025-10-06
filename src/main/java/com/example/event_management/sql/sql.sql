@@ -28,6 +28,8 @@ CREATE TABLE social_media_sources (
     name VARCHAR(100) NOT NULL -- e.g., Facebook, Instagram, Friend, Advertisement
 );
 
+use event_management
+
 INSERT INTO social_media_sources (name) VALUES
 ('Facebook'),
 ('Instagram'),
@@ -109,3 +111,24 @@ INSERT INTO states (name, country_id) VALUES
 
 INSERT INTO `admins` (`id`, `email`, `name`, `password`, `status`) VALUES
 (1, 'admin@admin.com', 'Admin', '$2a$10$WX48QmkAsF/.LCbncsT8x.L3tcOCMALdztI4Ji6crsUeeM2.sGe0m', 'ACTIVE');
+
+CREATE TABLE otp_transactions (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    user_otp_id VARCHAR(50) NOT NULL UNIQUE,
+    user_role VARCHAR(50),
+    type VARCHAR(20) NOT NULL,       -- PHONE or EMAIL
+    type_value VARCHAR(100) NOT NULL,
+    otp VARCHAR(6) NOT NULL,
+    otp_status VARCHAR(20) DEFAULT 'PENDING', -- PENDING, EXPIRED, USED
+    otp_expiry TIMESTAMP NOT NULL,
+    otp_count INT DEFAULT 0,         -- send + resend
+    created_by VARCHAR(50),
+    modified_by VARCHAR(50),
+    created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modified_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+use event_management
+
+desc events
+

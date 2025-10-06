@@ -33,6 +33,9 @@ public class Event {
     private LocalDate startDate;
     private LocalDate endDate;
 
+    @Column(name = "registration_start_date",nullable=false)
+    private LocalDate registrationStartDate;
+
     @Column(name = "registration_end_date",nullable=false)
     private LocalDate registrationEndDate;
 

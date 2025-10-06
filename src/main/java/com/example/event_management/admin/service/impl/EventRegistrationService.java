@@ -54,8 +54,6 @@ public class EventRegistrationService {
         @Autowired
         private QRCodeCreationEmailSendService qrCodeCreationEmailSendService;
 
-
-
         
     public PaginationResponse<List<EventRegisterUserShortResponse>> getAllEventUser( Long eventId,int page, int size) {
         Pageable pageable = (Pageable) PageRequest.of(page, size);

@@ -1,5 +1,6 @@
 package com.example.event_management.admin.dto;
 
+import com.example.event_management.common.AppStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,13 @@ public class EventRegistrationWithoutQRDto {
     private String qrCode;
 
     private String zipcode;
+
+    private AppStatus.EventRegistrationAddedBy eventRegistrationAddedBy;
+
+    private String otp;
+
+    private String userOtpId;
+
 
     // private LocalDateTime createdAt;
 

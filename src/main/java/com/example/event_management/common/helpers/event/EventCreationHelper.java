@@ -93,7 +93,6 @@ public class EventCreationHelper {
         event.setUser(user);
         event.setEventId(eventId);
 
-
         // Save to DB
         return iEventRepo.save(event);
     }
