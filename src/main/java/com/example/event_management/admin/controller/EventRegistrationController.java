@@ -31,7 +31,7 @@ public class EventRegistrationController {
     public ResponseEntity<ApiResponse<PaginationResponse<List<EventRegisterUserShortResponse>>>> allUsersWithPagination(
              @PathVariable Long eventId,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "1") int size
+            @RequestParam(defaultValue = "10") int size
            
             ) {
         PaginationResponse<List<EventRegisterUserShortResponse>> paginatedEventRegisterUser = eventRegistrationService.getAllEventUser(eventId,page, size);
