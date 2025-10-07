@@ -5,8 +5,10 @@ import com.example.event_management.admin.dto.response.EventMemberTypeResponse;
 import com.example.event_management.admin.dto.response.EventRegistrationWithoutQRResponse;
 import com.example.event_management.common.helpers.dto.request.ResendOtpDto;
 import com.example.event_management.common.helpers.dto.request.SendOtpDto;
+import com.example.event_management.common.helpers.dto.request.VerifyOtpDto;
 import com.example.event_management.common.helpers.event.EventOtpHelper;
 import com.example.event_management.common.helpers.event.EventRegistrationHelper;
+import com.example.event_management.common.response.SendOtpResponse;
 import com.example.event_management.web.dto.response.WebEventMemberListResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -42,13 +44,15 @@ public class WebEventController {
     }
 
     @PostMapping("/sendOtp")
-    public ResponseEntity<ApiResponse<String>> sendOtp(@Valid @RequestBody SendOtpDto request ) {
-      return this.eventOtpHelper.sendOtp(request);
+    public ResponseEntity<ApiResponse<SendOtpResponse>> sendOtp(@Valid @RequestBody SendOtpDto request ) {
+        SendOtpResponse response = eventOtpHelper.sendOtp(request);
+        return ApiResponse.success("Response from send OTP API", response);
     }
 
     @PostMapping("/resendOtp")
-    public ResponseEntity<ApiResponse<String>> resendOtp(@Valid @RequestBody ResendOtpDto request ) {
-        return this.eventOtpHelper.resendOtp(request);
+    public ResponseEntity<ApiResponse<SendOtpResponse>> resendOtp(@RequestBody ResendOtpDto resendOtpDto) {
+        SendOtpResponse response = eventOtpHelper.resendOtp(resendOtpDto);
+        return ApiResponse.success("Response from resend OTP API", response);
     }
 
     @GetMapping("{eventId}/member-list")
@@ -64,5 +68,11 @@ public class WebEventController {
         return ApiResponse.success("Registration Successfully", null);
 
 
+    }
+
+    @PostMapping("/verifyOtp")
+    public ResponseEntity<ApiResponse<String>> verifyOtp(@RequestBody VerifyOtpDto verifyOtpDto) {
+        String userOtpId = eventOtpHelper.verifyOtp(verifyOtpDto);
+        return ApiResponse.success("OTP verified successfully",userOtpId);
     }
 }

@@ -22,10 +22,10 @@ public class OtpTypeValueValidator implements ConstraintValidator<ValidOtpTypeVa
         String errorMessage = null;
 
         switch (dto.getOtpType()) {
-            case PHONE:
-                valid = PHONE_PATTERN.matcher(dto.getTypeValue()).matches();
-                if (!valid) errorMessage = "Invalid phone number. Must be 10 digits.";
-                break;
+//            case PHONE:
+//                valid = PHONE_PATTERN.matcher(dto.getTypeValue()).matches();
+//                if (!valid) errorMessage = "Invalid phone number. Must be 10 digits.";
+//                break;
             case EMAIL:
                 valid = EMAIL_PATTERN.matcher(dto.getTypeValue()).matches();
                 if (!valid) errorMessage = "Invalid email address format.";

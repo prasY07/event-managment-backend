@@ -20,7 +20,6 @@ public class SendOtpDto {
     private AppStatus.OtpType otpType;
     @NotNull(message = "Type value is required")
     private String typeValue;
-    @NotNull(message = "Role is required")
     private String role;
 
 }
