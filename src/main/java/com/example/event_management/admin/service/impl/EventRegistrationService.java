@@ -75,8 +75,11 @@ public class EventRegistrationService {
 
         public EventRegistrationWithoutQRResponse newRegistration(EventRegistrationWithoutQRDto dto) {
 
-                Event event = iEventRepo.findById(dto.getEventId())
-                                .orElseThrow(() -> new EntityNotFoundException("Event not found"));
+            Event event = iEventRepo.findEventByUUID(dto.getEventId());
+            if(event == null)
+            {
+                throw new EntityNotFoundException("Event Not found");
+            }
 
                 SocialMediaSource heardSource = iSocialMediaSourceRepo.findById(dto.getHeardSourceId())
                                 .orElseThrow(() -> new EntityNotFoundException("Heard Source not found"));
@@ -104,7 +107,7 @@ public class EventRegistrationService {
                 // .orElseThrow(() -> new EntityNotFoundException("Member Type not found"));
 
                 EventMemberType memberType = iEventMemberTypeRepo
-                                .findByIdAndEventId(dto.getMemberTypeId(), dto.getEventId())
+                                .findByIdAndEventId(dto.getMemberTypeId(), event.getId())
                                 .orElseThrow(() -> new EntityNotFoundException("Member Type not found for this event"));
 
                 EventRegistration registration = new EventRegistration();
@@ -133,7 +136,7 @@ public class EventRegistrationService {
                 EventRegistration saved = iEventRegistrationRepo.save(registration);
 
                 qrCodeCreationEmailSendService.processRegistration(
-                                dto.getEventId(),
+                                event.getId(),
                                 registrationId,
                                 dto.getEmail());
 

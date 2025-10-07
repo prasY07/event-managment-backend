@@ -25,7 +25,7 @@ public class EventRegistrationWithoutQRDto {
 
     private String phoneNumber;
     private Long countryId;
-    private Long eventId;
+    private String eventId;
 
     private String address;
 
