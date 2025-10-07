@@ -33,5 +33,6 @@ public interface IEventRepo extends JpaRepository<Event, Long> {
     @Query(value = "SELECT * FROM events WHERE id = :eventId", nativeQuery = true)
     Event findEventByID(@Param("eventId") Long eventId);
 
-
+    @Query("SELECT COUNT(e) FROM Event e")
+    Long countTotalEvents();
 }

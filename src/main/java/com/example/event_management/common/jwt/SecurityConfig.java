@@ -32,7 +32,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/admin/auth/login").permitAll()  // allow login
                         .requestMatchers("/api/app/**").permitAll()
-                        .requestMatchers("/api/web/**").permitAll()  // allow app APIs
+                        .requestMatchers("/api/web/**").permitAll()
+                        .requestMatchers("/api/admin/counts").permitAll()// allow app APIs
                         .anyRequest().authenticated()                            // protect everything else
                 )
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(customAuthEntryPoint))
