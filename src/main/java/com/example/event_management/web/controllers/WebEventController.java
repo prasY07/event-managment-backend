@@ -9,6 +9,9 @@ import com.example.event_management.common.helpers.dto.request.VerifyOtpDto;
 import com.example.event_management.common.helpers.event.EventOtpHelper;
 import com.example.event_management.common.helpers.event.EventRegistrationHelper;
 import com.example.event_management.common.response.SendOtpResponse;
+import com.example.event_management.entity.BusinessDetails;
+import com.example.event_management.repository.IBusinessDetails;
+import com.example.event_management.web.dto.BusinessDetailsDTO;
 import com.example.event_management.web.dto.response.WebEventMemberListResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +36,9 @@ public class WebEventController {
     private final EventOtpHelper eventOtpHelper;
 
     private final EventRegistrationHelper  eventRegistrationHelper;
+
+    @Autowired
+    private IBusinessDetails iBusinessDetails;
 
 
 
@@ -74,5 +80,22 @@ public class WebEventController {
     public ResponseEntity<ApiResponse<String>> verifyOtp(@RequestBody VerifyOtpDto verifyOtpDto) {
         String userOtpId = eventOtpHelper.verifyOtp(verifyOtpDto);
         return ApiResponse.success("OTP verified successfully",userOtpId);
+    }
+
+    @PostMapping("business-registration")
+    public ResponseEntity<ApiResponse<String>> companyDetails(@RequestBody BusinessDetailsDTO businessDetailsDTO) {
+        BusinessDetails businessDetails = new BusinessDetails();
+        businessDetails.setFname(businessDetailsDTO.getFname());
+        businessDetails.setLname(businessDetailsDTO.getLname());
+        businessDetails.setGender(businessDetailsDTO.getGender());
+        businessDetails.setPhoneNumber(businessDetailsDTO.getPhoneNumber());
+        businessDetails.setEmail(businessDetailsDTO.getEmail());
+        businessDetails.setCompanyName(businessDetailsDTO.getCompanyName());
+        businessDetails.setGst(businessDetailsDTO.getGst());
+        businessDetails.setCompanyAddress(businessDetailsDTO.getCompanyAddress());
+        businessDetails.setBusinessSummary(businessDetailsDTO.getBusinessSummary());
+        iBusinessDetails.save(businessDetails);
+        return ApiResponse.success("Registration Sucesfully",null);
+
     }
 }
