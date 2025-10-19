@@ -16,7 +16,7 @@ public class CorsConfig {
         registry.addMapping("/api/**")
             .allowedOrigins("http://localhost:4200",
                     "http://dev.gokollective.com",
-                    "https://dev.gokollective.com"   // 👈 added new allowed origin
+                    "https://dev.gokollective.com"
             )
             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
             .allowedHeaders("*")

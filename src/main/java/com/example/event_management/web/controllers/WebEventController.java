@@ -87,13 +87,15 @@ public class WebEventController {
         BusinessDetails businessDetails = new BusinessDetails();
         businessDetails.setFname(businessDetailsDTO.getFname());
         businessDetails.setLname(businessDetailsDTO.getLname());
-        businessDetails.setGender(businessDetailsDTO.getGender());
+        businessDetails.setGender(BusinessDetails.Gender.valueOf(businessDetailsDTO.getGender())); // Enum
         businessDetails.setPhoneNumber(businessDetailsDTO.getPhoneNumber());
         businessDetails.setEmail(businessDetailsDTO.getEmail());
         businessDetails.setCompanyName(businessDetailsDTO.getCompanyName());
-        businessDetails.setGst(businessDetailsDTO.getGst());
         businessDetails.setCompanyAddress(businessDetailsDTO.getCompanyAddress());
         businessDetails.setBusinessSummary(businessDetailsDTO.getBusinessSummary());
+        businessDetails.setEemaMember(BusinessDetails.EemaMember.valueOf(businessDetailsDTO.getEemaMember())); // Enum
+        businessDetails.setCategories(businessDetailsDTO.getCategories()); // comma-separated string
+        businessDetails.setEmaa(BusinessDetails.Emaa.valueOf(businessDetailsDTO.getEmaa()));
         iBusinessDetails.save(businessDetails);
         return ApiResponse.success("Registration Sucesfully",null);
 
