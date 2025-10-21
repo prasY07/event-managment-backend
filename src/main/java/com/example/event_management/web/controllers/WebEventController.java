@@ -1,7 +1,6 @@
 package com.example.event_management.web.controllers;
 
 import com.example.event_management.admin.dto.EventRegistrationWithoutQRDto;
-import com.example.event_management.admin.dto.response.EventMemberTypeResponse;
 import com.example.event_management.admin.dto.response.EventRegistrationWithoutQRResponse;
 import com.example.event_management.common.helpers.dto.request.ResendOtpDto;
 import com.example.event_management.common.helpers.dto.request.SendOtpDto;

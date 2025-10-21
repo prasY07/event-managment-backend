@@ -5,20 +5,14 @@ import com.example.event_management.common.AppStatus;
 import com.example.event_management.common.helpers.dto.request.ResendOtpDto;
 import com.example.event_management.common.helpers.dto.request.SendOtpDto;
 import com.example.event_management.common.helpers.dto.request.VerifyOtpDto;
-import com.example.event_management.common.response.ApiResponse;
 import com.example.event_management.common.response.SendOtpResponse;
 import com.example.event_management.entity.OtpTransactions;
 import com.example.event_management.repository.IOtpTransactionsRepo;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.message.Message;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Random;
 import java.util.UUID;
 
 @Component
@@ -44,22 +38,11 @@ public class EventOtpHelper {
 
         String phone = normalizePhoneNumber(sendOtpDto.getTypeValue());
 
+        String otp = generateOtp();
 
-        OtpTransactions otpTransactionsEntity = OtpTransactions.builder()
-                .userOtpId(newUserOtpId)
-                .type(sendOtpDto.getOtpType())
-                .typeValue(phone)
-                .otp(generateOtp())
-                .otpStatus(AppStatus.OtpStatus.PENDING)
-                .otpExpiry(LocalDateTime.now().plusMinutes(10)) // 10 min expiry
-                .otpCount(1)
-                .createdBy(role)
-                .createdTime(LocalDateTime.now())
-                .build();
+       
 
-        otpTransactionsRepo.save(otpTransactionsEntity);
-
-        message = "Your OTP is " + otpTransactionsEntity.getOtp() + "(valid for 10 minutes).";
+        message = "Your OTP is " + otp + "(valid for 10 minutes).";
         if ((sendOtpDto.getOtpType().equals(AppStatus.OtpType.PHONE))) {
             eventNotificationResponse = eventNotificationsHelper.sendSms(phone, message);
         }
@@ -75,6 +58,20 @@ public class EventOtpHelper {
                     sendOtpDto.getOtpType() == AppStatus.OtpType.PHONE ? "phone number" : "email",
                     phone);
         }
+
+         OtpTransactions otpTransactionsEntity = OtpTransactions.builder()
+                .userOtpId(newUserOtpId)
+                .type(sendOtpDto.getOtpType())
+                .typeValue(phone)
+                .otp(otp)
+                .otpStatus(AppStatus.OtpStatus.PENDING)
+                .otpExpiry(LocalDateTime.now().plusMinutes(10)) // 10 min expiry
+                .otpCount(1)
+                .createdBy(role)
+                .createdTime(LocalDateTime.now())
+                .build();
+
+        otpTransactionsRepo.save(otpTransactionsEntity);
 
         return new SendOtpResponse(retMessage, newUserOtpId);
     }

@@ -2,6 +2,11 @@ package com.example.event_management.common;
 
 public class AppStatus {
 
+      public enum EmployeeStatus {
+        ACTIVE,
+        INACTIVE,
+    }
+
     public enum UserStatus {
         ACTIVE,
         INACTIVE,
@@ -57,5 +62,11 @@ public class AppStatus {
     public enum OtpStatus {
         PENDING, EXPIRED, USED
     }
+
+    public enum CommonStatus {
+        ACTIVE,
+        INACTIVE,
+    }
+
 
 }

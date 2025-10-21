@@ -2,7 +2,6 @@ package com.example.event_management.common.helpers.dto.request;
 
 import com.example.event_management.common.AppStatus;
 import com.example.event_management.common.validation.ValidOtpTypeValue;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
