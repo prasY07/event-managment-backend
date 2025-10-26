@@ -132,3 +132,29 @@ use event_management
 
 desc events
 
+
+
+---------------------------------------------------
+
+INSERT INTO vendor_types (name, status)
+VALUES
+('DJ', 'ACTIVE'),
+('Catering', 'ACTIVE'),
+('Decoration', 'ACTIVE'),
+('Photography', 'ACTIVE'),
+('Videography', 'ACTIVE'),
+('Makeup Artist', 'ACTIVE'),
+('Choreographer', 'ACTIVE'),
+('Wedding Planner', 'ACTIVE'),
+('Invitation Designer', 'ACTIVE'),
+('Sound & Lighting', 'ACTIVE'),
+('Stage Designer', 'ACTIVE'),
+('Venue Decorator', 'ACTIVE'),
+('Mehndi Artist', 'ACTIVE'),
+('Florist', 'ACTIVE'),
+('Band', 'ACTIVE'),
+('Car Rental', 'ACTIVE'),
+('Pandit / Priest', 'ACTIVE'),
+('Entertainment (Singer / Performer)', 'ACTIVE'),
+('Gift & Return Favors', 'ACTIVE'),
+('Event Coordinator', 'ACTIVE');

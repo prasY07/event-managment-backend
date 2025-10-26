@@ -27,6 +27,7 @@ public class VendorType {
     @Column(nullable = false, unique = true, length = 100)
     private String name;
 
+    @Enumerated(EnumType.STRING)
     private AppStatus.CommonStatus status;
 
 
