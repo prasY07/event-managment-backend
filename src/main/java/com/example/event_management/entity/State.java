@@ -1,5 +1,7 @@
 package com.example.event_management.entity;
 
+import com.example.event_management.common.AppStatus;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,5 +22,9 @@ public class State {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AppStatus.CommonStatus status = AppStatus.CommonStatus.INACTIVE;
 
 }

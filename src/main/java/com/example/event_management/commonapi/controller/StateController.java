@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/common/state-list")
+@RequestMapping("/api/common/state")
 public class StateController {
     @Autowired
     StateService stateService;

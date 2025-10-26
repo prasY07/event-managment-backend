@@ -43,9 +43,9 @@ public class EmployeeService {
     }
 
     public List<EmployeeListResponse> getAllEmployees() {
-        Page<Employee> userPage = iEmployeeRepo.findAllEmployee();
+        List<Employee> userPage = iEmployeeRepo.findAllEmployee();
 
-        List<EmployeeListResponse> users = userPage.getContent()
+        List<EmployeeListResponse> users = userPage
                 .stream()
                 .map(this::createEmployeeListResponse)
                 .toList();

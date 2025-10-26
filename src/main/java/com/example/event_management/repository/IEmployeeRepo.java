@@ -1,8 +1,9 @@
 package com.example.event_management.repository;
 
 import com.example.event_management.entity.Employee;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IEmployeeRepo extends JpaRepository<Employee, Long> {
 
-    Page<Employee> findAll(Pageable pageable);
+    // Page<Employee> findAll(Pageable pageable);
 
     boolean existsByEmail(String email);
 
@@ -20,7 +21,7 @@ public interface IEmployeeRepo extends JpaRepository<Employee, Long> {
 
     boolean existsByPhoneNumberAndCountry_IdAndIdNot(String phoneNumber, Long countryId, Long id);
 
-    @Query("SELECT e FROM Employee e where e.status = 'ACTIVE'")
-    Page<Employee> findAllEmployee();
+    @Query(value = "SELECT * FROM employees e where e.status = 'ACTIVE'",nativeQuery = true)
+    List<Employee> findAllEmployee();
 
 }

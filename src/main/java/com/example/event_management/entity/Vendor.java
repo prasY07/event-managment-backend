@@ -35,6 +35,10 @@ public class Vendor {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
+    @ManyToOne
+    @JoinColumn(name = "state_id", nullable = false)
+    private State state;
+
     @Column(nullable = false)
     private String address;
 
