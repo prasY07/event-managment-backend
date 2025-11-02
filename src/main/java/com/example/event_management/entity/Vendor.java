@@ -36,8 +36,12 @@ public class Vendor {
     private String phoneNumber;
 
     @ManyToOne
-    @JoinColumn(name = "state_id", nullable = false)
+    @JoinColumn(name = "state_id", referencedColumnName = "id", nullable = false)
     private State state;
+
+    @ManyToOne
+    @JoinColumn(name = "vendor_type_id",  referencedColumnName = "id", nullable = false)
+    private VendorType vendorTypeId;
 
     @Column(nullable = false)
     private String address;

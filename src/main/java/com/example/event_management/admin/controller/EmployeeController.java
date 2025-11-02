@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +60,7 @@ public class EmployeeController {
 
 
     @PostMapping("/{id}/update")
-    public ResponseEntity<ApiResponse<String>> updateEmployee(@RequestBody AddUpdateEmployeeDto addUpdateEmployeeDto, @RequestParam Long id) {
+    public ResponseEntity<ApiResponse<String>> updateEmployee(@RequestBody AddUpdateEmployeeDto addUpdateEmployeeDto, @PathVariable Long id) {
         Boolean res = employeeService.updateEmployee(addUpdateEmployeeDto, id);
         if (!res) {
         return ApiResponse.error("OOPS Something went wrong", null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -69,7 +70,7 @@ public class EmployeeController {
     }
 
      @GetMapping("/{id}/update-status")
-    public ResponseEntity<ApiResponse<String>> updateEmployeeStatus(@RequestParam Long id) {
+    public ResponseEntity<ApiResponse<String>> updateEmployeeStatus(@PathVariable Long id) {
         Boolean res = employeeService.updateStatus(id);
         if (!res) {
         return ApiResponse.error("OOPS Something went wrong", null, HttpStatus.INTERNAL_SERVER_ERROR);
