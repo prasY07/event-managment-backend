@@ -75,4 +75,20 @@ public class AppStatus {
 
 
 
+        public enum WeddingStatus {
+        UPCOMING,
+        ONGOING,
+        COMPLETED,
+        CANCELLED
+    }
+
+
+    public enum WStatus {
+        ACTIVE,
+        INACTIVE,
+    }
+
+
+
+
 }

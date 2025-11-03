@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.example.event_management.common.AppStatus;
+
 @Entity
 @Getter
 @Setter
@@ -44,6 +46,8 @@ public class WeddingMaster {
     private LocalDate registrationStartDate;
     private LocalDate registrationEndDate;
 
+    private AppStatus.WeddingStatus weddingStatus = AppStatus.WeddingStatus.UPCOMING;
+    private AppStatus.WStatus status = AppStatus.WStatus.INACTIVE;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
 
