@@ -42,8 +42,8 @@ public class EmployeeService {
                 userPage.getTotalPages());
     }
 
-    public List<EmployeeListResponse> getAllEmployees() {
-        List<Employee> userPage = iEmployeeRepo.findAllEmployee();
+    public List<EmployeeListResponse> getAllEmployees(String eType) {
+        List<Employee> userPage = iEmployeeRepo.findAllEmployee(eType);
 
         List<EmployeeListResponse> users = userPage
                 .stream()
@@ -81,6 +81,7 @@ public class EmployeeService {
         employee.setPhoneNumber(addUpdateEmployeeDto.getPhoneNumber());
         employee.setCountry(country); // Correct way to set the entire country entity
         employee.setStatus(AppStatus.EmployeeStatus.INACTIVE);
+        employee.setEType(addUpdateEmployeeDto.getEType());
         iEmployeeRepo.save(employee); // Save and get the saved entity with ID
         return Boolean.TRUE; // Convert to UserResponse and return
     }
@@ -106,6 +107,8 @@ public class EmployeeService {
         existingEmployee.setEmail(addUpdateEmployeeDto.getEmail());
         existingEmployee.setPhoneNumber(addUpdateEmployeeDto.getPhoneNumber());
         existingEmployee.setCountry(country); // Correct way to set the entire country entity
+                existingEmployee.setEType(addUpdateEmployeeDto.getEType());
+
         iEmployeeRepo.save(existingEmployee); // Save and get the saved entity with ID
         return Boolean.TRUE; // Convert to UserResponse and return
     }

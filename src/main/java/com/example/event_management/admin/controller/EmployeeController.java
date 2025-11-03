@@ -42,8 +42,8 @@ public class EmployeeController {
 
 
      @GetMapping("/all-employees")
-    public ResponseEntity<ApiResponse<List<EmployeeListResponse>>> allEmployees() {
-        List<EmployeeListResponse> res = employeeService.getAllEmployees();
+    public ResponseEntity<ApiResponse<List<EmployeeListResponse>>> allEmployees(@RequestParam String eType) {
+        List<EmployeeListResponse> res = employeeService.getAllEmployees(eType);
         return ApiResponse.success(
                 "Employee List",res);
     }

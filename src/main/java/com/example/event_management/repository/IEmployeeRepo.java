@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -21,7 +22,7 @@ public interface IEmployeeRepo extends JpaRepository<Employee, Long> {
 
     boolean existsByPhoneNumberAndCountry_IdAndIdNot(String phoneNumber, Long countryId, Long id);
 
-    @Query(value = "SELECT * FROM employees e where e.status = 'ACTIVE'",nativeQuery = true)
-    List<Employee> findAllEmployee();
+    @Query(value = "SELECT * FROM employees e where e.status = 'ACTIVE' AND e_type=:eType",nativeQuery = true)
+    List<Employee> findAllEmployee(@Param("eType") String eType);
 
 }

@@ -49,4 +49,7 @@ public class Employee {
 
     @Enumerated(EnumType.STRING)
     private AppStatus.EmployeeStatus status;
+
+        @Enumerated(EnumType.STRING)
+    private AppStatus.ETYPE eType; 
 }

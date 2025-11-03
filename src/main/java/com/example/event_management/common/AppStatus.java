@@ -68,5 +68,11 @@ public class AppStatus {
         INACTIVE,
     }
 
+       public enum ETYPE {
+        COORDINATOR,
+        SUPPORT,
+    }
+
+
 
 }
