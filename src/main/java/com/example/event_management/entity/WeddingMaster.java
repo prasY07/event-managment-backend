@@ -31,11 +31,14 @@ public class WeddingMaster {
     private String groomMotherName;
     private String brideFatherName;
     private String brideMotherName;
+
     @Column(name = "wedding_card" , nullable = true)
     private String weddingCard;
 
      @Column(name = "wedding_id" , nullable = false , unique = true)
     private String weddingId;
+
+    private String coupleName;
 
     private LocalDate weddingDate;
     private LocalDate registrationStartDate;

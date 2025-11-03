@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 public class CreateUpdateWedEventDto {
 
-       private String groomName;
+    private String groomName;
     private String brideName;
 
     private String groomFatherName;
@@ -22,7 +22,7 @@ public class CreateUpdateWedEventDto {
 
     private String brideFatherName;
     private String brideMotherName;
-
+    private String coupleName;
 
     private LocalDate weddingDate;
     private LocalDate registrationStartDate;
