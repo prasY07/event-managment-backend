@@ -9,7 +9,6 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import com.example.event_management.common.AppStatus;
 
@@ -40,7 +39,8 @@ public class WeddingMaster {
      @Column(name = "wedding_id" , nullable = false , unique = true)
     private String weddingId;
 
-    private String coupleName;
+   @Column(name = "couple_name" , nullable = false)
+    private String coupleDisplayName;
 
     private LocalDate weddingDate;
     private LocalDate registrationStartDate;

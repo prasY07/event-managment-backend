@@ -5,16 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.event_management.admin.dto.CreateUpdateWedEventDto;
+import com.example.event_management.admin.dto.response.EventShortResponse;
+import com.example.event_management.admin.dto.response.WeddingMasterResponse;
 import com.example.event_management.admin.service.impl.WeddingMasterService;
 import com.example.event_management.common.response.ApiResponse;
 import com.example.event_management.common.response.PaginationResponse;
 import com.example.event_management.entity.WeddingMaster;
 import com.example.event_management.projection.admin.WeddingListShortProjection;
+import com.example.event_management.projection.admin.WeddingSideMasterProjection;
 
 @RequestMapping("/api/admin/wedding")
 public class WeddingMasterController {
@@ -43,11 +47,27 @@ public class WeddingMasterController {
      }
 
 
-       @PostMapping("/{id}/update")
+    @PostMapping("/{id}/update")
    public ResponseEntity<ApiResponse<String>> updateWeddingEvent(CreateUpdateWedEventDto dto  , @RequestParam Long id) {
         WeddingMaster updateWedding = weddingMasterService.updateWeddingMaster(dto , id);
         return ApiResponse.success("Wedding Event create Successfully",null);  
      }
+
+       @GetMapping("{id}/wedding-information")
+    public ResponseEntity<ApiResponse<WeddingMasterResponse>> getInfor(@PathVariable Long id) {
+        WeddingMasterResponse eventInfo = weddingMasterService.getSingleInformation(id);
+        return ApiResponse.success("Event Information", eventInfo);
+    }
+
+    
+    // get all wedding side
+    @GetMapping("/sides")
+    public ResponseEntity<ApiResponse<List<WeddingSideMasterProjection>>> getAllWeddingSides() {
+        List<WeddingSideMasterProjection> sides = weddingMasterService.getAllWeddingSides();
+        return ApiResponse.success("Wedding Sides", sides);
+    }
+
+    
 
 
     

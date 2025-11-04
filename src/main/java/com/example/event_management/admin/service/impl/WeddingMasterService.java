@@ -9,17 +9,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.event_management.admin.dto.CreateUpdateWedEventDto;
+import com.example.event_management.admin.dto.response.WeddingMasterResponse;
 import com.example.event_management.common.helpers.event.EventHelper;
 import com.example.event_management.common.response.PaginationResponse;
 import com.example.event_management.entity.WeddingMaster;
 import com.example.event_management.projection.admin.WeddingListShortProjection;
+import com.example.event_management.projection.admin.WeddingSideMasterProjection;
 import com.example.event_management.repository.IWeddingMasterRepo;
+import com.example.event_management.repository.IWeddingSideMasterRepo;
 
 @Service
 public class WeddingMasterService {
 
     @Autowired
     IWeddingMasterRepo weddingMasterRepo;
+
+    @Autowired
+    IWeddingSideMasterRepo weddingSideMasterRepo;
 
     public PaginationResponse<List<WeddingListShortProjection>> getAllWedingEvents(int page, int size) {
         Pageable pageable = (Pageable) PageRequest.of(page, size);
@@ -33,8 +39,21 @@ public class WeddingMasterService {
                 wedEventList.getTotalPages());
     }
 
-    // create wedding master
+    public WeddingMasterResponse getSingleInformation(Long id) {
+        WeddingMaster wedding = weddingMasterRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid event selected"));
 
+        WeddingMasterResponse response = new WeddingMasterResponse(
+                wedding.getId(),
+                wedding.getCoupleDisplayName(),
+                wedding.getWeddingDate(),
+                wedding.getWeddingDate(),
+                wedding.getRegistrationEndDate()
+        );
+
+        return response;
+    }
+    // create wedding master
     public WeddingMaster createWeddingMaster(CreateUpdateWedEventDto dto) {
 
         String weddingId;
@@ -52,7 +71,7 @@ public class WeddingMasterService {
         wedding.setWeddingDate(dto.getWeddingDate());
         wedding.setRegistrationStartDate(dto.getRegistrationStartDate());
         wedding.setRegistrationEndDate(dto.getRegistrationEndDate());
-        wedding.setCoupleName(dto.getCoupleName());
+        wedding.setCoupleDisplayName(dto.getCoupleName());
         wedding.setWeddingId(weddingId);
 
         return weddingMasterRepo.save(wedding);
@@ -70,9 +89,15 @@ public class WeddingMasterService {
         wedding.setWeddingDate(dto.getWeddingDate());
         wedding.setRegistrationStartDate(dto.getRegistrationStartDate());
         wedding.setRegistrationEndDate(dto.getRegistrationEndDate());
-        wedding.setCoupleName(dto.getCoupleName());
+        wedding.setCoupleDisplayName(dto.getCoupleName());
 
         return weddingMasterRepo.save(wedding);
     }
 
+   
+
+    // get all wedding side
+    public List<WeddingSideMasterProjection> getAllWeddingSides() {
+        return weddingSideMasterRepo.findActiveMasterProjection();
+    }
 }

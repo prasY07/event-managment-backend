@@ -158,3 +158,13 @@ VALUES
 ('Entertainment (Singer / Performer)', 'ACTIVE'),
 ('Gift & Return Favors', 'ACTIVE'),
 ('Event Coordinator', 'ACTIVE');
+
+
+-----------------------------------
+
+
+INSERT INTO wedding_side_master (side_name, description, status)
+VALUES
+('Groom', 'Represents the groom side for wedding events', 'ACTIVE'),
+('Bride', 'Represents the bride side for wedding events', 'ACTIVE'),
+('Joint', 'Represents both groom and bride sides together', 'ACTIVE');
