@@ -19,7 +19,9 @@ import com.example.event_management.common.response.PaginationResponse;
 import com.example.event_management.entity.WeddingMaster;
 import com.example.event_management.projection.admin.WeddingListShortProjection;
 import com.example.event_management.projection.admin.WeddingSideMasterProjection;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 @RequestMapping("/api/admin/wedding")
 public class WeddingMasterController {
 
