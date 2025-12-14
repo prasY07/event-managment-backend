@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.event_management.projection.admin.EventShortProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,4 +36,8 @@ public interface IEventRepo extends JpaRepository<Event, Long> {
 
     @Query("SELECT COUNT(e) FROM Event e")
     Long countTotalEvents();
+
+
+    @Query(value = "Select id , eventStatus as status from events where end_date=:endDate " , nativeQuery = true )
+    List<EventShortProjection> getEventByEndDate(@Param("endDate") LocalDate endDate);
 }
