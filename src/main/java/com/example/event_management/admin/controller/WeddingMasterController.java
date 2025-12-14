@@ -52,7 +52,7 @@ public class WeddingMasterController {
     @PostMapping("/{id}/update")
    public ResponseEntity<ApiResponse<String>> updateWeddingEvent(CreateUpdateWedEventDto dto  , @RequestParam Long id) {
         WeddingMaster updateWedding = weddingMasterService.updateWeddingMaster(dto , id);
-        return ApiResponse.success("Wedding Event create Successfully",null);  
+        return ApiResponse.success("Wedding Event updated Successfully",null);
      }
 
        @GetMapping("{id}/wedding-information")

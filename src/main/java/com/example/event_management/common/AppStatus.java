@@ -2,7 +2,7 @@ package com.example.event_management.common;
 
 public class AppStatus {
 
-      public enum EmployeeStatus {
+    public enum EmployeeStatus {
         ACTIVE,
         INACTIVE,
     }
@@ -49,8 +49,7 @@ public class AppStatus {
         SELF,
     }
 
-    public enum EventFoc
-    {
+    public enum EventFoc {
         YES,
         NO
     }
@@ -68,14 +67,13 @@ public class AppStatus {
         INACTIVE,
     }
 
-       public enum ETYPE {
+    public enum ETYPE {
         COORDINATOR,
         SUPPORT,
     }
 
 
-
-        public enum WeddingStatus {
+    public enum WeddingStatus {
         UPCOMING,
         ONGOING,
         COMPLETED,
@@ -88,7 +86,11 @@ public class AppStatus {
         INACTIVE,
     }
 
-
+    public enum notificationStatus {
+        PENDING,
+        SENT,
+        FAILED
+    }
 
 
 }
