@@ -23,6 +23,6 @@ public class PublicEventStatusUpdate {
     public void updatePublicEventStatus()
     {
 
-        List<EventShortProjection> = eventRepo.getEventByEndDate();
+        // List<EventShortProjection> = eventRepo.getEventByEndDate();
     }
 }
