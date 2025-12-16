@@ -3,10 +3,7 @@ package com.example.event_management.entity;
 import com.example.event_management.common.AppStatus;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 @Getter
@@ -20,6 +17,7 @@ import lombok.Setter;
                 @UniqueConstraint(columnNames = { "side_name" })
         }
 )
+@Builder
 public class WeddingSideMaster {
     
       @Id

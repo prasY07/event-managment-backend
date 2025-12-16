@@ -9,12 +9,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @SpringBootApplication
-<<<<<<< HEAD
 @EnableJpaAuditing
-=======
 @EnableScheduling
 @EnableAsync
->>>>>>> 5549bdfd12c6875874cbaa8996122adfcb5d0d53
 public class EventManagementApplication {
 
 	public static void main(String[] args) {

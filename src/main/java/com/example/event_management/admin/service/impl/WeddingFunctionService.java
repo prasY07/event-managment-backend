@@ -39,6 +39,7 @@ public class WeddingFunctionService {
         WeddingSideMaster side = weddingSideMasterRepository.findById(request.getSideId())
                 .orElseThrow(() -> new EntityNotFoundException("Wedding side not found"));
 
+
         WeddingFunction function = WeddingFunction.builder()
                 .weddingMaster(weddingMaster)
                 .side(side)

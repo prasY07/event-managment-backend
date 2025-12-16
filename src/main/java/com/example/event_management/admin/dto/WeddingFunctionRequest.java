@@ -28,4 +28,6 @@ public class WeddingFunctionRequest {
     private String venueName;
     private String venueAddress;
     private String city;
+    private String sideName;
+    private String sideDescription;
 }
