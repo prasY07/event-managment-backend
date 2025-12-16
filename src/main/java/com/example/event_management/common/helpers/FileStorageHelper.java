@@ -28,4 +28,25 @@ public class FileStorageHelper {
             throw new RuntimeException("Failed to store image", e);
         }
     }
+
+    public static String saveCardForWedding(MultipartFile file, Long weddingId, String type) {
+        try {
+            String folderPath = "uploads/wedding/wedding-" + weddingId + "/" + type + "/";
+            Path dirPath = Paths.get(folderPath);
+
+            if (!Files.exists(dirPath)) {
+                Files.createDirectories(dirPath);
+            }
+
+            long unixTimestamp = System.currentTimeMillis() / 1000 + weddingId;
+
+            String fileName = unixTimestamp + "_" + file.getOriginalFilename();
+            Path filePath = dirPath.resolve(fileName);
+            Files.write(filePath, file.getBytes());
+
+            return filePath.toString(); // Or relative path if preferred
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to store image", e);
+        }
+    }
 }
