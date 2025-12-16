@@ -31,7 +31,7 @@ public class FileStorageHelper {
 
     public static String saveCardForWedding(MultipartFile file, Long weddingId, String type) {
         try {
-            String folderPath = "uploads/wedding/wedding-" + weddingId + "/" + type + "/";
+            String folderPath = "uploads/wedding/wedding-" + weddingId + "/" ;
             Path dirPath = Paths.get(folderPath);
 
             if (!Files.exists(dirPath)) {
