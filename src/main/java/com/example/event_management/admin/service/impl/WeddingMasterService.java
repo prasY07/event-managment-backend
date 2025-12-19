@@ -71,6 +71,7 @@ public class WeddingMasterService {
             weddingId = EventHelper.createUniqueEventID();
         } while (weddingMasterRepo.existsByWeddingId(weddingId));
 
+        System.out.println("getGroomName"+dto.getGroomName());
         WeddingMaster wedding = new WeddingMaster();
         wedding.setGroomName(dto.getGroomName());
         wedding.setBrideName(dto.getBrideName());

@@ -15,10 +15,8 @@ import com.example.event_management.common.AppStatus;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "wedding_master", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"wedding_id"})
+        @UniqueConstraint(columnNames = {"id"})
 })
 public class WeddingMaster {
 
@@ -62,12 +60,10 @@ public class WeddingMaster {
     @Column(name = "registration_end_date")
     private LocalDate registrationEndDate;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "wedding_status")
+//   @Enumerated(EnumType.STRING)
     private AppStatus.WeddingStatus weddingStatus = AppStatus.WeddingStatus.UPCOMING;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
+//   @Enumerated(EnumType.STRING)
     private AppStatus.WStatus status = AppStatus.WStatus.INACTIVE;
 
     @Column(name = "created_at", updatable = false)

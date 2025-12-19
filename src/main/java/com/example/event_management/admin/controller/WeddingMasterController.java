@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -44,14 +45,14 @@ public class WeddingMasterController {
     }
 
    @PostMapping("/create")
-   public ResponseEntity<ApiResponse<String>> createWeddingEvent(CreateUpdateWedEventDto dto ) {
+   public ResponseEntity<ApiResponse<String>> createWeddingEvent(@RequestBody CreateUpdateWedEventDto dto ) {
         WeddingMaster savedWedding = weddingMasterService.createWeddingMaster(dto);
         return ApiResponse.success("Wedding Event create Successfully",null);  
      }
 
 
     @PostMapping("/{id}/update")
-   public ResponseEntity<ApiResponse<String>> updateWeddingEvent(CreateUpdateWedEventDto dto  , @RequestParam Long id) {
+   public ResponseEntity<ApiResponse<String>> updateWeddingEvent(@RequestBody CreateUpdateWedEventDto dto  , @RequestParam Long id) {
         WeddingMaster updateWedding = weddingMasterService.updateWeddingMaster(dto , id);
         return ApiResponse.success("Wedding Event updated Successfully",null);
      }
