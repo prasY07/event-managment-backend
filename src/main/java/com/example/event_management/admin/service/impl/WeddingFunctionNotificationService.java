@@ -2,6 +2,8 @@ package com.example.event_management.admin.service.impl;
 
 import com.example.event_management.admin.dto.NotificationRequest;
 import com.example.event_management.admin.dto.response.NotificationResponse;
+import com.example.event_management.admin.dto.response.SingleNotificationDetailsResponse;
+import com.example.event_management.admin.dto.response.WeddingFunctionResponse;
 import com.example.event_management.common.AppStatus;
 import com.example.event_management.common.response.PaginationResponse;
 import com.example.event_management.entity.WeddingFunction;
@@ -10,6 +12,7 @@ import com.example.event_management.entity.WeddingMaster;
 import com.example.event_management.repository.IWeddingFunctionNotificationRepository;
 import com.example.event_management.repository.IWeddingFunctionRepo;
 import com.example.event_management.repository.IWeddingMasterRepo;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -109,6 +112,26 @@ public class WeddingFunctionNotificationService {
         WeddingFunctionNotification notification = weddingFunctionNotificationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Notification not found"));
         notification.setStatus(status);
+    }
+
+    @Transactional(readOnly = true)
+    public SingleNotificationDetailsResponse getNotificationById(Long functionId) {
+
+        WeddingFunctionNotification notification = weddingFunctionNotificationRepository.findById(functionId)
+                .orElseThrow(() -> new EntityNotFoundException("Notification not found"));
+
+        return SingleNotificationDetailsResponse.builder()
+                .id(notification.getId())
+                .title(notification.getTitle())
+                .message(notification.getMessage())
+                .date(notification.getNotificationDate())
+                .time(notification.getNotificationTime())
+                .status(notification.getStatus())
+                .createdAt(notification.getCreatedAt())
+                .updatedAt(notification.getUpdatedAt())
+                .weddingId(notification.getWeddingMaster().getId())
+                .weddingFunctionId(notification.getWeddingFunction().getFunctionId())
+                .build();
     }
 
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -21,6 +22,7 @@ import java.time.LocalTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Where(clause = "deleted = false")
 public class WeddingFunctionNotification {
 
     @Id
@@ -49,6 +51,8 @@ public class WeddingFunctionNotification {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    @Builder.Default
+    @Column(name = "deleted", nullable = false)
     private Boolean deleted = false;
 
 }

@@ -2,6 +2,8 @@ package com.example.event_management.admin.controller;
 
 import com.example.event_management.admin.dto.NotificationRequest;
 import com.example.event_management.admin.dto.response.NotificationResponse;
+import com.example.event_management.admin.dto.response.SingleNotificationDetailsResponse;
+import com.example.event_management.admin.dto.response.WeddingFunctionResponse;
 import com.example.event_management.admin.service.impl.WeddingFunctionNotificationService;
 import com.example.event_management.common.AppStatus;
 import com.example.event_management.common.response.ApiResponse;
@@ -78,6 +80,15 @@ public class WeddingFunctionNotificationController {
                 "Notification status updated successfully",
                 null
         );
+    }
+
+    @GetMapping("/{notificationId}")
+    public ResponseEntity<ApiResponse<SingleNotificationDetailsResponse>> getNotificationById(
+            @PathVariable Long notificationId) {
+
+        SingleNotificationDetailsResponse notificationResponse = weddingFunctionNotificationService.getNotificationById(notificationId);
+        return ApiResponse.success("All details for single notification fetched successfully", notificationResponse);
+
     }
 
 }
