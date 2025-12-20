@@ -5,9 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 
 import com.example.event_management.admin.dto.CreateUpdateWedEventDto;
-import com.example.event_management.admin.dto.response.EventShortResponse;
 import com.example.event_management.admin.dto.response.WeddingMasterResponse;
 import com.example.event_management.admin.service.impl.WeddingMasterService;
 import com.example.event_management.common.response.ApiResponse;
@@ -15,6 +21,8 @@ import com.example.event_management.common.response.PaginationResponse;
 import com.example.event_management.entity.WeddingMaster;
 import com.example.event_management.projection.admin.WeddingListShortProjection;
 import com.example.event_management.projection.admin.WeddingSideMasterProjection;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/admin/wedding")
@@ -67,5 +75,12 @@ public class WeddingMasterController {
     
 
 
-    
+        @PostMapping(path = "{id}/upload-card", consumes = {"multipart/form-data"})
+    public ResponseEntity<ApiResponse<String>> uploadBanner(
+            @PathVariable Long id,
+            @RequestPart(value = "file", required = false) MultipartFile file) {
+        Boolean cardSave = weddingMasterService.uploadCard(id, file);
+        return ApiResponse.success("Card Upload successfully", null);
+    }
+
 }

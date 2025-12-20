@@ -8,12 +8,14 @@ import com.example.event_management.projection.admin.EventShortProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.event_management.common.AppStatus;
 import com.example.event_management.entity.Event;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface IEventRepo extends JpaRepository<Event, Long> {
@@ -38,6 +40,21 @@ public interface IEventRepo extends JpaRepository<Event, Long> {
     Long countTotalEvents();
 
 
-    @Query(value = "Select id , eventStatus as status from events where end_date=:endDate " , nativeQuery = true )
-    List<EventShortProjection> getEventByEndDate(@Param("endDate") LocalDate endDate);
+    @Query(value = "Select id  as status from events where end_date=:endDate  where  event_status : status " , nativeQuery = true )
+    List<Long> getEventByEndDateAndStatus(@Param("endDate") LocalDate endDate , @Param("status") AppStatus.EventStatus status);
+
+    @Modifying
+    @Transactional
+    @Query(
+            value = "UPDATE events " +
+                    "SET event_status = :newStatus " +
+                    "WHERE end_date = :endDate " +
+                    "AND event_status = :currentStatus",
+            nativeQuery = true
+    )
+    int updateEventStatusByEndDate(
+            @Param("endDate") LocalDate endDate,
+            @Param("currentStatus") AppStatus.EventStatus currentStatus,
+            @Param("newStatus") AppStatus.EventStatus newStatus
+    );
 }

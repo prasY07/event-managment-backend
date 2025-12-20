@@ -15,10 +15,8 @@ import com.example.event_management.common.AppStatus;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "wedding_master", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"wedding_id"})
+        @UniqueConstraint(columnNames = {"id"})
 })
 public class WeddingMaster {
 
@@ -26,32 +24,53 @@ public class WeddingMaster {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "groom_name", nullable = false)
     private String groomName;
+
+    @Column(name = "bride_name", nullable = false)
     private String brideName;
+
+    @Column(name = "groom_father_name")
     private String groomFatherName;
+
+    @Column(name = "groom_mother_name")
     private String groomMotherName;
+
+    @Column(name = "bride_father_name")
     private String brideFatherName;
+
+    @Column(name = "bride_mother_name")
     private String brideMotherName;
 
-    @Column(name = "wedding_card" , nullable = true)
+    @Column(name = "wedding_card")
     private String weddingCard;
 
-     @Column(name = "wedding_id" , nullable = false , unique = true)
+    @Column(name = "wedding_id", nullable = false, unique = true)
     private String weddingId;
 
-   @Column(name = "couple_name" , nullable = false)
+    @Column(name = "couple_name", nullable = false)
     private String coupleDisplayName;
 
+    @Column(name = "wedding_date", nullable = false)
     private LocalDate weddingDate;
+
+    @Column(name = "registration_start_date")
     private LocalDate registrationStartDate;
+
+    @Column(name = "registration_end_date")
     private LocalDate registrationEndDate;
 
+//   @Enumerated(EnumType.STRING)
     private AppStatus.WeddingStatus weddingStatus = AppStatus.WeddingStatus.UPCOMING;
-    private AppStatus.WStatus status = AppStatus.WStatus.INACTIVE;
-    private LocalDateTime createdAt = LocalDateTime.now();
-    private LocalDateTime updatedAt = LocalDateTime.now();
 
-        // private List<WeddingFunction> functions;
+//   @Enumerated(EnumType.STRING)
+    private AppStatus.WStatus status = AppStatus.WStatus.INACTIVE;
+
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     
 }

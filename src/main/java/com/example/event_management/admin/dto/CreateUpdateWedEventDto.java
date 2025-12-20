@@ -28,7 +28,5 @@ public class CreateUpdateWedEventDto {
     private LocalDate registrationStartDate;
     private LocalDate registrationEndDate;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
-    private LocalDateTime updatedAt = LocalDateTime.now();
     
 }

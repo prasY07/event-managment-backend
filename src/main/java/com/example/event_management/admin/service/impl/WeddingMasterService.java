@@ -1,5 +1,9 @@
 package com.example.event_management.admin.service.impl;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,16 +11,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.event_management.admin.dto.CreateUpdateWedEventDto;
+import com.example.event_management.admin.dto.response.EventResponse;
 import com.example.event_management.admin.dto.response.WeddingMasterResponse;
+import com.example.event_management.common.helpers.FileStorageHelper;
 import com.example.event_management.common.helpers.event.EventHelper;
 import com.example.event_management.common.response.PaginationResponse;
+import com.example.event_management.entity.Event;
 import com.example.event_management.entity.WeddingMaster;
 import com.example.event_management.projection.admin.WeddingListShortProjection;
 import com.example.event_management.projection.admin.WeddingSideMasterProjection;
 import com.example.event_management.repository.IWeddingMasterRepo;
 import com.example.event_management.repository.IWeddingSideMasterRepo;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class WeddingMasterService {
@@ -61,6 +71,7 @@ public class WeddingMasterService {
             weddingId = EventHelper.createUniqueEventID();
         } while (weddingMasterRepo.existsByWeddingId(weddingId));
 
+        System.out.println("getGroomName"+dto.getGroomName());
         WeddingMaster wedding = new WeddingMaster();
         wedding.setGroomName(dto.getGroomName());
         wedding.setBrideName(dto.getBrideName());
@@ -99,5 +110,35 @@ public class WeddingMasterService {
     // get all wedding side
     public List<WeddingSideMasterProjection> getAllWeddingSides() {
         return weddingSideMasterRepo.findActiveMasterProjection();
+    }
+
+        public Boolean uploadCard(Long weddingId, MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            throw new IllegalArgumentException("File must not be empty");
+        }
+
+        WeddingMaster wedding = weddingMasterRepo.findById(weddingId)
+                .orElseThrow(() -> new EntityNotFoundException("Wedding not found"));
+
+        String oldPath = wedding.getWeddingCard(); // Assuming 'image' stores relative path like
+                                           // "uploads/event_8/banner/xyz.png"
+        if (oldPath != null) {
+            Path oldFilePath = Paths.get(oldPath);
+            if (Files.exists(oldFilePath)) {
+                try {
+                    Files.delete(oldFilePath);
+                } catch (IOException e) {
+                    throw new RuntimeException("Failed to delete old banner image", e);
+                }
+            }
+        }
+
+        // Save image and get relative path
+        String cardPath = FileStorageHelper.saveCardForWedding(file, weddingId, "wedding-card");
+
+        wedding.setWeddingCard(cardPath); // Make sure 'image' field exists in Event entity
+        weddingMasterRepo.save(wedding);
+
+        return Boolean.TRUE;
     }
 }

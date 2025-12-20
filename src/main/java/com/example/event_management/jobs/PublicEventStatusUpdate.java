@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -19,10 +20,12 @@ public class PublicEventStatusUpdate {
     IEventRepo eventRepo;
 
     @Async
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "0 0 6 * * *", zone = "Asia/Kolkata")
     public void updatePublicEventStatus()
     {
+        LocalDate today = LocalDate.now();
+        LocalDate yesterday = today.minusDays(1);
 
-        // List<EventShortProjection> = eventRepo.getEventByEndDate();
+        int update =  eventRepo.updateEventStatusByEndDate(yesterday , AppStatus.EventStatus.ONGOING ,  AppStatus.EventStatus.COMPLETED);
     }
 }
