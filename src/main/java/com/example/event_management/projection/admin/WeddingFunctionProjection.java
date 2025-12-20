@@ -15,11 +15,11 @@ public interface WeddingFunctionProjection {
     String getVenueName();
     String getCity();
 
-    Long getWeddingId();
-    Long getSideId();
+//    Long getWeddingId();
+//    Long getSideId();
 
     interface WeddingMaster {
-        Long getWeddingId();
+        Long getId();
     }
 
     interface WeddingSideMaster {

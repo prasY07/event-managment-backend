@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IWeddingFunctionRepo extends JpaRepository<WeddingFunction , Long>  {
 
-    Page<WeddingFunctionProjection> findByWeddingMaster_WeddingId(
-            Long weddingId,
+    Page<WeddingFunctionProjection> findByWeddingMaster_Id(
+            Long id,
             Pageable pageable
     );
     

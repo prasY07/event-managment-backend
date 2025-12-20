@@ -7,16 +7,18 @@ import com.example.event_management.common.AppStatus;
 import com.example.event_management.common.response.ApiResponse;
 import com.example.event_management.common.response.PaginationResponse;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/admin/wedding/function/notification")
 public class WeddingFunctionNotificationController {
 
-    private WeddingFunctionNotificationService weddingFunctionNotificationService;
+    private final WeddingFunctionNotificationService weddingFunctionNotificationService;
 
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<Long>> addFunction(

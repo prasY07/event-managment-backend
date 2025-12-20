@@ -88,7 +88,7 @@ public class WeddingFunctionService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("functionDate").ascending());
 
         Page<WeddingFunctionProjection> result =
-                weddingFunctionRepository.findByWeddingMaster_WeddingId(weddingId, pageable);
+                weddingFunctionRepository.findByWeddingMaster_Id(weddingId, pageable);
 
         return new PaginationResponse<>(
                 result.getContent(),

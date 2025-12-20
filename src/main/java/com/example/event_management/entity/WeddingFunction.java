@@ -52,6 +52,7 @@ public class WeddingFunction {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    @Builder.Default
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = false;
     private LocalDateTime deletedAt;

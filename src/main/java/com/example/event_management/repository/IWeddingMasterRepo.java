@@ -1,5 +1,6 @@
 package com.example.event_management.repository;
 
+import com.example.event_management.projection.admin.WeddingFunctionProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +15,5 @@ public interface IWeddingMasterRepo extends JpaRepository<WeddingMaster , Long> 
      Page<WeddingListShortProjection> findWeddingShortResponse(Pageable pageable);
 
         boolean existsByWeddingId(String weddingId);
+
 }
