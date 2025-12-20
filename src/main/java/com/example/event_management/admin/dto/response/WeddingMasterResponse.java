@@ -11,8 +11,10 @@ import lombok.Setter;
 
 public class WeddingMasterResponse {
     private Long id;
-    private String title;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private LocalDate lastRegDate;
+    private String groomName;
+    private String brideName;
+    private String coupleName;
+    private LocalDate weddingDate;
+    private LocalDate regEndDate;
+    private LocalDate redStartDate;
 }

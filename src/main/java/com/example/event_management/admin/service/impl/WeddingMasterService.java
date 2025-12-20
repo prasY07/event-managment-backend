@@ -51,13 +51,15 @@ public class WeddingMasterService {
 
     public WeddingMasterResponse getSingleInformation(Long id) {
         WeddingMaster wedding = weddingMasterRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid event selected"));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Wedding selected"));
 
         WeddingMasterResponse response = new WeddingMasterResponse(
                 wedding.getId(),
+                wedding.getGroomName(),
+                wedding.getBrideName(),
                 wedding.getCoupleDisplayName(),
                 wedding.getWeddingDate(),
-                wedding.getWeddingDate(),
+                wedding.getRegistrationStartDate(),
                 wedding.getRegistrationEndDate()
         );
 

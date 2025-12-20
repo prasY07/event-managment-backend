@@ -1,9 +1,11 @@
 package com.example.event_management.projection.admin;
 
+import java.time.LocalDate;
+
 public interface WeddingListShortProjection {
     String getWeddingId();
     String getGroomName();
     String getBrideName();
-    String getWeddingDate();
+    LocalDate getWeddingDate();
     String getCoupleName();
 }
