@@ -10,7 +10,7 @@ import com.example.event_management.projection.admin.WeddingListShortProjection;
 
 public interface IWeddingMasterRepo extends JpaRepository<WeddingMaster , Long> {
 
-    @Query("SELECT w.id AS id, w.groomName AS groomName, w.brideName AS brideName, w.weddingDate AS weddingDate , w.coupleDisplayName AS coupleName " +
+    @Query("SELECT w.id AS id, w.groomName AS groomName, w.brideName AS brideName, w.weddingDate AS weddingDate , w.coupleDisplayName AS coupleName , w.weddingStatus as weddingStatus  " +
            "FROM WeddingMaster w")
      Page<WeddingListShortProjection> findWeddingShortResponse(Pageable pageable);
 

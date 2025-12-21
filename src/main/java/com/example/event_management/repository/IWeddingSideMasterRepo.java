@@ -15,6 +15,6 @@ public interface IWeddingSideMasterRepo extends JpaRepository<WeddingSideMaster,
     WeddingSideMaster findBySideName(String sideName);
 
     //Find all
-    @Query("SELECT sideId as id, sideName as Name FROM WeddingSideMaster wsm where status = 'ACTIVE'")
+    @Query("SELECT sideId as id, sideName as sideName FROM WeddingSideMaster wsm where status = 'ACTIVE'")
     List<WeddingSideMasterProjection> findActiveMasterProjection();
 } 
