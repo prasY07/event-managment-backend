@@ -11,4 +11,5 @@ public interface WeddingListShortProjection {
     LocalDate getWeddingDate();
     String getCoupleName();
     AppStatus.WeddingStatus getWeddingStatus();
+    String getWeddingId();
 }
