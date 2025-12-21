@@ -91,6 +91,11 @@ public class AppStatus {
         SENT,
         FAILED
     }
+    public enum RegistrationStatus {
 
+        REGISTERED,
+        CHECKED_IN,
+        CANCELLED
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.example.event_management.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +18,6 @@ public interface IWeddingSideMasterRepo extends JpaRepository<WeddingSideMaster,
     //Find all
     @Query("SELECT sideId as id, sideName as sideName FROM WeddingSideMaster wsm where status = 'ACTIVE'")
     List<WeddingSideMasterProjection> findActiveMasterProjection();
+
+    Optional<WeddingSideMaster> findBySideNameIgnoreCase(String sideName);
 } 
