@@ -17,4 +17,9 @@ public class UrlHelper {
     public static String imageUrl(String path) {
         return getBaseUrl() + '/' + path;
     }
+
+    public static String getBaseUrlWithForwardSlash() {
+        return ServletUriComponentsBuilder.fromCurrentContextPath().toUriString() + '/';
+    }
+
 }

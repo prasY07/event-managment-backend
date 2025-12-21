@@ -12,4 +12,5 @@ public interface WeddingListShortProjection {
     String getCoupleName();
     AppStatus.WeddingStatus getWeddingStatus();
     String getWeddingId();
+    String getWeddingCard();
 }

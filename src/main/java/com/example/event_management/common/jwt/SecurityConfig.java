@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/admin/auth/login").permitAll()  // allow login
                         .requestMatchers("/api/app/**").permitAll()
                         .requestMatchers("/api/web/**").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/api/common/social-media/**").permitAll()  // allow app APIs
                         .requestMatchers("/api/common/country/**").permitAll()  // allow app APIs
                         .anyRequest().authenticated()                            // protect everything else

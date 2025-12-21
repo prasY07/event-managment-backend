@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import com.example.event_management.common.helpers.UrlHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,7 +40,8 @@ public class WeddingMasterService {
 
     public PaginationResponse<List<WeddingListShortProjection>> getAllWedingEvents(int page, int size) {
         Pageable pageable = (Pageable) PageRequest.of(page, size);
-        Page<WeddingListShortProjection> wedEventList = weddingMasterRepo.findWeddingShortResponse(pageable);
+        Page<WeddingListShortProjection> wedEventList = weddingMasterRepo.findWeddingShortResponse(UrlHelper.getBaseUrlWithForwardSlash() ,  pageable);
+
 
         return new PaginationResponse<>(
                 wedEventList.getContent(),
