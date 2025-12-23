@@ -38,9 +38,12 @@ public class WeddingMasterService {
     @Autowired
     IWeddingSideMasterRepo weddingSideMasterRepo;
 
+    @Autowired
+    UrlHelper urlHelper;
+
     public PaginationResponse<List<WeddingListShortProjection>> getAllWedingEvents(int page, int size) {
         Pageable pageable = (Pageable) PageRequest.of(page, size);
-        Page<WeddingListShortProjection> wedEventList = weddingMasterRepo.findWeddingShortResponse(UrlHelper.getBaseUrlWithForwardSlash() ,  pageable);
+        Page<WeddingListShortProjection> wedEventList = weddingMasterRepo.findWeddingShortResponse(urlHelper.getBaseUrlWithForwardSlash() ,  pageable);
 
 
         return new PaginationResponse<>(
