@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin/wedding/registration/")
+@RequestMapping("/api/wedding/registration/")
 @RequiredArgsConstructor
 public class WeddingRegistrationController {
 
