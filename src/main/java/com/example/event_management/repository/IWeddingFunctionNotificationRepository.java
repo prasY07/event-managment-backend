@@ -12,4 +12,9 @@ import java.util.List;
 public interface IWeddingFunctionNotificationRepository extends JpaRepository<WeddingFunctionNotification, Long> {
 
     Page<WeddingFunctionNotification>
-    findByWeddingMaster_IdAndDeletedFalse(Long weddingId, Pageable pageable);}
+    findByWeddingMaster_IdAndDeletedFalse(Long weddingId, Pageable pageable);
+
+
+    List<WeddingFunctionNotification> findNotificationsToUpdate(java.time.LocalDate currentDate, java.time.LocalTime currentTime);
+
+}

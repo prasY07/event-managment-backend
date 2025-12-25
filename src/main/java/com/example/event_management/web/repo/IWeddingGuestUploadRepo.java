@@ -8,4 +8,10 @@ import org.springframework.stereotype.Repository;
 public interface IWeddingGuestUploadRepo extends JpaRepository <WeddingGuestUpload,Long> {
 
     boolean existsByWeddingMaster_IdAndMobileNumber(Long weddingId, String mobileNumber);
+
+
+     boolean existsByWeddingMaster_IdAndSide_SideId(
+            Long weddingId,
+            Integer sideId
+    );
 }

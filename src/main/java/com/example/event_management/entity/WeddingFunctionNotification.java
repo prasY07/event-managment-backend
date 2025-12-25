@@ -37,13 +37,19 @@ public class WeddingFunctionNotification {
     @JoinColumn(name = "wedding_function_id", nullable = false)
     private WeddingFunction weddingFunction;
     @Column(nullable = false, length = 150)
+
     private String title;
     @Column(nullable = false, length = 500)
+
     private String message;
+
     private LocalDate notificationDate;
+
     private LocalTime notificationTime;
+
     @Enumerated(EnumType.STRING)
     private AppStatus.notificationStatus status = AppStatus.notificationStatus.PENDING;
+
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
