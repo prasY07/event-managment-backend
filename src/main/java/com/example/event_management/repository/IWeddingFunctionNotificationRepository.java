@@ -15,6 +15,6 @@ public interface IWeddingFunctionNotificationRepository extends JpaRepository<We
     findByWeddingMaster_IdAndDeletedFalse(Long weddingId, Pageable pageable);
 
 
-    List<WeddingFunctionNotification> findNotificationsToUpdate(java.time.LocalDate currentDate, java.time.LocalTime currentTime);
+    // List<WeddingFunctionNotification> findNotificationsToUpdate(java.time.LocalDate currentDate, java.time.LocalTime currentTime);
 
 }

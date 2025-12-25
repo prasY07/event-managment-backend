@@ -34,30 +34,30 @@ public class WeddingReminderUpdate {
         log.info("WeddingReminderJob executed at date: {} and time: {}", currentDate, currentTime);
         // Add your logic to update wedding reminders here
 
-        List<WeddingFunctionNotification> notificationsToUpdate = weddingFunctionNotificationRepository
-                .findNotificationsToUpdate(currentDate, currentTime);
+        // List<WeddingFunctionNotification> notificationsToUpdate = weddingFunctionNotificationRepository
+        //         .findNotificationsToUpdate(currentDate, currentTime);
 
-        for (WeddingFunctionNotification notification : notificationsToUpdate) {
-            Integer sideId = notification.getWeddingFunction().getSide().getSideId();
-            log.info("Updating notification id: {} for sideId: {}", notification.getId(), sideId);
+        // for (WeddingFunctionNotification notification : notificationsToUpdate) {
+        //     Integer sideId = notification.getWeddingFunction().getSide().getSideId();
+        //     log.info("Updating notification id: {} for sideId: {}", notification.getId(), sideId);
 
-            Long weddingId = notification.getWeddingMaster().getId();
+        //     Long weddingId = notification.getWeddingMaster().getId();
 
-            // check guest exits for wedding id and side id
-            boolean guestExists = iWeddingGuestUploadRepo.existsByWeddingMaster_IdAndSide_SideId(
-                    weddingId,
-                    sideId);
+        //     // check guest exits for wedding id and side id
+        //     boolean guestExists = iWeddingGuestUploadRepo.existsByWeddingMaster_IdAndSide_SideId(
+        //             weddingId,
+        //             sideId);
 
-            // 🔹 If guest does NOT exist → skip this notification
-            if (!guestExists) {
-                log.info("No guest found for weddingId: {}, sideId: {}. Skipping.",
-                        weddingId, sideId);
-                continue; // ⬅️ THIS LINE
-            }
+        //     // 🔹 If guest does NOT exist → skip this notification
+        //     if (!guestExists) {
+        //         log.info("No guest found for weddingId: {}, sideId: {}. Skipping.",
+        //                 weddingId, sideId);
+        //         continue; // ⬅️ THIS LINE
+        //     }
 
             
 
-        }
+        // }
 
     }
 
