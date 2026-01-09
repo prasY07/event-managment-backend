@@ -1,7 +1,6 @@
 package com.example.event_management.web.service.impl;
 
 import com.example.event_management.common.helpers.UrlHelper;
-import com.example.event_management.entity.WeddingMaster;
 import com.example.event_management.repository.IWeddingMasterRepo;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,9 @@ import org.springframework.stereotype.Service;
 public class WebWeddingService {
     @Autowired
     IWeddingMasterRepo iWeddingMasterRepo;
+
+    @Autowired
+    UrlHelper urlHelper;
 
 
     public String getWeddingCard(String id)
@@ -24,7 +26,7 @@ public class WebWeddingService {
         String card = iWeddingMasterRepo.getWeddingCard(id);
 
         return (card != null && !card.isEmpty())
-                ? UrlHelper.imageUrl(card)
+                ? urlHelper.getBaseUrlWithForwardSlash() + card
                 : null;
 
     }
