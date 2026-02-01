@@ -2,6 +2,7 @@ package com.example.event_management.web.service.impl;
 
 import com.example.event_management.admin.dto.GuestRequest;
 import com.example.event_management.common.AppStatus;
+import com.example.event_management.common.response.PaginationResponse;
 import com.example.event_management.entity.*;
 import com.example.event_management.repository.IWeddingMasterRepo;
 import com.example.event_management.repository.IWeddingSideMasterRepo;
@@ -16,6 +17,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -224,18 +229,17 @@ public class WeddingRegistrationService {
     }
 
     @Transactional(readOnly = true)
-    public List<GuestListResponse> listGuestsByWedding(Long weddingId) {
+    public PaginationResponse<List<GuestListResponse>> listGuestsByWedding(
+            Long weddingId, int page, int size) {
 
-        List<WeddingGuest> guests =
-                guestRepository.findByWeddingId(weddingId);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
 
-        if (guests.isEmpty()) {
-            return Collections.emptyList();
-        }
+        Page<WeddingGuest> guests =
+                guestRepository.findByWeddingId(weddingId, pageable);
 
-        return guests.stream().map(guest ->
-
-                GuestListResponse.builder()
+        // Map Page content → DTO list
+        List<GuestListResponse> items = guests.getContent().stream()
+                .map(guest -> GuestListResponse.builder()
                         .guestId(guest.getId())
                         .weddingId(guest.getWeddingId())
                         .fullName(guest.getFullName())
@@ -284,9 +288,19 @@ public class WeddingRegistrationService {
                                         .toList()
                         )
                         .build()
+                )
+                .toList();
 
-        ).toList();
+        // ✅ Return PaginationResponse (even if items is empty)
+        return new PaginationResponse<>(
+                items,
+                page,
+                size,
+                guests.getTotalElements(),
+                guests.getTotalPages()
+        );
     }
+
 
     private String toDate(LocalDate date) {
         return date != null ? date.toString() : null; // yyyy-MM-dd

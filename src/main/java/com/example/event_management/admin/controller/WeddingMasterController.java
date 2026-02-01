@@ -3,11 +3,13 @@ package com.example.event_management.admin.controller;
 import java.util.List;
 
 import com.example.event_management.web.dto.response.BulkGuestUploadResponse;
+import com.example.event_management.web.dto.response.GuestListResponse;
 import com.example.event_management.web.service.impl.WeddingRegistrationService;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -120,6 +122,23 @@ public class WeddingMasterController {
         } catch (Exception e) {
             throw new RuntimeException("Failed to read Excel file", e);
         }
+    }
+
+    @GetMapping("/guest/list/{weddingId}")
+    public ResponseEntity<ApiResponse<PaginationResponse<List<GuestListResponse>>>> listGuests(
+            @PathVariable Long weddingId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+            ) {
+
+        PaginationResponse<List<GuestListResponse>> guests =
+                weddingRegistrationService.listGuestsByWedding(weddingId , page ,size);
+
+//        if (guests.isEmpty()) {
+//            return ApiResponse.error("No data available",null, HttpStatus.BAD_REQUEST);
+//        }
+
+        return ApiResponse.success("Guest list fetched successfully", guests);
     }
 
 }

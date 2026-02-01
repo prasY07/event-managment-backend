@@ -43,19 +43,6 @@ public class WeddingRegistrationController {
 
     }
 
-    @GetMapping("/guest/list/{weddingId}")
-    public ResponseEntity<ApiResponse<List<GuestListResponse>>> listGuests(
-            @PathVariable Long weddingId) {
-
-        List<GuestListResponse> guests =
-                weddingRegistrationService.listGuestsByWedding(weddingId);
-
-        if (guests.isEmpty()) {
-            return ApiResponse.error("No data available",null, HttpStatus.BAD_REQUEST);
-        }
-
-        return ApiResponse.success("Guest list fetched successfully", guests);
-    }
 
 
 
