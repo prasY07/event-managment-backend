@@ -2,6 +2,11 @@ package com.example.event_management.admin.controller;
 
 import java.util.List;
 
+import com.example.event_management.web.dto.response.BulkGuestUploadResponse;
+import com.example.event_management.web.service.impl.WeddingRegistrationService;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +36,11 @@ public class WeddingMasterController {
     @Autowired
     WeddingMasterService weddingMasterService;
 
-     @GetMapping("/list")
+    @Autowired
+    WeddingRegistrationService weddingRegistrationService;
+
+
+    @GetMapping("/list")
     public ResponseEntity<ApiResponse<PaginationResponse<List<WeddingListShortProjection>>>> allWedingEventWithPagination(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
@@ -81,6 +90,36 @@ public class WeddingMasterController {
             @RequestPart(value = "file", required = false) MultipartFile file) {
         Boolean cardSave = weddingMasterService.uploadCard(id, file);
         return ApiResponse.success("Card Upload successfully", null);
+    }
+
+
+    @PostMapping("guest/bulk-upload/{weddingId}")
+    public ResponseEntity<ApiResponse<BulkGuestUploadResponse>> bulkUpload(
+            @PathVariable Long weddingId,
+            @RequestParam MultipartFile file
+    ) {
+
+        int uploadedCount = weddingRegistrationService.bulkUploadGuests(weddingId, file);
+        int totalRows = getExcelRowCount(file);
+        int skipped = totalRows - uploadedCount;
+        BulkGuestUploadResponse response = new BulkGuestUploadResponse(uploadedCount, skipped, null);
+        return ApiResponse.success("Guests uploaded successfully", response);
+    }
+
+    private int getExcelRowCount(MultipartFile file) {
+        try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
+
+            Sheet sheet = workbook.getSheetAt(0);
+
+            // total physical rows including header
+            int totalRows = sheet.getPhysicalNumberOfRows();
+
+            // subtract header row
+            return Math.max(totalRows - 1, 0);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read Excel file", e);
+        }
     }
 
 }

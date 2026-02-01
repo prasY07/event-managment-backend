@@ -35,8 +35,8 @@ FROM WeddingMaster w
 
     boolean existsByWeddingId(String weddingId);
 
-    @Query(value = "select wedding_card from wedding_master where wedding_id = :id" , nativeQuery = true)
-    String getWeddingCard(@Param("id") String id);
+    @Query(value = "select * from wedding_master where wedding_id = :id" , nativeQuery = true)
+    WeddingMaster getSingleWedding(@Param("id") String id);
 
 
 

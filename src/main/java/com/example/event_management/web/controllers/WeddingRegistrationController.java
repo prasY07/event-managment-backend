@@ -23,18 +23,7 @@ public class WeddingRegistrationController {
 
     private final WeddingRegistrationService weddingRegistrationService;
 
-    @PostMapping("guest/bulk-upload/{weddingId}")
-    public ResponseEntity<ApiResponse<BulkGuestUploadResponse>> bulkUpload(
-            @PathVariable Long weddingId,
-            @RequestParam MultipartFile file
-    ) {
 
-        int uploadedCount = weddingRegistrationService.bulkUploadGuests(weddingId, file);
-        int totalRows = getExcelRowCount(file);
-        int skipped = totalRows - uploadedCount;
-        BulkGuestUploadResponse response = new BulkGuestUploadResponse(uploadedCount, skipped, null);
-        return ApiResponse.success("Guests uploaded successfully", response);
-    }
 
     @PostMapping(
             value = "guest/save",
@@ -69,19 +58,5 @@ public class WeddingRegistrationController {
     }
 
 
-    private int getExcelRowCount(MultipartFile file) {
-        try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
 
-            Sheet sheet = workbook.getSheetAt(0);
-
-            // total physical rows including header
-            int totalRows = sheet.getPhysicalNumberOfRows();
-
-            // subtract header row
-            return Math.max(totalRows - 1, 0);
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to read Excel file", e);
-        }
-    }
 }

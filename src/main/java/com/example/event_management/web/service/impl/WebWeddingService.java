@@ -1,10 +1,14 @@
 package com.example.event_management.web.service.impl;
 
 import com.example.event_management.common.helpers.UrlHelper;
+import com.example.event_management.entity.WeddingMaster;
 import com.example.event_management.repository.IWeddingMasterRepo;
+import com.example.event_management.web.dto.response.WeddingShortResponse;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 
 @Service
 public class WebWeddingService {
@@ -15,19 +19,26 @@ public class WebWeddingService {
     UrlHelper urlHelper;
 
 
-    public String getWeddingCard(String id)
+    public WeddingShortResponse getWeddingCard(String id)
     {
+        WeddingMaster wed = iWeddingMasterRepo.getSingleWedding(id);
 
-        if(!iWeddingMasterRepo.existsByWeddingId(id))
+        if(wed == null)
         {
             throw new EntityNotFoundException("Wedding Not found");
         }
 
-        String card = iWeddingMasterRepo.getWeddingCard(id);
-
-        return (card != null && !card.isEmpty())
-                ? urlHelper.getBaseUrlWithForwardSlash() + card
+        String cUrl = (wed.getWeddingCard() != null && !wed.getWeddingCard().isEmpty())
+                ? urlHelper.getBaseUrlWithForwardSlash() + wed.getWeddingCard()
                 : null;
+
+
+        WeddingShortResponse res =   new WeddingShortResponse();
+        res.setCardUrl(cUrl);
+        res.setStartDate(wed.getRegistrationStartDate());
+        res.setEndDate(wed.getRegistrationEndDate());
+
+        return res;
 
     }
 }

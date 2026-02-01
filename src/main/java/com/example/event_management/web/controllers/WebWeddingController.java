@@ -2,6 +2,7 @@ package com.example.event_management.web.controllers;
 
 import com.example.event_management.common.response.ApiResponse;
 import com.example.event_management.web.dto.response.WebEventShortResponse;
+import com.example.event_management.web.dto.response.WeddingShortResponse;
 import com.example.event_management.web.service.impl.WebEventService;
 import com.example.event_management.web.service.impl.WebWeddingService;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +21,9 @@ public class WebWeddingController {
     WebWeddingService webWeddingService;
 
     @GetMapping("/{id}/card")
-    public ResponseEntity<ApiResponse<String>>  getWeddingCard(@PathVariable String id)
+    public ResponseEntity<ApiResponse<WeddingShortResponse>>  getWeddingCard(@PathVariable String id)
     {
-        String cardUrl = webWeddingService.getWeddingCard(id);
-        return  ApiResponse.success("Wedding Card" , cardUrl);
+        WeddingShortResponse res = webWeddingService.getWeddingCard(id);
+        return  ApiResponse.success("Wedding Card" , res);
     }
 }
