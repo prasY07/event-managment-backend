@@ -1,0 +1,8 @@
+package com.example.event_management.common.exception;
+
+public class DataNotFoundException extends RuntimeException {
+
+    public DataNotFoundException(String message) {
+        super(message);
+    }
+}

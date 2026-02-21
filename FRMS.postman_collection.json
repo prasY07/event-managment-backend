@@ -1,0 +1,559 @@
+{
+	"info": {
+		"_postman_id": "460cca2d-0b43-4f41-b987-5f197663b6c1",
+		"name": "FRMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40706533"
+	},
+	"item": [
+		{
+			"name": "Branch",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": " eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MTAzMjUiLCJleHAiOjE3NTQ2NTI0ODAsImlhdCI6MTc1NDY0ODg4MH0.hPXrWgimpUm-M0yoe0i6PQufyLfv81tBxYjJEeUrDro",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}branch-ops/list?page=0&size=10&status=Send To Storage",
+							"host": [
+								"{{base_url}}branch-ops"
+							],
+							"path": [
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "status",
+									"value": "Send To Storage"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "single contract info",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": " eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MTAzMjUiLCJleHAiOjE3NTQ2NTI0ODAsImlhdCI6MTc1NDY0ODg4MH0.hPXrWgimpUm-M0yoe0i6PQufyLfv81tBxYjJEeUrDro",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}branch-ops/3/file-status/information",
+							"host": [
+								"{{base_url}}branch-ops"
+							],
+							"path": [
+								"3",
+								"file-status",
+								"information"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "contract Information",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": " eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MTAzMjUiLCJleHAiOjE3NTQ2NTI0ODAsImlhdCI6MTc1NDY0ODg4MH0.hPXrWgimpUm-M0yoe0i6PQufyLfv81tBxYjJEeUrDro",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}branch-ops/contract-detail?number=8000248315&addContractType=CONTRACTNO",
+							"host": [
+								"{{base_url}}branch-ops"
+							],
+							"path": [
+								"contract-detail"
+							],
+							"query": [
+								{
+									"key": "number",
+									"value": "8000248315"
+								},
+								{
+									"key": "addContractType",
+									"value": "CONTRACTNO"
+								},
+								{
+									"key": "fanNo",
+									"value": "2121",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Contract",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}branch-ops/85/delete",
+							"host": [
+								"{{base_url}}branch-ops"
+							],
+							"path": [
+								"85",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get linked contracts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}branch-ops/8000275053/get-linked-contract",
+							"host": [
+								"{{base_url}}branch-ops"
+							],
+							"path": [
+								"8000275053",
+								"get-linked-contract"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": " eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MTAzMjUiLCJleHAiOjE3NTQ2NTI0ODAsImlhdCI6MTc1NDY0ODg4MH0.hPXrWgimpUm-M0yoe0i6PQufyLfv81tBxYjJEeUrDro",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"newContractNo\" : \"5004635562\",\r\n    \"linkedContracts\":[\r\n        \"1234\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}branch-ops/4142/update-contract-details",
+							"host": [
+								"{{base_url}}branch-ops"
+							],
+							"path": [
+								"4142",
+								"update-contract-details"
+							],
+							"query": [
+								{
+									"key": "fanNo",
+									"value": "2121",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add new request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"contractNo\": null,\r\n    \"fanNo\":\"R01824661676\",\r\n    \"podNo\":\"567809\",\r\n    \"dispatchDate\":\"18-08-2025\",\r\n    \"requestType\":\"New File\",\r\n    \"remarks\":\"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}branch-ops/create-contract",
+							"host": [
+								"{{base_url}}branch-ops"
+							],
+							"path": [
+								"create-contract"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "download records",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}branch-ops/download",
+							"host": [
+								"{{base_url}}branch-ops"
+							],
+							"path": [
+								"download"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "integration",
+			"item": [
+				{
+					"name": "ContractInfo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"searchType\": \"RC\", \"contractNumber\": \"5004629132\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://tmf.co.in/ContractInformation/rest/ContractInfo/Details",
+							"protocol": "https",
+							"host": [
+								"tmf",
+								"co",
+								"in"
+							],
+							"path": [
+								"ContractInformation",
+								"rest",
+								"ContractInfo",
+								"Details"
+							]
+						},
+						"description": "Generated from cURL: curl --location 'https://unvuat.tmf.co.in/ContractInformation/rest/ContractInfo/Details' \\\n--header 'Content-Type: application/json' \\\n--data '{\"searchType\": \"BP\", \"contractNumber\": \"2002615389\"}'"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "profile",
+			"item": [
+				{
+					"name": "get assign branch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}profile/get-all-assign-branch",
+							"host": [
+								"{{base_url}}profile"
+							],
+							"path": [
+								"get-all-assign-branch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get assign region",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}profile/get-all-assign-region",
+							"host": [
+								"{{base_url}}profile"
+							],
+							"path": [
+								"get-all-assign-region"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get assign zone",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}profile/get-all-assign-zone",
+							"host": [
+								"{{base_url}}profile"
+							],
+							"path": [
+								"get-all-assign-zone"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Storage Agency",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}storage-agency/list?page=0&size=10",
+							"host": [
+								"{{base_url}}storage-agency"
+							],
+							"path": [
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"boxCode\":\"32131\",\r\n    \"fileCode\":\"Sda\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}storage-agency/1/update-file-status",
+							"host": [
+								"{{base_url}}storage-agency"
+							],
+							"path": [
+								"1",
+								"update-file-status"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"pm.environment.set(\"token\", jsonData.data.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "HM3vFDKZ265OFfR+WptYJQEyh24ecpzPQ28jpLBrr1tdoFUMqfE5Isd+rEbrzraTX6U/shHB2yCczplnEYNFLeZTw9LaLv/lOJ0Rs5FvYykHDlv0LHWnJDMwg75VoqM9ps7BOaG+xlD6neuRAcaEsM3jBJqrFPXIQs8IbX0hN17js+/h/qF8tvoezZLt6uWejeZYx5ojxP++gy+gcadkjINKWGaN9PQd9KLcv3xsQZOa/wkftHPAYey1Ax5d6BW4"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "JSESSIONID=92ED1861A4AB59E9CBF38AED5D88B390"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\":\"517780\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}auth/login",
+					"host": [
+						"{{base_url}}auth"
+					],
+					"path": [
+						"login"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'localhost:8095/frmsbackend/v1/api/auth/login' \\\n--header 'Authorization: HM3vFDKZ265OFfR+WptYJQEyh24ecpzPQ28jpLBrr1tdoFUMqfE5Isd+rEbrzraTX6U/shHB2yCczplnEYNFLeZTw9LaLv/lOJ0Rs5FvYykHDlv0LHWnJDMwg75VoqM9ps7BOaG+xlD6neuRAcaEsM3jBJqrFPXIQs8IbX0hN17js+/h/qF8tvoezZLt6uWejeZYx5ojxP++gy+gcadkjINKWGaN9PQd9KLcv3xsQZOa/wkftHPAYey1Ax5d6BW4' \\\n--header 'Content-Type: application/json' \\\n--header 'Cookie: JSESSIONID=92ED1861A4AB59E9CBF38AED5D88B390' \\\n--data '{\n    \"userId\":\"510325\"\n}'"
+			},
+			"response": []
+		}
+	]
+}
